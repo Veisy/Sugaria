@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#58857e</color>
+    <color name="colorPrimaryDark">#3C5754</color>
+    <color name="colorSecondary">#FFAB40</color>
+    <color name="colorAccent">#C51162</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorCatalogTitleBackground">#1B5E20</color>
+    <color name="colorChartTitleBackground">#BF360C</color>
+    <color name="colorAlarmTitleBackground">#004D40</color>
+    <color name="colorCheckTitleBackground">#B71C1C</color>
+    <color name="colorCatalogItemTitleBackground">#80000000</color>
+    <color name="colorGrey">#C3C3C3</color>
+    <color name="colorGreyDark">#464646</color>
+    <color name="colorGreyLevel1">#323232</color>
+    <color name="colorGreyLevel2">#646464</color>
+    <color name="colorGreyLevel3">#969696</color>
+    <color name="colorGreyLevel4">#AFAFAF</color>
+    <color name="colorGreyLevel5">#C8C8C8</color>
+    <color name="colorGreyLevel6">#E1E1E1</color>
+    <color name="colorGreyLevel7">#F0F0F0</color>
+    <color name="colorTextGreen">#33691E</color>
+    <color name="colorTextBlue">#3949AB</color>
+    <color name="colorTextRed">#B71C1C</color>
+
+</resources>

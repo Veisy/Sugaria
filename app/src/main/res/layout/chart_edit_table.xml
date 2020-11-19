@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/line_horizontal1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorGreyLevel5"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerMorningEmpty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView_headerMorningEmpty"
+        style="@style/header_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/morning_empty_measurement"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerMorningFull"
+        app:layout_constraintEnd_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toBottomOf="@id/line_horizontal1" />
+
+
+    <EditText
+        android:id="@+id/editTextNumber_morningEmpty"
+        style="@style/edit_text_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textView_headerMorningEmpty"
+        app:layout_constraintEnd_toStartOf="@id/button_morningEmpty_edit"
+        app:layout_constraintStart_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toTopOf="@id/textView_headerMorningEmpty"
+        android:contentDescription="@string/morning_empty_measurement"/>
+
+    <ImageButton
+        android:id="@+id/button_morningEmpty_edit"
+        style="@style/button_measurement_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/editTextNumber_morningEmpty"
+        app:layout_constraintStart_toEndOf="@id/editTextNumber_morningEmpty"
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_morningEmpty" />
+
+    <View
+        android:id="@+id/line_horizontal3"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/colorGreyLevel5"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerMorningFull"
+        app:layout_constraintEnd_toEndOf="@id/editTextNumber_morningFull"
+        app:layout_constraintStart_toStartOf="@id/textView_headerMorningFull"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerMorningEmpty" />
+
+    <TextView
+        android:id="@+id/textView_headerMorningFull"
+        style="@style/header_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/morning_full_measurement"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerAfternoonEmpty"
+        app:layout_constraintEnd_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerMorningEmpty" />
+
+    <EditText
+        android:id="@+id/editTextNumber_morningFull"
+        style="@style/edit_text_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textView_headerMorningFull"
+        app:layout_constraintEnd_toStartOf="@id/button_morningFull_edit"
+        app:layout_constraintStart_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toTopOf="@id/textView_headerMorningFull"
+        android:contentDescription="@string/morning_full_measurement"/>
+
+    <ImageButton
+        android:id="@+id/button_morningFull_edit"
+        style="@style/button_measurement_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/editTextNumber_morningFull"
+        app:layout_constraintStart_toEndOf="@id/editTextNumber_morningFull"
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_morningFull" />
+
+    <View
+        android:id="@+id/line_horizontal4"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/colorGreyLevel5"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerAfternoonEmpty"
+        app:layout_constraintEnd_toEndOf="@id/editTextNumber_morningFull"
+        app:layout_constraintStart_toStartOf="@id/textView_headerMorningFull"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerMorningFull" />
+
+    <TextView
+        android:id="@+id/textView_headerAfternoonEmpty"
+        style="@style/header_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/afternoon_empty_measurement"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerAfternoonEmpty"
+        app:layout_constraintEnd_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerMorningFull" />
+
+    <EditText
+        android:id="@+id/editTextNumber_afternoonEmpty"
+        style="@style/edit_text_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textView_headerAfternoonEmpty"
+        app:layout_constraintEnd_toStartOf="@id/button_afternoonEmpty_edit"
+        app:layout_constraintStart_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toTopOf="@id/textView_headerAfternoonEmpty"
+        android:contentDescription="@string/afternoon_empty_measurement"/>
+
+    <ImageButton
+        android:id="@+id/button_afternoonEmpty_edit"
+        style="@style/button_measurement_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/editTextNumber_afternoonEmpty"
+        app:layout_constraintStart_toEndOf="@id/editTextNumber_afternoonEmpty"
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_afternoonEmpty" />
+
+    <View
+        android:id="@+id/line_horizontal5"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/colorGreyLevel5"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerAfternoonFull"
+        app:layout_constraintEnd_toEndOf="@id/editTextNumber_morningFull"
+        app:layout_constraintStart_toStartOf="@id/textView_headerMorningFull"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerAfternoonEmpty" />
+
+    <TextView
+        android:id="@+id/textView_headerAfternoonFull"
+        style="@style/header_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/afternoon_full_measurement"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerEveningEmpty"
+        app:layout_constraintEnd_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerAfternoonEmpty" />
+
+    <EditText
+        android:id="@+id/editTextNumber_afternoonFull"
+        style="@style/edit_text_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textView_headerAfternoonFull"
+        app:layout_constraintEnd_toStartOf="@id/button_afternoonFull_edit"
+        app:layout_constraintStart_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toTopOf="@id/textView_headerAfternoonFull"
+        android:contentDescription="@string/afternoon_full_measurement" />
+
+    <ImageButton
+        android:id="@+id/button_afternoonFull_edit"
+        style="@style/button_measurement_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/editTextNumber_afternoonFull"
+        app:layout_constraintStart_toEndOf="@id/editTextNumber_afternoonFull"
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_afternoonFull" />
+
+    <View
+        android:id="@+id/line_horizontal6"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/colorGreyLevel5"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerEveningEmpty"
+        app:layout_constraintEnd_toEndOf="@id/editTextNumber_morningFull"
+        app:layout_constraintStart_toStartOf="@id/textView_headerMorningFull"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerAfternoonFull" />
+
+    <TextView
+        android:id="@+id/textView_headerEveningEmpty"
+        style="@style/header_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/evening_empty_measurement"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerEveningFull"
+        app:layout_constraintEnd_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerAfternoonFull" />
+
+    <EditText
+        android:id="@+id/editTextNumber_eveningEmpty"
+        style="@style/edit_text_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textView_headerEveningEmpty"
+        app:layout_constraintEnd_toStartOf="@id/button_eveningEmpty_edit"
+        app:layout_constraintStart_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toTopOf="@id/textView_headerEveningEmpty"
+        android:contentDescription="@string/evening_empty_measurement"/>
+
+    <ImageButton
+        android:id="@+id/button_eveningEmpty_edit"
+        style="@style/button_measurement_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/editTextNumber_eveningEmpty"
+        app:layout_constraintStart_toEndOf="@id/editTextNumber_eveningEmpty"
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_eveningEmpty" />
+
+    <View
+        android:id="@+id/line_horizontal7"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/colorGreyLevel5"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerEveningFull"
+        app:layout_constraintEnd_toEndOf="@id/editTextNumber_morningFull"
+        app:layout_constraintStart_toStartOf="@id/textView_headerMorningFull"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerEveningEmpty" />
+
+    <TextView
+        android:id="@+id/textView_headerEveningFull"
+        style="@style/header_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/evening_full_measurement"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerNight"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerEveningEmpty" />
+
+    <EditText
+        android:id="@+id/editTextNumber_eveningFull"
+        style="@style/edit_text_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_headerEveningFull"
+        app:layout_constraintEnd_toStartOf="@id/button_eveningFull_edit"
+        app:layout_constraintStart_toStartOf="@+id/guideline20"
+        app:layout_constraintTop_toTopOf="@+id/textView_headerEveningFull"
+        android:contentDescription="@string/evening_full_measurement"/>
+
+    <ImageButton
+        android:id="@+id/button_eveningFull_edit"
+        style="@style/button_measurement_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextNumber_eveningFull"
+        app:layout_constraintStart_toEndOf="@id/editTextNumber_eveningFull"
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_eveningFull" />
+    <View
+        android:id="@+id/line_horizontal8"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/colorGreyLevel5"
+        app:layout_constraintBottom_toTopOf="@id/textView_headerNight"
+        app:layout_constraintEnd_toEndOf="@id/editTextNumber_morningFull"
+        app:layout_constraintStart_toStartOf="@id/textView_headerMorningFull"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerEveningFull" />
+
+    <TextView
+        android:id="@+id/textView_headerNight"
+        style="@style/header_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/night_measurement"
+        app:layout_constraintBottom_toTopOf="@id/line_horizontal2"
+        app:layout_constraintEnd_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerEveningFull" />
+
+    <EditText
+        android:id="@+id/editTextNumber_night"
+        style="@style/edit_text_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textView_headerNight"
+        app:layout_constraintEnd_toStartOf="@id/button_night_edit"
+        app:layout_constraintStart_toStartOf="@+id/guideline20"
+        app:layout_constraintTop_toTopOf="@id/textView_headerNight"
+        android:contentDescription="@string/night_measurement"/>
+
+    <ImageButton
+        android:id="@+id/button_night_edit"
+        style="@style/button_measurement_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/editTextNumber_night"
+        app:layout_constraintStart_toEndOf="@id/editTextNumber_night"
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_night" />
+
+    <View
+        android:id="@+id/line_horizontal2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/colorGreyLevel5"
+        app:layout_constraintBottom_toTopOf="@id/button_addRow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerNight" />
+
+    <View
+        android:id="@+id/line_vertical"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="@color/colorGreyLevel5"
+        app:layout_constraintBottom_toTopOf="@id/line_horizontal2"
+        app:layout_constraintEnd_toEndOf="@id/guideline20"
+        app:layout_constraintStart_toStartOf="@id/guideline20"
+        app:layout_constraintTop_toBottomOf="@id/line_horizontal1" />
+
+    <Button
+        android:id="@+id/button_addRow"
+        app:backgroundTint="@null"
+        style="@style/button_add_row"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_add"
+        android:text="@string/add"
+        app:layout_constraintBottom_toTopOf="@id/button_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_headerNight"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/button_update"
+        app:backgroundTint="@null"
+        style="@style/button_add_row"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_update"
+        android:text="@string/update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_addRow" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@id/guideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

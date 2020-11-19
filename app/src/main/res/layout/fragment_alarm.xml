@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AlarmFragment">
+
+    <TextView
+        android:id="@+id/textView_alarm"
+        style="@style/main_title"
+        android:background="@drawable/header_alarm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/alarm"
+        app:layout_constraintBottom_toBottomOf="@id/imageView_alarm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageView_alarm" />
+
+    <ImageView
+        android:id="@+id/imageView_alarm"
+        android:layout_width="@dimen/mainImage_width"
+        android:layout_height="@dimen/mainImage_height"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/catalog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main_alarm" />
+
+    <View
+        android:id="@+id/seperator_line"
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+        app:layout_constraintTop_toBottomOf="@id/imageView_alarm"
+        android:background="@color/colorGrey"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

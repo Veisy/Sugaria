@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/chartFragment">
+
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.example.sekerimremake.fragments.ChartFragment"
+        android:label="fragment_chart"
+        tools:layout="@layout/fragment_chart" >
+        <action
+            android:id="@+id/action_chartFragment_to_chartRowFragment"
+            app:destination="@id/chartRowFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/catalogFragment"
+        android:name="com.example.sekerimremake.fragments.CatalogFragment"
+        android:label="fragment_catalog"
+        tools:layout="@layout/fragment_catalog" >
+        <action
+            android:id="@+id/action_catalogFragment_to_catalogItemFragment"
+            app:destination="@id/catalogItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkFragment"
+        android:name="com.example.sekerimremake.fragments.CheckFragment"
+        android:label="fragment_check"
+        tools:layout="@layout/fragment_check" />
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="com.example.sekerimremake.fragments.AlarmFragment"
+        android:label="fragment_alarm"
+        tools:layout="@layout/fragment_alarm" />
+    <fragment
+        android:id="@+id/catalogItemFragment"
+        android:name="com.example.sekerimremake.fragments.CatalogChildIFragment"
+        android:label="fragment_catalog_item"
+        tools:layout="@layout/fragment_catalog_child">
+        <argument android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/chartRowFragment"
+        android:name="com.example.sekerimremake.fragments.ChartRowFragment"
+        android:label="fragment_chart_row"
+        tools:layout="@layout/fragment_chart_row" >
+        <argument android:name="button_flag"
+            app:argType="boolean"
+            android:defaultValue="false"/>
+        <argument android:name="position"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </fragment>
+
+
+</navigation>
