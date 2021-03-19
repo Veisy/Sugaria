@@ -17,29 +17,6 @@ public class MainActivity extends AppCompatActivity {
                 ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        /*
-        ChartDbHelper helper = new ChartDbHelper(this);
-        ChartRowModel model;
-        for(int i = 0; i < 11; i++) {
-            for(int j = 1; j < 30; j++){
-                model = new ChartRowModel(
-                        -1,
-                        j,
-                        i,
-                        2020,
-                        new Random().nextInt(75) + 65,
-                        new Random().nextInt(95) + 95,
-                        new Random().nextInt(75) + 65,
-                        new Random().nextInt(95) + 95,
-                        new Random().nextInt(75) + 65,
-                        new Random().nextInt(95) + 95,
-                        new Random().nextInt(75) + 85
-                        );
-                helper.addOne(model);
-            }
-        }
-         */
-
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                  .findFragmentById(R.id.navigation_host_fragment);
         assert navHostFragment != null;
@@ -47,5 +24,4 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(binding.bottomNavigation, navController);
     }
-
 }

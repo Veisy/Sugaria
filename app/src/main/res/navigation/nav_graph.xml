@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/chartFragment"
-        android:name="com.example.sekerimremake.fragments.ChartFragment"
+        android:name="com.example.sekerimremake.fragments.ChartMasterFragment"
         android:label="fragment_chart"
         tools:layout="@layout/fragment_chart" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/catalogFragment"
-        android:name="com.example.sekerimremake.fragments.CatalogFragment"
+        android:name="com.example.sekerimremake.fragments.CatalogMasterFragment"
         android:label="fragment_catalog"
         tools:layout="@layout/fragment_catalog" >
         <action
@@ -35,18 +35,18 @@
         tools:layout="@layout/fragment_alarm" />
     <fragment
         android:id="@+id/catalogItemFragment"
-        android:name="com.example.sekerimremake.fragments.CatalogChildIFragment"
+        android:name="com.example.sekerimremake.fragments.CatalogDetailFragment"
         android:label="fragment_catalog_item"
-        tools:layout="@layout/fragment_catalog_child">
+        tools:layout="@layout/fragment_catalog_detail">
         <argument android:name="position"
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/chartRowFragment"
-        android:name="com.example.sekerimremake.fragments.ChartRowFragment"
+        android:name="com.example.sekerimremake.fragments.ChartDetailFragment"
         android:label="fragment_chart_row"
-        tools:layout="@layout/fragment_chart_row" >
+        tools:layout="@layout/fragment_chart_detail" >
         <argument android:name="button_flag"
             app:argType="boolean"
             android:defaultValue="false"/>

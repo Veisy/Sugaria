@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -18,7 +17,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 import androidx.transition.TransitionSet;
 
@@ -29,8 +27,9 @@ import com.example.sekerimremake.resources.CatalogItems;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public class CatalogFragment extends Fragment implements CatalogListAdapter.CatalogListHolder
+public class CatalogMasterFragment extends Fragment implements CatalogListAdapter.CatalogListHolder
         .OnCatalogClickListener {
 
     private FragmentCatalogBinding binding;
@@ -75,7 +74,7 @@ public class CatalogFragment extends Fragment implements CatalogListAdapter.Cata
                 // create the transition animation
                 setExitTransition(TransitionInflater.from(getContext())
                         .inflateTransition(R.transition.grid_exit_transition));
-                ((TransitionSet) getExitTransition()).excludeTarget(view, true);
+                ((TransitionSet) Objects.requireNonNull(getExitTransition())).excludeTarget(view, true);
                 final FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
                         .addSharedElement(view,
                                 view.getTransitionName())

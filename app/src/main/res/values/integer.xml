@@ -6,7 +6,7 @@
 
     <!-- Blood Glucose Ranges -->
     <!-- 70 < Fasting Value < 130  -->
-    <!-- 130 < After Meal Value < 180 -->
+    <!-- 100 < After Meal Value < 180 -->
     <!-- 90 < Before Bed Value < 150 -->
     <integer name="low_measurement_value_empty">70</integer>
     <integer name="low_measurement_value_full">100</integer>

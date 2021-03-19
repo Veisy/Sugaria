@@ -29,7 +29,7 @@ import com.example.sekerimremake.R;
 import com.example.sekerimremake.database.ChartDbHelper;
 import com.example.sekerimremake.databinding.ChartEditTableBinding;
 import com.example.sekerimremake.databinding.ChartSingleDayRowBinding;
-import com.example.sekerimremake.databinding.FragmentChartRowBinding;
+import com.example.sekerimremake.databinding.FragmentChartDetailBinding;
 import com.example.sekerimremake.filters.InputFilterMax;
 import com.example.sekerimremake.filters.OnFocusChangeListenerMin;
 import com.example.sekerimremake.models.ChartRowModel;
@@ -39,13 +39,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-public class ChartRowFragment extends Fragment implements View.OnClickListener {
+public class ChartDetailFragment extends Fragment implements View.OnClickListener {
 
     public final static String[] STATE_KEYS = {"MORNING_EMPTY_STATE", "MORNING_FULL_STATE",
             "AFTERNOON_EMPTY_STATE", "AFTERNOON_FULL_STATE", "EVENING_EMPTY_STATE",
             "EVENING_FULL_STATE", "NIGHT_STATE"};
 
-    private FragmentChartRowBinding binding;
+    private FragmentChartDetailBinding binding;
     private ChartEditTableBinding includedBinding;
 
     private Context mContext;
@@ -57,7 +57,7 @@ public class ChartRowFragment extends Fragment implements View.OnClickListener {
     private boolean addConfigurationFlag;
     private int position;
 
-    public ChartRowFragment() {
+    public ChartDetailFragment() {
         // Required empty public constructor
     }
 
@@ -100,7 +100,7 @@ public class ChartRowFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState){
-        binding = FragmentChartRowBinding.inflate(inflater, container, false);
+        binding = FragmentChartDetailBinding.inflate(inflater, container, false);
         includedBinding = binding.includedChartEditTable;
         return binding.getRoot();
     }
@@ -224,7 +224,7 @@ public class ChartRowFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    //Check all values while exiting this ChartRowFragment if there is any value outside our range.
+    //Check all values while exiting this ChartDetailFragment if there is any value outside our range.
     private void lastCheckValues() {
         for (EditText e : editTexts) {
             if(!TextUtils.isEmpty(e.getText())) {

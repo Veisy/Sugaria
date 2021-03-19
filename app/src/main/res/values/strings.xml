@@ -45,6 +45,13 @@
     <string name="add_or_update_measurements">Add or Update Measurements</string>
     <string name="glucose_measurement_instruction">*Aç karna ölçümler yemeğe başlamadan önce, tok karna ölçümler ilk lokmayı ağza aldıktan 2 saat sonra yapılmalıdır.</string>
     <string name="catalog_item_swipe_reminder">Sayfayı Parmağınızla Kaydırabilirsiniz</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_a_day">Choose A Day</string>
+    <string name="add_an_alarm">Add an alarm</string>
+    <string name="eye_controls">Göz Kontrolleri</string>
+    <string name="foot_controls">Ayak Kontrolleri</string>
+    <string name="add_foot_control">Bir ayak kontrolü ekleyin</string>
+    <string name="add_eye_control">Bir göz kontrolü ekleyin</string>
 
     <string-array name="Months">
         <item>OCAK</item>
@@ -60,7 +67,6 @@
         <item>KASIM</item>
         <item>ARALIK</item>
     </string-array>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="choose_a_day">Choose A Day</string>
+
 
 </resources>

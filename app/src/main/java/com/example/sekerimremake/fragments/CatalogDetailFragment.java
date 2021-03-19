@@ -27,7 +27,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.sekerimremake.R;
 import com.example.sekerimremake.adapters.CatalogChildPagerAdapter;
-import com.example.sekerimremake.databinding.FragmentCatalogChildBinding;
+import com.example.sekerimremake.databinding.FragmentCatalogDetailBinding;
 import com.example.sekerimremake.models.CatalogModel;
 import com.example.sekerimremake.resources.ApplicationOfInsulin;
 import com.example.sekerimremake.resources.CatalogItems;
@@ -46,9 +46,9 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.List;
 import java.util.Map;
 
-public class CatalogChildIFragment extends Fragment implements View.OnClickListener {
+public class CatalogDetailFragment extends Fragment implements View.OnClickListener {
 
-    private FragmentCatalogChildBinding binding;
+    private FragmentCatalogDetailBinding binding;
     private Context mContext;
 
     private CatalogModel catalogModel;
@@ -57,7 +57,7 @@ public class CatalogChildIFragment extends Fragment implements View.OnClickListe
     private int[] mImages;
     private boolean isRotated;
 
-    public CatalogChildIFragment() {
+    public CatalogDetailFragment() {
         // Required empty public constructor
     }
 
@@ -79,7 +79,7 @@ public class CatalogChildIFragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentCatalogChildBinding.inflate(inflater, container, false);
+        binding = FragmentCatalogDetailBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -204,9 +204,9 @@ public class CatalogChildIFragment extends Fragment implements View.OnClickListe
                 @Override
                 public void onTransitionEnd(@NonNull Transition transition) {
                     if (binding != null) {
-                        binding.viewPagerCatalogItem.setVisibility(View.VISIBLE);
-                        binding.tabLayoutIndicator.setVisibility(View.VISIBLE);
-                        binding.buttonNext.setVisibility(View.VISIBLE);
+                        fadeInAnimation(binding.viewPagerCatalogItem);
+                        fadeInAnimation(binding.tabLayoutIndicator);
+                        fadeInAnimation(binding.buttonNext);
                     }
                 }
                 @Override
@@ -252,9 +252,9 @@ public class CatalogChildIFragment extends Fragment implements View.OnClickListe
         binding.viewPagerCatalogItem.setPageTransformer(new DepthTransformation());
 
         if (isRotated) {
-            binding.viewPagerCatalogItem.setVisibility(View.VISIBLE);
-            binding.tabLayoutIndicator.setVisibility(View.VISIBLE);
-            binding.buttonNext.setVisibility(View.VISIBLE);
+            fadeInAnimation(binding.viewPagerCatalogItem);
+            fadeInAnimation(binding.tabLayoutIndicator);
+            fadeInAnimation(binding.buttonNext);
         }
 
         new TabLayoutMediator(binding.tabLayoutIndicator, binding.viewPagerCatalogItem, true,
@@ -300,6 +300,22 @@ public class CatalogChildIFragment extends Fragment implements View.OnClickListe
                 }
             }
         });
+    }
+
+    private void fadeInAnimation(View view) {
+        int mediumAnimationDuration = getResources().getInteger(
+                android.R.integer.config_mediumAnimTime);
+        // Set the content view to 0% opacity but visible, so that it is visible
+        // (but fully transparent) during the animation.
+        view.setAlpha(0f);
+        view.setVisibility(View.VISIBLE);
+
+        // Animate the content view to 100% opacity, and clear any animation
+        // listener set on the view.
+        view.animate()
+                .alpha(1f)
+                .setDuration(mediumAnimationDuration)
+                .setListener(null);
     }
 
     @Override

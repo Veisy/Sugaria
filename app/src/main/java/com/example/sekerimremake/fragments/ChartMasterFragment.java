@@ -2,22 +2,20 @@ package com.example.sekerimremake.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.SharedElementCallback;
-import androidx.fragment.app.Fragment;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.FragmentNavigator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.SharedElementCallback;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.sekerimremake.R;
 import com.example.sekerimremake.adapters.ChartAdapter;
@@ -27,13 +25,14 @@ import com.example.sekerimremake.databinding.FragmentChartBinding;
 import java.util.List;
 import java.util.Map;
 
-public class ChartFragment extends Fragment implements ChartAdapter.OnRowClickListener{
+public class ChartMasterFragment extends Fragment implements ChartAdapter.OnRowClickListener{
 
     private FragmentChartBinding binding;
     private Context mContext;
     private NavController navController;
+    private int scrollPosition;
 
-    public ChartFragment() {
+    public ChartMasterFragment() {
         // Required empty public constructor
     }
 
@@ -44,10 +43,26 @@ public class ChartFragment extends Fragment implements ChartAdapter.OnRowClickLi
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //To fill the chart with random data.
+        //fillChartWithRandomData(0, 12, 1, 29);
+
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentChartBinding.inflate(inflater, container, false);
+        scrollPosition = 0;
+        if (savedInstanceState != null) {
+            scrollPosition = savedInstanceState.getInt("scrollPosition");
+        } else {
+            if (getArguments() != null) {
+                scrollPosition = getArguments().getInt("scrollPosition");
+            }
+        }
         return binding.getRoot();
     }
 
@@ -66,16 +81,15 @@ public class ChartFragment extends Fragment implements ChartAdapter.OnRowClickLi
                 .loadLayoutAnimation(mContext, R.anim.recyclerview_layout_animation);
         binding.recyclerViewChart.setLayoutAnimation(layoutAnimationController);
         if (chartAdapter.getItemCount() > 1) {
-            binding.recyclerViewChart.smoothScrollToPosition(chartAdapter.getItemCount() - 1);
+            binding.recyclerViewChart.scrollToPosition(chartAdapter.getItemCount() - 1);
         }
-
-       binding.floatingActionButtonAddRow.setOnClickListener(new View.OnClickListener() {
+        binding.floatingActionButtonAddRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("button_flag", true);
                 navController.navigate(R.id.action_chartFragment_to_chartRowFragment, bundle);
-            }
+             }
         });
     }
 
@@ -105,8 +119,41 @@ public class ChartFragment extends Fragment implements ChartAdapter.OnRowClickLi
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("scrollPosition", scrollPosition);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
+    //To fill the chart with random data.
+/*
+    private void fillChartWithRandomData(int monthStart, int monthEnd, int dayStart, int dayEnd) {
+        ChartDbHelper helper = new ChartDbHelper(mContext);
+        ChartRowModel model;
+        for(int i = monthStart; i < monthEnd; i++) {
+            for(int j = dayStart; j < dayEnd; j++){
+                model = new ChartRowModel(
+                        -1,
+                        j,
+                        i,
+                        2020,
+                        new Random().nextInt(10) > 1 ? new Random().nextInt(75) + 65 : 0,
+                        new Random().nextInt(10) > 1 ? new Random().nextInt(95) + 95 : 0,
+                        new Random().nextInt(10) > 1 ? new Random().nextInt(75) + 65 : 0,
+                        new Random().nextInt(10) > 1 ? new Random().nextInt(95) + 95 : 0,
+                        new Random().nextInt(10) > 1 ? new Random().nextInt(75) + 65 : 0,
+                        new Random().nextInt(10) > 1 ? new Random().nextInt(95) + 95 : 0,
+                        new Random().nextInt(10) > 5 ? new Random().nextInt(75) + 85 : 0
+                );
+                helper.addOne(model);
+            }
+        }
+    }
+*/
+
 }
