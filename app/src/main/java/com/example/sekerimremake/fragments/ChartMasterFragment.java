@@ -83,14 +83,11 @@ public class ChartMasterFragment extends Fragment implements ChartAdapter.OnRowC
         if (chartAdapter.getItemCount() > 1) {
             binding.recyclerViewChart.scrollToPosition(chartAdapter.getItemCount() - 1);
         }
-        binding.floatingActionButtonAddRow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("button_flag", true);
-                navController.navigate(R.id.action_chartFragment_to_chartRowFragment, bundle);
-             }
-        });
+        binding.floatingActionButtonAddRow.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("button_flag", true);
+            navController.navigate(R.id.action_chartFragment_to_chartRowFragment, bundle);
+         });
     }
 
     @Override
