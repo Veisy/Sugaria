@@ -10,7 +10,7 @@
     <color name="colorChartTitleBackground">#BF360C</color>
     <color name="colorAlarmTitleBackground">#004D40</color>
     <color name="colorCheckTitleBackground">#B71C1C</color>
-    <color name="colorCatalogItemTitleBackground">#80000000</color>
+    <color name="colorGreyFrame">#80000000</color>
     <color name="colorGrey">#C3C3C3</color>
     <color name="colorGreyDark">#464646</color>
     <color name="colorGreyLevel1">#323232</color>
