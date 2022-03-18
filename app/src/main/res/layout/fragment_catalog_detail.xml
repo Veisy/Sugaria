@@ -14,7 +14,7 @@
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-        android:shadowColor="@color/colorGreyFrame"
+        android:shadowColor="@color/colorCatalogItemTitleBackground"
         android:shadowDx="3"
         android:shadowDy="3"
         android:shadowRadius="1"

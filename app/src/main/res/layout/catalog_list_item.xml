@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/imageView_catalogItem"
-            android:background="@drawable/background_catalog_item_text"
+            android:background="@color/colorCatalogItemTitleBackground"
             android:padding="8dp"
             android:textColor="@color/colorWhite"
             android:textStyle="bold" />
