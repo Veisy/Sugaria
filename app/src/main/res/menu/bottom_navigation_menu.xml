@@ -22,4 +22,10 @@
         android:icon="@drawable/ic_check"
         android:title="@string/check_navigation"/>
 
+    <item
+        android:id="@+id/deepLearningFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_deep_learning"
+        android:title="@string/ai"/>
+
 </menu>

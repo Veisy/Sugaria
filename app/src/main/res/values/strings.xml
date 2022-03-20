@@ -52,6 +52,7 @@
     <string name="foot_controls">Ayak Kontrolleri</string>
     <string name="add_foot_control">Bir ayak kontrolü ekleyin</string>
     <string name="add_eye_control">Bir göz kontrolü ekleyin</string>
+    <string name="ai">AI</string>
 
     <string-array name="Months">
         <item>OCAK</item>
