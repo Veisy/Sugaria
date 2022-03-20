@@ -54,6 +54,11 @@
             app:argType="integer"
             android:defaultValue="0"/>
     </fragment>
+    <fragment
+        android:id="@+id/deepLearningFragment"
+        android:name="com.example.sekerimremake.fragments.DeepLearningFragment"
+        android:label="fragment_deep_learning"
+        tools:layout="@layout/fragment_deep_learning" />
 
 
 </navigation>
