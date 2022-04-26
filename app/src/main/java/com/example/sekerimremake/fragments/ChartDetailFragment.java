@@ -110,7 +110,6 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
 
         bindToViews();
-        setToolbar();
         formatLayout(addConfigurationFlag);
         fillTextViews();
         fillSingleRowHeader();
@@ -125,18 +124,6 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
                         editImageButtons[i]);
             }
         }
-    }
-
-    private void setToolbar() {
-        binding.toolbar.setNavigationIcon(ResourcesCompat.getDrawable(getResources(),
-                R.drawable.ic_back_arrow, null));
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().onBackPressed();
-            }
-        });
-        binding.toolbar.setTitle(getResources().getString(R.string.chart_navigation));
     }
 
     private void setViewsState(boolean isEnabled, EditText editText, ImageButton imageButton) {

@@ -4,7 +4,7 @@
     <string name="catalog_navigation">Eğitim</string>
     <string name="catalog">Eğitim Kataloğu</string>
     <string name="chart_navigation">Çizelge</string>
-    <string name="chart">İnsülin/Kan Şekeri Takip Çizelgesi</string>
+    <string name="chart">Takip Çizelgesi</string>
     <string name="alarm_navigation">Alarm</string>
     <string name="alarm">İnsülin/Kan Şekeri Alarm</string>
     <string name="check_navigation">Kontroller</string>
