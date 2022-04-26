@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/chartFragment"
         android:name="com.example.sekerimremake.fragments.ChartMasterFragment"
-        android:label="fragment_chart"
-        tools:layout="@layout/fragment_chart" >
+        android:label="@string/chart"
+        tools:layout="@layout/fragment_chart">
         <action
             android:id="@+id/action_chartFragment_to_chartRowFragment"
             app:destination="@id/chartRowFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/catalogFragment"
         android:name="com.example.sekerimremake.fragments.CatalogMasterFragment"
-        android:label="fragment_catalog"
-        tools:layout="@layout/fragment_catalog" >
+        android:label="@string/catalog"
+        tools:layout="@layout/fragment_catalog">
         <action
             android:id="@+id/action_catalogFragment_to_catalogItemFragment"
             app:destination="@id/catalogItemFragment" />
@@ -26,38 +26,41 @@
     <fragment
         android:id="@+id/checkFragment"
         android:name="com.example.sekerimremake.fragments.CheckFragment"
-        android:label="fragment_check"
+        android:label="@string/check"
         tools:layout="@layout/fragment_check" />
     <fragment
         android:id="@+id/alarmFragment"
         android:name="com.example.sekerimremake.fragments.AlarmFragment"
-        android:label="fragment_alarm"
+        android:label="@string/alarm"
         tools:layout="@layout/fragment_alarm" />
     <fragment
         android:id="@+id/catalogItemFragment"
         android:name="com.example.sekerimremake.fragments.CatalogDetailFragment"
-        android:label="fragment_catalog_item"
+        android:label="@string/catalog"
         tools:layout="@layout/fragment_catalog_detail">
-        <argument android:name="position"
-            app:argType="integer"
-            android:defaultValue="0" />
+        <argument
+            android:name="position"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/chartRowFragment"
         android:name="com.example.sekerimremake.fragments.ChartDetailFragment"
-        android:label="fragment_chart_row"
-        tools:layout="@layout/fragment_chart_detail" >
-        <argument android:name="button_flag"
-            app:argType="boolean"
-            android:defaultValue="false"/>
-        <argument android:name="position"
-            app:argType="integer"
-            android:defaultValue="0"/>
+        android:label="@string/chart"
+        tools:layout="@layout/fragment_chart_detail">
+        <argument
+            android:name="button_flag"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="position"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/deepLearningFragment"
         android:name="com.example.sekerimremake.fragments.DeepLearningFragment"
-        android:label="fragment_deep_learning"
+        android:label="Deep Learning"
         tools:layout="@layout/fragment_deep_learning" />
 
 

@@ -90,14 +90,10 @@ public class CatalogDetailFragment extends Fragment implements View.OnClickListe
         binding.buttonPrevious.setOnClickListener(this);
         binding.buttonNext.setOnClickListener(this);
         setImagesAndCatalogModel();
-        setToolbar();
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             setHeaderView();
             if (mPosition == 1)
                 setSubtitleTabLayout();
-        }  else {
-            requireActivity().findViewById(R.id.bottom_navigation).setVisibility(View.GONE);
-
         }
         setViewPagerAndIndicator();
     }
@@ -137,19 +133,6 @@ public class CatalogDetailFragment extends Fragment implements View.OnClickListe
                 catalogModel = CatalogItems.getSingleITEM(7);
                 break;
         }
-    }
-
-    private void setToolbar() {
-        binding.toolbar.setNavigationIcon(ResourcesCompat.getDrawable(getResources(),
-                R.drawable.ic_back_arrow, null));
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().onBackPressed();
-            }
-        });
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-            binding.toolbar.setTitle(getResources().getString(R.string.catalog));
     }
 
     private void setSubtitleTabLayout() {
