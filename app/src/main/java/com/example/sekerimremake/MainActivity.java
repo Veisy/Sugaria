@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-                    && (destination.getId() == R.id.catalogItemFragment)) {
+                    && ((destination.getId() == R.id.catalogItemFragment) && (destination.getId() == R.id.chartFragment))) {
                 binding.bottomNavigation.setVisibility(View.GONE);
             } else {
                 binding.bottomNavigation.setVisibility(View.VISIBLE);

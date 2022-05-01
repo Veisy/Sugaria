@@ -32,6 +32,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="title_style_gray" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@drawable/text_frame_gray</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="values_style" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>

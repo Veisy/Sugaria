@@ -5,13 +5,13 @@
     <dimen name="catalogImagesWidth">140dp</dimen>
     <dimen name="catalogImagesHeight">140dp</dimen>
 
+    <dimen name="margin_x_small">2dp</dimen>
     <dimen name="margin_small">5dp</dimen>
-    <dimen name="margin_large">16dp</dimen>
     <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_x_large">24dp</dimen>
     <dimen name="padding_large">16dp</dimen>
     <dimen name="padding_small">5dp</dimen>
     <dimen name="textSize_large">16sp</dimen>
     <dimen name="textSize_small">10sp</dimen>
-    <dimen name="margin_floatingActionButton">24dp</dimen>
-    <dimen name="margin_x_large">24dp</dimen>
 </resources>
