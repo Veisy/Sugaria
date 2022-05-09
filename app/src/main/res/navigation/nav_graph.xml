@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/chartFragment"
-        android:name="com.example.sekerimremake.fragments.ChartMasterFragment"
+        android:name="com.vyy.sugaria.fragments.ChartMasterFragment"
         android:label="@string/chart"
         tools:layout="@layout/fragment_chart">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/catalogFragment"
-        android:name="com.example.sekerimremake.fragments.CatalogMasterFragment"
+        android:name="com.vyy.sugaria.fragments.CatalogMasterFragment"
         android:label="@string/catalog"
         tools:layout="@layout/fragment_catalog">
         <action
@@ -25,17 +25,17 @@
     </fragment>
     <fragment
         android:id="@+id/checkFragment"
-        android:name="com.example.sekerimremake.fragments.CheckFragment"
+        android:name="com.vyy.sugaria.fragments.CheckFragment"
         android:label="@string/check"
         tools:layout="@layout/fragment_check" />
     <fragment
         android:id="@+id/alarmFragment"
-        android:name="com.example.sekerimremake.fragments.AlarmFragment"
+        android:name="com.vyy.sugaria.fragments.AlarmFragment"
         android:label="@string/alarm"
         tools:layout="@layout/fragment_alarm" />
     <fragment
         android:id="@+id/catalogItemFragment"
-        android:name="com.example.sekerimremake.fragments.CatalogDetailFragment"
+        android:name="com.vyy.sugaria.fragments.CatalogDetailFragment"
         android:label="@string/catalog"
         tools:layout="@layout/fragment_catalog_detail">
         <argument
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/chartRowFragment"
-        android:name="com.example.sekerimremake.fragments.ChartDetailFragment"
+        android:name="com.vyy.sugaria.fragments.ChartDetailFragment"
         android:label="@string/chart"
         tools:layout="@layout/fragment_chart_detail">
         <argument
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/deepLearningFragment"
-        android:name="com.example.sekerimremake.fragments.DeepLearningFragment"
+        android:name="com.vyy.sugaria.fragments.DeepLearningFragment"
         android:label="Deep Learning"
         tools:layout="@layout/fragment_deep_learning" />
 
