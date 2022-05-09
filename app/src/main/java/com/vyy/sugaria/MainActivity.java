@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
                         R.id.checkFragment,
                         R.id.catalogFragment,
                         R.id.chartFragment,
-                        R.id.alarmFragment,
-                        R.id.deepLearningFragment
+                        R.id.alarmFragment
                 ).build();
 
         // Handle toolbar and bottom navigation menu.
