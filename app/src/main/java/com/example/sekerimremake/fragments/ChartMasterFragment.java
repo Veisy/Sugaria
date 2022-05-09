@@ -46,7 +46,7 @@ public class ChartMasterFragment extends Fragment implements ChartAdapter.OnRowC
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //To fill the chart with random data.
-        //fillChartWithRandomData(0, 12, 1, 29);
+//        fillChartWithRandomData(0, 12, 1, 29);
 
     }
 
@@ -128,29 +128,29 @@ public class ChartMasterFragment extends Fragment implements ChartAdapter.OnRowC
     }
 
     //To fill the chart with random data.
-/*
-    private void fillChartWithRandomData(int monthStart, int monthEnd, int dayStart, int dayEnd) {
-        ChartDbHelper helper = new ChartDbHelper(mContext);
-        ChartRowModel model;
-        for(int i = monthStart; i < monthEnd; i++) {
-            for(int j = dayStart; j < dayEnd; j++){
-                model = new ChartRowModel(
-                        -1,
-                        j,
-                        i,
-                        2020,
-                        new Random().nextInt(10) > 1 ? new Random().nextInt(75) + 65 : 0,
-                        new Random().nextInt(10) > 1 ? new Random().nextInt(95) + 95 : 0,
-                        new Random().nextInt(10) > 1 ? new Random().nextInt(75) + 65 : 0,
-                        new Random().nextInt(10) > 1 ? new Random().nextInt(95) + 95 : 0,
-                        new Random().nextInt(10) > 1 ? new Random().nextInt(75) + 65 : 0,
-                        new Random().nextInt(10) > 1 ? new Random().nextInt(95) + 95 : 0,
-                        new Random().nextInt(10) > 5 ? new Random().nextInt(75) + 85 : 0
-                );
-                helper.addOne(model);
-            }
-        }
-    }
-*/
+
+//    private void fillChartWithRandomData(int monthStart, int monthEnd, int dayStart, int dayEnd) {
+//        ChartDbHelper helper = new ChartDbHelper(mContext);
+//        ChartRowModel model;
+//        for(int i = monthStart; i < monthEnd; i++) {
+//            for(int j = dayStart; j < dayEnd; j++){
+//                model = new ChartRowModel(
+//                        -1,
+//                        j,
+//                        i,
+//                        2021,
+//                        new Random().nextInt(10) > 1 ? new Random().nextInt(75) + 65 : 0,
+//                        new Random().nextInt(10) > 1 ? new Random().nextInt(95) + 95 : 0,
+//                        new Random().nextInt(10) > 1 ? new Random().nextInt(75) + 65 : 0,
+//                        new Random().nextInt(10) > 1 ? new Random().nextInt(95) + 95 : 0,
+//                        new Random().nextInt(10) > 1 ? new Random().nextInt(75) + 65 : 0,
+//                        new Random().nextInt(10) > 1 ? new Random().nextInt(95) + 95 : 0,
+//                        new Random().nextInt(10) > 5 ? new Random().nextInt(75) + 85 : 0
+//                );
+//                helper.addOne(model);
+//            }
+//        }
+//    }
+
 
 }

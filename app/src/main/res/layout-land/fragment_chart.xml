@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ChartMasterFragment">
 
-    <include
-        android:id="@+id/included_titles"
-        layout="@layout/chart_titles"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginEnd="@dimen/margin_small"
-        app:layout_constraintBottom_toTopOf="@id/recyclerView_chart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_chart"
         android:layout_width="match_parent"
@@ -27,14 +13,25 @@
         app:layout_constraintBottom_toTopOf="@id/floatingActionButton_addRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/included_titles" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/margin_medium"
+        android:text="@string/glucose_measurement_instruction"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton_addRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_chart" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton_addRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_x_large"
+        android:layout_margin="@dimen/margin_medium"
         android:clickable="true"
         android:contentDescription="@string/add_or_update_measurements"
         android:focusable="true"
@@ -42,17 +39,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recyclerView_chart"
         app:srcCompat="@drawable/ic_addrow" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/margin_large"
-        android:text="@string/glucose_measurement_instruction"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton_addRow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView_chart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
