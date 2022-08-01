@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "650580364652",
+    "project_id": "sugaria-1830b",
+    "storage_bucket": "sugaria-1830b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650580364652:android:e3c99f49af09f2e1b7b749",
+        "android_client_info": {
+          "package_name": "com.vyy.sugaria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650580364652-i9g8enfdgmf0670cqoalpsohm3tcsdde.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vyy.sugaria",
+            "certificate_hash": "b94f1e2d7846a968a4e9cb395e67c2c65592fc1c"
+          }
+        },
+        {
+          "client_id": "650580364652-4lmq0rqm88tpum2de51rvsor3kh59414.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO4NsRdmS53RL0SSLUhtD4IA0pQ9h2rjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650580364652-4lmq0rqm88tpum2de51rvsor3kh59414.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
