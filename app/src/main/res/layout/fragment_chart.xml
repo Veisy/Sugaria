@@ -26,7 +26,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_small"
-        app:layout_constraintBottom_toTopOf="@id/floatingActionButton_addRow"
+        app:layout_constraintBottom_toTopOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/included_titles" />
@@ -40,21 +40,28 @@
         android:clickable="true"
         android:contentDescription="@string/add_or_update_measurements"
         android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerView_chart"
         app:srcCompat="@drawable/ic_addrow" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large"
         android:text="@string/glucose_measurement_instruction"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButton_addRow"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView_chart" />
+        app:layout_constraintTop_toBottomOf="@+id/barrier" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="floatingActionButton_addRow,textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
