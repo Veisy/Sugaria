@@ -1,73 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Şekerim</string>
+    <string name="app_name">Sekerim</string>
 
-    <string name="catalog_navigation">Eğitim</string>
-    <string name="catalog">Eğitim Kataloğu</string>
-    <string name="chart_navigation">Çizelge</string>
-    <string name="chart">Takip Çizelgesi</string>
+    <string name="catalog_navigation">Education</string>
+    <string name="catalog">Education Catalogue</string>
+    <string name="chart_navigation">Chart</string>
+    <string name="chart">Tracking Chart</string>
     <string name="alarm_navigation">Alarm</string>
-    <string name="alarm">İnsülin/Kan Şekeri Alarm</string>
-    <string name="check_navigation">Kontroller</string>
-    <string name="check">Yıllık Kontroller</string>
-    <string name="previous">GERİ</string>
-    <string name="next">İLERİ</string>
-    <string name="end">BİTTİ</string>
-    <string name="insulin_types_and_information">İnsülin Çeşitleri Ve Bilgileri</string>
-    <string name="insulin_application_regions">İnsülin Uygulama Bölgeleri</string>
-    <string name="insulin_storage_conditions">İnsülin Saklama Koşulları</string>
-    <string name="full">Tok</string>
-    <string name="empty">Aç</string>
-    <string name="date">Tarih</string>
-    <string name="morning">Sabah</string>
-    <string name="afternoon">Öğlen</string>
-    <string name="evening">Akşam</string>
-    <string name="night">Gece</string>
-    <string name="hint_enter_result">Ölçüm değeri</string>
-    <string name="morning_empty_measurement">Sabah Aç Ölçüm:</string>
-    <string name="morning_full_measurement">Sabah Tok Ölçüm:</string>
-    <string name="afternoon_empty_measurement">Öğlen Aç Ölçüm:</string>
-    <string name="afternoon_full_measurement">Öğlen Tok Ölçüm:</string>
-    <string name="evening_empty_measurement">Akşam Aç Ölçüm:</string>
-    <string name="evening_full_measurement">Akşam Tok Ölçüm:</string>
-    <string name="night_measurement">Gece Ölçüm:</string>
-    <string name="select_date">Tarih Seçin</string>
-    <string name="back">GERİ</string>
-    <string name="update">Güncelle</string>
-    <string name="add">Ekle</string>
-    <string name="low_glucose_warning">Eğitim Kataloğu\'nda Hipoglisemi başlığındaki adımları izleyin.</string>
-    <string name="high_glucose_warning">Eğitim Kataloğu\'nda Hiperglisemi başlığındaki adımları izleyin.</string>
-    <string name="invalid_input">Geçersiz giriş.</string>
-    <string name="high_glucose_warning_title">"↑Yüksek Kan Şekeri!"</string>
-    <string name="low_glucose_warning_title">"↓Düşük Kan Şekeri!"</string>
-    <string name="warning">Dikkat!</string>
-    <string name="okay">Tamam</string>
-    <string name="glucose_warning_recommendation">Eğitim kataloğunda \'Hipoglisemi\' ve \'Hiperglisemi\' başlıklarından kan şekerinizin kontrolü için hangi adımları atmanız gerektiğine bakabilirsiniz.</string>
+    <string name="alarm">Insulin/Blood Sugar Alarm</string>
+    <string name="check_navigation">Checks</string>
+    <string name="check">Annual Checks</string>
+    <string name="next">NEXT</string>
+    <string name="end">FINISH</string>
+    <string name="insulin_types_and_information">Types and Details of Insulin</string>
+    <string name="insulin_application_regions">Insulin Injection Sites</string>
+    <string name="insulin_storage_conditions">Insulin Storage Conditions</string>
+    <string name="full">Full</string>
+    <string name="empty">Empty</string>
+    <string name="date">Date</string>
+    <string name="morning">Morning</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="evening">Evening</string>
+    <string name="night">Night</string>
+    <string name="hint_enter_result">Measurement</string>
+    <string name="morning_empty_measurement">Morning Empty:</string>
+    <string name="morning_full_measurement">Morning Full:</string>
+    <string name="afternoon_empty_measurement">Afternoon Empty:</string>
+    <string name="afternoon_full_measurement">Afternoon Full:</string>
+    <string name="evening_empty_measurement">Evening Empty:</string>
+    <string name="evening_full_measurement">Evening Full:</string>
+    <string name="night_measurement">Night:</string>
+    <string name="select_date">Select Date</string>
+    <string name="back">BACK</string>
+    <string name="update">Update</string>
+    <string name="add">Add</string>
+    <string name="low_glucose_warning">Follow the steps under Hypoglycemia in the Education Catalogue.</string>
+    <string name="high_glucose_warning">Follow the steps in Hyperglycemia in the Education Catalogue.</string>
+    <string name="invalid_input">Invalid input.</string>
+    <string name="high_glucose_warning_title">"↑High Blood Sugar!"</string>
+    <string name="low_glucose_warning_title">"↓Low Blood Sugar!"</string>
+    <string name="warning">Attention!</string>
+    <string name="okay">Okay</string>
+    <string name="glucose_warning_recommendation">You can check the steps you need to take to control your blood sugar from the \'Hypoglycemia\' and \'Hyperglycemia\' sections in the education catalogue.</string>
     <string name="add_or_update_measurements">Add or Update Measurements</string>
-    <string name="glucose_measurement_instruction">*Aç karna ölçümler yemeğe başlamadan önce, tok karna ölçümler ilk lokmayı ağza aldıktan 2 saat sonra yapılmalıdır.</string>
-    <string name="catalog_item_swipe_reminder">Sayfayı Parmağınızla Kaydırabilirsiniz</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="glucose_measurement_instruction">*Measurements on an empty stomach should be done before starting the meal, measurements on a full stomach should be done 2 hours after taking the first bite.</string>
+    <string name="catalog_item_swipe_reminder">You can scroll the page with your finger</string>
     <string name="choose_a_day">Choose A Day</string>
     <string name="add_an_alarm">Add an alarm</string>
-    <string name="eye_controls">Göz Kontrolleri</string>
-    <string name="foot_controls">Ayak Kontrolleri</string>
-    <string name="add_foot_control">Bir ayak kontrolü ekleyin</string>
-    <string name="add_eye_control">Bir göz kontrolü ekleyin</string>
+    <string name="eye_controls">Eye Checks</string>
+    <string name="foot_controls">Foot Checks</string>
+    <string name="add_foot_check">Add foot check appointment</string>
+    <string name="add_eye_check">Add eye check appointment</string>
     <string name="settings">Settings</string>
 
     <string-array name="Months">
-        <item>OCAK</item>
-        <item>ŞUBAT</item>
-        <item>MART</item>
-        <item>NİSAN</item>
-        <item>MAYIS</item>
-        <item>HAZİRAN</item>
-        <item>TEMMUZ</item>
-        <item>AĞUSTOS</item>
-        <item>EYLÜL</item>
-        <item>EKİM</item>
-        <item>KASIM</item>
-        <item>ARALIK</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
     </string-array>
-
-
 </resources>

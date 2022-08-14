@@ -25,16 +25,31 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="title_style" parent="TextAppearance.MaterialComponents.Subtitle2">
+    <style name="title_style">
         <item name="android:padding">5dp</item>
         <item name="android:background">@drawable/text_frame</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/textSize_x_medium</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/colorGreyDark</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="subtitle_style">
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@drawable/text_frame</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/textSize_x_medium</item>
+        <item name="android:textColor">@color/colorGreyDark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <style name="title_style_gray" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="android:padding">5dp</item>
-        <item name="android:background">@drawable/text_frame_gray</item>
+        <item name="android:background">@drawable/text_frame_greylevel6</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -58,7 +73,7 @@
 
     </style>
 
-    <style name="button_add_row" >
+    <style name="button_add_row">
         <item name="android:visibility">gone</item>
         <item name="android:textSize">12sp</item>
         <item name="android:layout_marginRight">8dp</item>

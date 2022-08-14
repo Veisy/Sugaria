@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">Şekerim</string>
+
+    <string name="catalog_navigation">Eğitim</string>
+    <string name="catalog">Eğitim Kataloğu</string>
+    <string name="chart_navigation">Çizelge</string>
+    <string name="chart">Takip Çizelgesi</string>
+    <string name="alarm_navigation">Alarm</string>
+    <string name="alarm">İnsülin/Kan Şekeri Alarm</string>
+    <string name="check_navigation">Kontroller</string>
+    <string name="check">Yıllık Kontroller</string>
+    <string name="next">İLERİ</string>
+    <string name="end">BİTTİ</string>
+    <string name="insulin_types_and_information">İnsülin Çeşitleri Ve Bilgileri</string>
+    <string name="insulin_application_regions">İnsülin Uygulama Bölgeleri</string>
+    <string name="insulin_storage_conditions">İnsülin Saklama Koşulları</string>
+    <string name="full">Tok</string>
+    <string name="empty">Aç</string>
+    <string name="date">Tarih</string>
+    <string name="morning">Sabah</string>
+    <string name="afternoon">Öğlen</string>
+    <string name="evening">Akşam</string>
+    <string name="night">Gece</string>
+    <string name="hint_enter_result">Ölçüm değeri</string>
+    <string name="morning_empty_measurement">Sabah Aç Ölçüm:</string>
+    <string name="morning_full_measurement">Sabah Tok Ölçüm:</string>
+    <string name="afternoon_empty_measurement">Öğlen Aç Ölçüm:</string>
+    <string name="afternoon_full_measurement">Öğlen Tok Ölçüm:</string>
+    <string name="evening_empty_measurement">Akşam Aç Ölçüm:</string>
+    <string name="evening_full_measurement">Akşam Tok Ölçüm:</string>
+    <string name="night_measurement">Gece Ölçüm:</string>
+    <string name="select_date">Tarih Seçin</string>
+    <string name="back">GERİ</string>
+    <string name="update">Güncelle</string>
+    <string name="add">Add</string>
+    <string name="low_glucose_warning">Eğitim Kataloğu\'nda Hipoglisemi başlığındaki adımları izleyin.</string>
+    <string name="high_glucose_warning">Eğitim Kataloğu\'nda Hiperglisemi başlığındaki adımları izleyin.</string>
+    <string name="invalid_input">Geçersiz giriş.</string>
+    <string name="high_glucose_warning_title">"↑Yüksek Kan Şekeri!"</string>
+    <string name="low_glucose_warning_title">"↓Düşük Kan Şekeri!"</string>
+    <string name="warning">Dikkat!</string>
+    <string name="okay">Tamam</string>
+    <string name="glucose_warning_recommendation">Eğitim kataloğunda \'Hipoglisemi\' ve \'Hiperglisemi\' başlıklarından kan şekerinizin kontrolü için hangi adımları atmanız gerektiğine bakabilirsiniz.</string>
+    <string name="add_or_update_measurements">Add or Update Measurements</string>
+    <string name="glucose_measurement_instruction">*Aç karna ölçümler yemeğe başlamadan önce, tok karna ölçümler ilk lokmayı ağza aldıktan 2 saat sonra yapılmalıdır.</string>
+    <string name="catalog_item_swipe_reminder">Sayfayı Parmağınızla Kaydırabilirsiniz</string>
+    <string name="choose_a_day">Bir Gün Seçin</string>
+    <string name="add_an_alarm">Alarm Ekleyin</string>
+    <string name="eye_controls">Göz Kontrolleri</string>
+    <string name="foot_controls">Ayak kontrolleri</string>
+    <string name="add_foot_check">Bir ayak kontrolu ekleyin</string>
+    <string name="add_eye_check">Bir göz kontrolu ekleyin</string>
+    <string name="settings">Ayarlar</string>
+
+    <string-array name="Months">
+        <item>Ocak</item>
+        <item>Şubak</item>
+        <item>Mart</item>
+        <item>Nisan</item>
+        <item>Mayıs</item>
+        <item>Haziran</item>
+        <item>Temmuz</item>
+        <item>Ağustos</item>
+        <item>Eylül</item>
+        <item>Ekim</item>
+        <item>Kasım</item>
+        <item>Aralık</item>
+    </string-array>
+</resources>

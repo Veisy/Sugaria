@@ -24,6 +24,8 @@
         android:id="@+id/recyclerView_chart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
         app:layout_constraintBottom_toTopOf="@id/floatingActionButton_addRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

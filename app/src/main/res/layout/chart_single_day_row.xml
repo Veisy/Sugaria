@@ -4,8 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/single_day"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_small">
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:background="@color/colorGreyLevel7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline10"
+        app:layout_constraintStart_toStartOf="@id/guideline10"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:background="@color/colorGreyLevel7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline12"
+        app:layout_constraintStart_toStartOf="@id/guideline12"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:background="@color/colorGreyLevel7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline14"
+        app:layout_constraintStart_toStartOf="@id/guideline14"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_day_night"
@@ -13,7 +39,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_x_small"
-        android:layout_marginEnd="@dimen/margin_x_small"
         app:layout_constraintBottom_toBottomOf="@id/textView_day_monthYear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline14"
@@ -40,6 +65,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toTopOf="@id/textView_day_day" />
+
 
     <TextView
         android:id="@+id/textView_day_afternoon_empty"
@@ -68,7 +94,6 @@
         style="@style/values_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_x_small"
         app:layout_constraintBottom_toBottomOf="@id/textView_day_monthYear"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
@@ -136,10 +161,13 @@
 
     <TextView
         android:id="@+id/textView_day_day"
-        style="@style/title_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@drawable/text_frame"
+        android:gravity="center"
         android:padding="@dimen/padding_small"
+        android:textColor="@color/colorGreyDark"
         android:textSize="@dimen/textSize_large"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/textView_day_monthYear"
@@ -149,10 +177,13 @@
 
     <TextView
         android:id="@+id/textView_day_monthYear"
-        style="@style/title_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/text_frame"
+        android:gravity="center"
         android:padding="@dimen/padding_small"
+        android:textAllCaps="true"
+        android:textColor="@color/colorGreyLevel1"
         android:textSize="@dimen/textSize_small"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"

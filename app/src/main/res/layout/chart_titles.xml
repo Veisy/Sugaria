@@ -4,9 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:background="@color/colorGreyLevel7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:background="@color/colorGreyLevel7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:background="@color/colorGreyLevel7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline4"
+        app:layout_constraintStart_toStartOf="@id/guideline4"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView_afternoon_full"
-        style="@style/title_style_gray"
+        style="@style/subtitle_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_x_small"
@@ -38,7 +66,7 @@
 
     <TextView
         android:id="@+id/textView_evening_empty"
-        style="@style/title_style"
+        style="@style/subtitle_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_x_small"
@@ -49,7 +77,7 @@
 
     <TextView
         android:id="@+id/textView_evening_full"
-        style="@style/title_style_gray"
+        style="@style/subtitle_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_x_small"
@@ -81,12 +109,11 @@
         style="@style/title_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_x_small"
         android:layout_marginEnd="@dimen/margin_x_small"
         android:text="@string/morning"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/textView_date" />
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/textView_date" />
 
     <TextView
         android:id="@+id/textView_afternoon"
@@ -96,21 +123,21 @@
         android:layout_marginStart="@dimen/margin_x_small"
         android:layout_marginEnd="@dimen/margin_x_small"
         android:text="@string/afternoon"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/textView_morning" />
+        app:layout_constraintEnd_toStartOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toTopOf="@id/textView_morning" />
 
     <TextView
         android:id="@+id/textView_evening"
         style="@style/title_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_x_small"
         android:layout_marginEnd="@dimen/margin_x_small"
         android:text="@string/evening"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/textView_afternoon" />
+        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintTop_toTopOf="@id/textView_afternoon"
+        app:layout_goneMarginEnd="@dimen/margin_x_small" />
 
     <TextView
         android:id="@+id/textView_night"
@@ -118,33 +145,31 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_x_small"
-        android:layout_marginEnd="@dimen/margin_x_small"
         android:text="@string/night"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/textView_evening" />
+        app:layout_constraintStart_toStartOf="@id/guideline4"
+        app:layout_constraintTop_toTopOf="@id/textView_evening" />
 
     <TextView
         android:id="@+id/textView_morning_empty"
-        style="@style/title_style"
+        style="@style/subtitle_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_x_small"
         android:text="@string/empty"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textView_morning" />
+        app:layout_constraintEnd_toStartOf="@id/guideline5"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/textView_morning" />
 
     <TextView
         android:id="@+id/textView_morning_full"
-        style="@style/title_style_gray"
+        style="@style/subtitle_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_x_small"
         android:text="@string/full"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/textView_morning" />
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline5"
+        app:layout_constraintTop_toBottomOf="@id/textView_morning" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -169,13 +194,13 @@
 
     <TextView
         android:id="@+id/textView_afternoon_empty"
-        style="@style/title_style"
+        style="@style/subtitle_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_x_small"
         android:text="@string/empty"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textView_afternoon" />
+        app:layout_constraintEnd_toStartOf="@id/guideline6"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/textView_afternoon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,7 +40,7 @@
         android:layout_marginStart="32dp"
         android:background="@drawable/button_previous"
         android:padding="10dp"
-        android:text="@string/previous"
+        android:text="@string/back"
         android:textColor="@color/colorPrimary"
         android:textSize="12sp"
         android:textStyle="bold"
