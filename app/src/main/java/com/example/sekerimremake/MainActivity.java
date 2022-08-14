@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         assert navHostFragment != null;
         NavController navController = navHostFragment.getNavController();
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.catalogFragment, R.id.chartFragment).build();
+                new AppBarConfiguration.Builder(R.id.catalogMasterFragment, R.id.chartMasterFragment).build();
 
         // Handle toolbar and bottom navigation menu.
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-                    && ((destination.getId() == R.id.catalogItemFragment) && (destination.getId() == R.id.chartFragment))) {
+                    && ((destination.getId() == R.id.catalogDetailsFragment) && (destination.getId() == R.id.chartMasterFragment))) {
                 binding.bottomNavigation.setVisibility(View.GONE);
             } else {
                 binding.bottomNavigation.setVisibility(View.VISIBLE);

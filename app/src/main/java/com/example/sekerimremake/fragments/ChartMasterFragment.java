@@ -86,7 +86,7 @@ public class ChartMasterFragment extends Fragment implements ChartAdapter.OnRowC
         binding.floatingActionButtonAddRow.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean("button_flag", true);
-            navController.navigate(R.id.action_chartFragment_to_chartRowFragment, bundle);
+            navController.navigate(R.id.action_chartMasterFragment_to_chartDetailsFragment, bundle);
          });
     }
 
@@ -108,7 +108,7 @@ public class ChartMasterFragment extends Fragment implements ChartAdapter.OnRowC
             }
         });
         navController.navigate(
-                R.id.action_chartFragment_to_chartRowFragment,
+                R.id.action_chartMasterFragment_to_chartDetailsFragment,
                 bundle,
                 null,
                 extras);

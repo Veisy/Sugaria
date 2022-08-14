@@ -87,14 +87,14 @@ public class CatalogMasterFragment extends Fragment implements CatalogListAdapte
                     }
                 });
                 navController.navigate(
-                        R.id.action_catalogFragment_to_catalogItemFragment,
+                        R.id.action_catalogMasterFragment_to_catalogDetailsFragment,
                         bundle,
                         null,
                         extras);
 
             } else {
                 navController.navigate(
-                        R.id.action_catalogFragment_to_catalogItemFragment,
+                        R.id.action_catalogMasterFragment_to_catalogDetailsFragment,
                         bundle);
             }
         }

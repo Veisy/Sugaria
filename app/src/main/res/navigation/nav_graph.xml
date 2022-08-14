@@ -3,28 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/chartFragment">
+    app:startDestination="@id/chartMasterFragment">
 
     <fragment
-        android:id="@+id/chartFragment"
+        android:id="@+id/chartMasterFragment"
         android:name="com.example.sekerimremake.fragments.ChartMasterFragment"
         android:label="@string/chart"
         tools:layout="@layout/fragment_chart">
         <action
-            android:id="@+id/action_chartFragment_to_chartRowFragment"
-            app:destination="@id/chartRowFragment" />
+            android:id="@+id/action_chartMasterFragment_to_chartDetailsFragment"
+            app:destination="@id/chartDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/catalogFragment"
+        android:id="@+id/catalogMasterFragment"
         android:name="com.example.sekerimremake.fragments.CatalogMasterFragment"
         android:label="@string/catalog"
         tools:layout="@layout/fragment_catalog">
         <action
-            android:id="@+id/action_catalogFragment_to_catalogItemFragment"
-            app:destination="@id/catalogItemFragment" />
+            android:id="@+id/action_catalogMasterFragment_to_catalogDetailsFragment"
+            app:destination="@id/catalogDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/catalogItemFragment"
+        android:id="@+id/catalogDetailsFragment"
         android:name="com.example.sekerimremake.fragments.CatalogDetailFragment"
         android:label="@string/catalog"
         tools:layout="@layout/fragment_catalog_detail">
@@ -34,7 +34,7 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/chartRowFragment"
+        android:id="@+id/chartDetailsFragment"
         android:name="com.example.sekerimremake.fragments.ChartDetailFragment"
         android:label="@string/chart"
         tools:layout="@layout/fragment_chart_detail">

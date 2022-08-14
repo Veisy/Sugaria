@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/chartFragment"
+        android:id="@+id/chartMasterFragment"
         android:enabled="true"
         android:icon="@drawable/ic_chart"
         android:title="@string/chart_navigation"/>
     <item
-        android:id="@+id/catalogFragment"
+        android:id="@+id/catalogMasterFragment"
         android:enabled="true"
         android:icon="@drawable/ic_catalog"
         android:title="@string/catalog_navigation" />
