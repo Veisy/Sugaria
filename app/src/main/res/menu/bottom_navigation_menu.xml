@@ -12,11 +12,6 @@
         android:icon="@drawable/ic_catalog"
         android:title="@string/catalog_navigation" />
     <item
-        android:id="@+id/alarmFragment"
-        android:enabled="true"
-        android:icon="@drawable/ic_alarm"
-        android:title="@string/alarm_navigation"/>
-    <item
         android:id="@+id/checkFragment"
         android:enabled="true"
         android:icon="@drawable/ic_check"

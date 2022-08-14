@@ -6,8 +6,6 @@
     <string name="catalog">Education Catalogue</string>
     <string name="chart_navigation">Chart</string>
     <string name="chart">Tracking Chart</string>
-    <string name="alarm_navigation">Alarm</string>
-    <string name="alarm">Insulin/Blood Sugar Alarm</string>
     <string name="check_navigation">Checks</string>
     <string name="check">Annual Checks</string>
     <string name="next">NEXT</string>
@@ -46,7 +44,6 @@
     <string name="glucose_measurement_instruction">*Measurements on an empty stomach should be done before starting the meal, measurements on a full stomach should be done 2 hours after taking the first bite.</string>
     <string name="catalog_item_swipe_reminder">You can scroll the page with your finger</string>
     <string name="choose_a_day">Choose A Day</string>
-    <string name="add_an_alarm">Add an alarm</string>
     <string name="eye_controls">Eye Checks</string>
     <string name="foot_controls">Foot Checks</string>
     <string name="add_foot_check">Add foot check appointment</string>

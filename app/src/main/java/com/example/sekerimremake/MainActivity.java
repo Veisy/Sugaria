@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         assert navHostFragment != null;
         NavController navController = navHostFragment.getNavController();
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.checkFragment, R.id.catalogFragment, R.id.chartFragment, R.id.alarmFragment).build();
+                new AppBarConfiguration.Builder(R.id.checkFragment, R.id.catalogFragment, R.id.chartFragment).build();
 
         // Handle toolbar and bottom navigation menu.
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {

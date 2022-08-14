@@ -29,11 +29,6 @@
         android:label="@string/check"
         tools:layout="@layout/fragment_check" />
     <fragment
-        android:id="@+id/alarmFragment"
-        android:name="com.example.sekerimremake.fragments.AlarmFragment"
-        android:label="@string/alarm"
-        tools:layout="@layout/fragment_alarm" />
-    <fragment
         android:id="@+id/catalogItemFragment"
         android:name="com.example.sekerimremake.fragments.CatalogDetailFragment"
         android:label="@string/catalog"
