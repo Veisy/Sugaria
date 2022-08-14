@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/chartMasterFragment"
-        android:name="com.example.sekerimremake.fragments.ChartMasterFragment"
+        android:name="com.vyy.sekerimremake.fragments.ChartMasterFragment"
         android:label="@string/chart"
         tools:layout="@layout/fragment_chart">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/catalogMasterFragment"
-        android:name="com.example.sekerimremake.fragments.CatalogMasterFragment"
+        android:name="com.vyy.sekerimremake.fragments.CatalogMasterFragment"
         android:label="@string/catalog"
         tools:layout="@layout/fragment_catalog">
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/catalogDetailsFragment"
-        android:name="com.example.sekerimremake.fragments.CatalogDetailFragment"
+        android:name="com.vyy.sekerimremake.fragments.CatalogDetailFragment"
         android:label="@string/catalog"
         tools:layout="@layout/fragment_catalog_detail">
         <argument
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/chartDetailsFragment"
-        android:name="com.example.sekerimremake.fragments.ChartDetailFragment"
+        android:name="com.vyy.sekerimremake.fragments.ChartDetailFragment"
         android:label="@string/chart"
         tools:layout="@layout/fragment_chart_detail">
         <argument
