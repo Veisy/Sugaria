@@ -11,10 +11,4 @@
         android:enabled="true"
         android:icon="@drawable/ic_catalog"
         android:title="@string/catalog_navigation" />
-    <item
-        android:id="@+id/checkFragment"
-        android:enabled="true"
-        android:icon="@drawable/ic_check"
-        android:title="@string/check_navigation"/>
-
 </menu>

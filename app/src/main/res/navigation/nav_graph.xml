@@ -24,11 +24,6 @@
             app:destination="@id/catalogItemFragment" />
     </fragment>
     <fragment
-        android:id="@+id/checkFragment"
-        android:name="com.example.sekerimremake.fragments.CheckFragment"
-        android:label="@string/check"
-        tools:layout="@layout/fragment_check" />
-    <fragment
         android:id="@+id/catalogItemFragment"
         android:name="com.example.sekerimremake.fragments.CatalogDetailFragment"
         android:label="@string/catalog"

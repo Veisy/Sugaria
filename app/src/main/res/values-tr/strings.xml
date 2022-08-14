@@ -5,8 +5,6 @@
     <string name="catalog">Eğitim Kataloğu</string>
     <string name="chart_navigation">Çizelge</string>
     <string name="chart">Takip Çizelgesi</string>
-    <string name="check_navigation">Kontroller</string>
-    <string name="check">Yıllık Kontroller</string>
     <string name="next">İLERİ</string>
     <string name="end">BİTTİ</string>
     <string name="insulin_types_and_information">İnsülin Çeşitleri Ve Bilgileri</string>
@@ -43,10 +41,6 @@
     <string name="glucose_measurement_instruction">*Aç karna ölçümler yemeğe başlamadan önce, tok karna ölçümler ilk lokmayı ağza aldıktan 2 saat sonra yapılmalıdır.</string>
     <string name="catalog_item_swipe_reminder">Sayfayı Parmağınızla Kaydırabilirsiniz</string>
     <string name="choose_a_day">Bir Gün Seçin</string>
-    <string name="eye_controls">Göz Kontrolleri</string>
-    <string name="foot_controls">Ayak kontrolleri</string>
-    <string name="add_foot_check">Bir ayak kontrolu ekleyin</string>
-    <string name="add_eye_check">Bir göz kontrolu ekleyin</string>
     <string name="settings">Ayarlar</string>
 
     <string-array name="Months">
