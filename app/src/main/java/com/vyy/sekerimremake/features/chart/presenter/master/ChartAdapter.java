@@ -11,61 +11,61 @@ import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vyy.sekerimremake.R;
-import com.vyy.sekerimremake.databinding.ChartSingleDayRowBinding;
-import com.vyy.sekerimremake.features.chart.domain.model.ChartRowModel;
-import com.vyy.sekerimremake.features.chart.utils.CheckValueRange;
+import com.vyy.sekerimremake.databinding.ChartDayBinding;
+import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel;
+import com.vyy.sekerimremake.features.chart.utils.GlucoseLevelChecker;
 
 import java.util.List;
 
 public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHolder> {
 
     private final Context mContext;
-    private final List<ChartRowModel> chartRows;
-    private final OnRowClickListener mOnRowListener;
+    private final List<ChartDayModel> chartDays;
+    private final OnDayClickListener mOnDayListener;
 
-    public ChartAdapter(Context mContext, List<ChartRowModel> chartRows, OnRowClickListener onRowClickListener) {
+    public ChartAdapter(Context mContext, List<ChartDayModel> chartDays, OnDayClickListener onDayClickListener) {
         this.mContext = mContext;
-        this.chartRows = chartRows;
-        this.mOnRowListener = onRowClickListener;
+        this.chartDays = chartDays;
+        this.mOnDayListener = onDayClickListener;
     }
 
     public static class ChartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ChartSingleDayRowBinding binding;
-        OnRowClickListener onRowClickListener;
+        ChartDayBinding binding;
+        OnDayClickListener onDayClickListener;
 
-        public ChartViewHolder(@NonNull ChartSingleDayRowBinding b, OnRowClickListener onRowClickListener) {
+        public ChartViewHolder(@NonNull ChartDayBinding b, OnDayClickListener onDayClickListener) {
             super(b.getRoot());
             binding = b;
-            this.onRowClickListener = onRowClickListener;
-            binding.singleDay.setOnClickListener(this);
+            this.onDayClickListener = onDayClickListener;
+            binding.chartDay.setOnClickListener(this);
         }
 
         public void setTransitionName(int imageId) {
-            ViewCompat.setTransitionName(binding.singleDay, String.valueOf(imageId));
+            ViewCompat.setTransitionName(binding.chartDay, String.valueOf(imageId));
         }
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            onRowClickListener.onRowClick(position, binding.singleDay);
+            onDayClickListener.onRowClick(position, binding.chartDay);
         }
     }
 
-    public interface OnRowClickListener {
+    public interface OnDayClickListener {
         void onRowClick(int position, View view);
     }
 
     @NonNull
     @Override
     public ChartAdapter.ChartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ChartViewHolder(ChartSingleDayRowBinding.inflate(LayoutInflater.from(mContext),
+        return new ChartViewHolder(ChartDayBinding.inflate(LayoutInflater.from(mContext),
                 parent, false)
-                , mOnRowListener);
+                , mOnDayListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ChartViewHolder holder, int position) {
-        ChartRowModel theDay = chartRows.get(position);
+        ChartDayModel theDay = chartDays.get(position);
         String monthAndYearTogether = mContext.getResources()
                 .getStringArray(R.array.Months)[theDay.getMonth()] + "\n" + theDay.getYear();
         holder.binding.textViewDayDay.setText(String.valueOf(theDay.getDayOfMonth()));
@@ -87,7 +87,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
                 holderTextViews[i].setBackgroundResource(R.drawable.text_frame);
             } else {
                 holderTextViews[i].setText(String.valueOf(theDayFields[i]));
-                warningFlag = CheckValueRange.checkValueRange(mContext, i, theDayFields[i]);
+                warningFlag = GlucoseLevelChecker.checkGlucoseLevel(mContext, i, theDayFields[i]);
                 if (warningFlag == 2){
                     holderTextViews[i].setBackgroundResource(R.drawable.text_frame_warning_range);
                 } else if (warningFlag == 3){
@@ -101,6 +101,6 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
 
     @Override
     public int getItemCount() {
-        return chartRows.size();
+        return chartDays.size();
     }
 }

@@ -25,14 +25,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vyy.sekerimremake.R;
+import com.vyy.sekerimremake.databinding.ChartDayBinding;
 import com.vyy.sekerimremake.features.chart.data.source.local.ChartDbHelper;
 import com.vyy.sekerimremake.databinding.ChartEditTableBinding;
-import com.vyy.sekerimremake.databinding.ChartSingleDayRowBinding;
 import com.vyy.sekerimremake.databinding.FragmentChartDetailBinding;
-import com.vyy.sekerimremake.features.chart.presenter.OnFocusChangeListenerInsulinLimits;
+import com.vyy.sekerimremake.features.chart.utils.OnFocusChangeListenerInsulinLimits;
 import com.vyy.sekerimremake.utils.filters.InputFilterMax;
-import com.vyy.sekerimremake.features.chart.domain.model.ChartRowModel;
-import com.vyy.sekerimremake.features.chart.utils.CheckValueRange;
+import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel;
+import com.vyy.sekerimremake.features.chart.utils.GlucoseLevelChecker;
 
 import java.util.Calendar;
 import java.util.List;
@@ -50,8 +50,8 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
     private Context mContext;
     private EditText[] editTexts;
     private ImageButton[] editImageButtons;
-    private ChartRowModel newRow;
-    private List<ChartRowModel> chartRows;
+    private ChartDayModel newRow;
+    private List<ChartDayModel> chartRows;
 
     private boolean addConfigurationFlag;
     private int position;
@@ -265,7 +265,7 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
         }
         if (!rowExist) {
             addConfigurationFlag = true;
-            newRow = new ChartRowModel();
+            newRow = new ChartDayModel();
             newRow.setRowId(-1);
             newRow.setDayOfMonth(dayOfMonth);
             newRow.setMonth(month);
@@ -288,8 +288,8 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private void fillSingleRowHeader() {
-        ChartSingleDayRowBinding singleDayRowBinding = binding.includedSingleDayRow;
-        ViewCompat.setTransitionName(singleDayRowBinding.singleDay, String.valueOf(newRow.getRowId()));
+        ChartDayBinding chartDayBinding = binding.includedChartDay;
+        ViewCompat.setTransitionName(chartDayBinding.chartDay, String.valueOf(newRow.getRowId()));
         Transition transition = TransitionInflater.from(mContext)
                 .inflateTransition(R.transition.shared_image);
         setSharedElementEnterTransition(transition);
@@ -297,20 +297,20 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
             @Override
             public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
                 super.onMapSharedElements(names, sharedElements);
-                sharedElements.put(binding.includedSingleDayRow.singleDay.getTransitionName(),
-                        binding.includedSingleDayRow.singleDay);
+                sharedElements.put(binding.includedChartDay.chartDay.getTransitionName(),
+                        binding.includedChartDay.chartDay);
             }
         });
 
-        TextView[] headerTextViews = new TextView[]{singleDayRowBinding.textViewDayMorningEmpty,
-                singleDayRowBinding.textViewDayMorningFull, singleDayRowBinding.textViewDayAfternoonEmpty,
-                singleDayRowBinding.textViewDayAfternoonFull, singleDayRowBinding.textViewDayEveningEmpty,
-                singleDayRowBinding.textViewDayEveningFull, singleDayRowBinding.textViewDayNight};
+        TextView[] headerTextViews = new TextView[]{chartDayBinding.textViewDayMorningEmpty,
+                chartDayBinding.textViewDayMorningFull, chartDayBinding.textViewDayAfternoonEmpty,
+                chartDayBinding.textViewDayAfternoonFull, chartDayBinding.textViewDayEveningEmpty,
+                chartDayBinding.textViewDayEveningFull, chartDayBinding.textViewDayNight};
         if (newRow != null) {
-            singleDayRowBinding.textViewDayDay.setText(String.valueOf(newRow.getDayOfMonth()));
+            chartDayBinding.textViewDayDay.setText(String.valueOf(newRow.getDayOfMonth()));
             String monthAndYearTogether = (getResources()
                     .getStringArray(R.array.Months))[newRow.getMonth()] + "\n" + newRow.getYear();
-            singleDayRowBinding.textViewDayMonthYear.setText(monthAndYearTogether);
+            chartDayBinding.textViewDayMonthYear.setText(monthAndYearTogether);
 
             final int[] newRowFields = {newRow.getMorningEmpty(), newRow.getMorningFull(),
                     newRow.getAfternoonEmpty(), newRow.getAfternoonFull(), newRow.getEveningEmpty(),
@@ -324,7 +324,7 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
                     headerTextViews[i].setBackgroundResource(R.drawable.text_frame);
                 } else {
                     headerTextViews[i].setText(String.valueOf(newRowFields[i]));
-                    warningFlag = CheckValueRange.checkValueRange(mContext, i, newRowFields[i]);
+                    warningFlag = GlucoseLevelChecker.checkGlucoseLevel(mContext, i, newRowFields[i]);
                     if (warningFlag == 2){
                         headerTextViews[i].setBackgroundResource(R.drawable.text_frame_warning_range);
                     } else if (warningFlag == 3){
@@ -358,15 +358,12 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
     private void showDatePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
         DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        cleanTextViews();
-                        checkTheDay(dayOfMonth, month, year);
-                        formatLayout(addConfigurationFlag);
-                        fillTextViews();
-                        fillSingleRowHeader();
-                    }
+                (view, year, month, dayOfMonth) -> {
+                    cleanTextViews();
+                    checkTheDay(dayOfMonth, month, year);
+                    formatLayout(addConfigurationFlag);
+                    fillTextViews();
+                    fillSingleRowHeader();
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();

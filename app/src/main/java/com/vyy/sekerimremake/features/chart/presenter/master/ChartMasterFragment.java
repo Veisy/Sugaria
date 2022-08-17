@@ -24,7 +24,7 @@ import com.vyy.sekerimremake.databinding.FragmentChartBinding;
 import java.util.List;
 import java.util.Map;
 
-public class ChartMasterFragment extends Fragment implements ChartAdapter.OnRowClickListener {
+public class ChartMasterFragment extends Fragment implements ChartAdapter.OnDayClickListener {
 
     private FragmentChartBinding binding;
     private Context mContext;

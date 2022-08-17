@@ -1,13 +1,13 @@
 package com.vyy.sekerimremake.features.chart.domain.model;
 
-public class ChartRowModel {
+public class ChartDayModel {
     private int rowId, dayOfMonth, month, year, morningEmpty, morningFull, afternoonEmpty,
             afternoonFull, eveningEmpty, eveningFull, night;
 
-    public ChartRowModel() {
+    public ChartDayModel() {
     }
 
-    public ChartRowModel(int rowId, int dayOfMonth, int month, int year,  int morningEmpty,
+    public ChartDayModel(int rowId, int dayOfMonth, int month, int year, int morningEmpty,
                          int morningFull, int afternoonEmpty, int afternoonFull, int eveningEmpty,
                          int eveningFull, int night) {
         this.rowId = rowId;

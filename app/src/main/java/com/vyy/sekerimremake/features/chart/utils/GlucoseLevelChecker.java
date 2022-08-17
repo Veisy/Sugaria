@@ -5,14 +5,14 @@ import android.content.res.Resources;
 
 import com.vyy.sekerimremake.R;
 
-public class CheckValueRange {
+public class GlucoseLevelChecker {
 
     // Private constructor to prevent instantiation
-    private CheckValueRange() {
+    private GlucoseLevelChecker() {
         throw new UnsupportedOperationException();
     }
 
-    public static int checkValueRange(Context context, int i, int value) {
+    public static int checkGlucoseLevel(Context context, int i, int value) {
         Resources resources = context.getResources();
         int margin = resources.getInteger(R.integer.measurement_margin);
         if ((i == 0 || i == 2 || i == 4)) {

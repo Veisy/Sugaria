@@ -1,4 +1,4 @@
-package com.vyy.sekerimremake;
+package com.vyy.sekerimremake.views;
 
 import android.content.Context;
 import android.util.AttributeSet;

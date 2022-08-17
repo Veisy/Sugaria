@@ -1,4 +1,4 @@
-package com.vyy.sekerimremake.features.chart.presenter;
+package com.vyy.sekerimremake.features.chart.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;

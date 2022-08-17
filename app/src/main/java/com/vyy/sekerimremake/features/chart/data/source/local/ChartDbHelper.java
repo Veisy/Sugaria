@@ -9,7 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.vyy.sekerimremake.features.chart.domain.model.ChartRowModel;
+import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,51 +53,51 @@ public class ChartDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addOne(ChartRowModel chartRowModel) {
+    public boolean addOne(ChartDayModel chartDayModel) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = putContentValues(chartRowModel);
+        ContentValues cv = putContentValues(chartDayModel);
 
         final long insert = db.insert(CHART_TABLE, null, cv);
         db.close();
         return insert != -1;
     }
 
-    public boolean deleteOne(ChartRowModel chartRowModel) {
+    public boolean deleteOne(ChartDayModel chartDayModel) {
         // find customerModel in the database. If it is found , delete it and return true.
         // if it is not found, return false.
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        final int delete = sqLiteDatabase.delete(CHART_TABLE, "ROW_ID=" + chartRowModel.getRowId(), null);
+        final int delete = sqLiteDatabase.delete(CHART_TABLE, "ROW_ID=" + chartDayModel.getRowId(), null);
 
         return delete != -1;
     }
 
-    public boolean updateData(ChartRowModel chartRowModel){
+    public boolean updateData(ChartDayModel chartDayModel){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = putContentValues(chartRowModel);
+        ContentValues cv = putContentValues(chartDayModel);
 
-        long result = db.update(CHART_TABLE, cv, "ROW_ID="+chartRowModel.getRowId(), null);
+        long result = db.update(CHART_TABLE, cv, "ROW_ID="+ chartDayModel.getRowId(), null);
         return result != -1;
 
     }
 
-    private ContentValues putContentValues(ChartRowModel chartRowModel) {
+    private ContentValues putContentValues(ChartDayModel chartDayModel) {
         ContentValues cv = new ContentValues();
-        cv.put(DATE_DAY, chartRowModel.getDayOfMonth());
-        cv.put(DATE_MONTH, chartRowModel.getMonth());
-        cv.put(DATE_YEAR, chartRowModel.getYear());
-        cv.put(MORNING_EMPTY, chartRowModel.getMorningEmpty());
-        cv.put(MORNING_FULL, chartRowModel.getMorningFull());
-        cv.put(AFTERNOON_EMPTY, chartRowModel.getAfternoonEmpty());
-        cv.put(AFTERNOON_FULL, chartRowModel.getAfternoonFull());
-        cv.put(EVENING_EMPTY, chartRowModel.getEveningEmpty());
-        cv.put(EVENING_FULL, chartRowModel.getEveningFull());
-        cv.put(NIGHT, chartRowModel.getNight());
+        cv.put(DATE_DAY, chartDayModel.getDayOfMonth());
+        cv.put(DATE_MONTH, chartDayModel.getMonth());
+        cv.put(DATE_YEAR, chartDayModel.getYear());
+        cv.put(MORNING_EMPTY, chartDayModel.getMorningEmpty());
+        cv.put(MORNING_FULL, chartDayModel.getMorningFull());
+        cv.put(AFTERNOON_EMPTY, chartDayModel.getAfternoonEmpty());
+        cv.put(AFTERNOON_FULL, chartDayModel.getAfternoonFull());
+        cv.put(EVENING_EMPTY, chartDayModel.getEveningEmpty());
+        cv.put(EVENING_FULL, chartDayModel.getEveningFull());
+        cv.put(NIGHT, chartDayModel.getNight());
 
         return cv;
     }
 
-    public List<ChartRowModel> getEveryone() {
-        List<ChartRowModel> returnList = new ArrayList<>();
+    public List<ChartDayModel> getEveryone() {
+        List<ChartDayModel> returnList = new ArrayList<>();
         String queryString = "SELECT * FROM " +CHART_TABLE+ " ORDER BY " +DATE_YEAR+ " ASC, "
                 +DATE_MONTH+ " ASC, " +DATE_DAY+ " ASC";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -119,7 +119,7 @@ public class ChartDbHelper extends SQLiteOpenHelper {
                 int night = cursor.getInt(10);
 
 
-                ChartRowModel newDayRow = new ChartRowModel(rowId, dateDay, dateMonth, dateYear,morningEmpty,
+                ChartDayModel newDayRow = new ChartDayModel(rowId, dateDay, dateMonth, dateYear,morningEmpty,
                         morningFull, afternoonEmpty, afternoonFull, eveningEmpty, eveningFull, night);
                 returnList.add(newDayRow);
             } while (cursor.moveToNext());

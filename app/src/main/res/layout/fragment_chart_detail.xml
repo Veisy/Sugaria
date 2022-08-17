@@ -24,8 +24,8 @@
             tools:context="com.vyy.sekerimremake.features.chart.presenter.detail.ChartDetailFragment">
 
             <include
-                android:id="@+id/included_single_day_row"
-                layout="@layout/chart_single_day_row"
+                android:id="@+id/included_chart_day"
+                layout="@layout/chart_day"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_large"
@@ -46,7 +46,7 @@
                 android:background="@drawable/main_tracking_chart"
                 app:layout_constraintBottom_toTopOf="@id/included_chart_edit_table"
                 app:layout_constraintStart_toStartOf="@+id/guidelineAddRow"
-                app:layout_constraintTop_toBottomOf="@id/included_single_day_row"
+                app:layout_constraintTop_toBottomOf="@id/included_chart_day"
                 android:contentDescription="@string/choose_a_day" />
 
             <TextView
