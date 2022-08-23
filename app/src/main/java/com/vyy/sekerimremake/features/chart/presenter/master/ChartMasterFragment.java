@@ -70,6 +70,16 @@ public class ChartMasterFragment extends Fragment implements ChartAdapter.OnDayC
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
+        initRecyclerView();
+
+        binding.floatingActionButtonAddRow.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("button_flag", true);
+            navController.navigate(R.id.action_chartMasterFragment_to_chartDetailsFragment, bundle);
+         });
+    }
+
+    private void initRecyclerView() {
         ChartAdapter chartAdapter = new ChartAdapter(mContext, new ChartDbHelper(mContext)
                 .getEveryone(), this);
         binding.recyclerViewChart.setAdapter(chartAdapter);
@@ -82,11 +92,6 @@ public class ChartMasterFragment extends Fragment implements ChartAdapter.OnDayC
         if (chartAdapter.getItemCount() > 1) {
             binding.recyclerViewChart.scrollToPosition(chartAdapter.getItemCount() - 1);
         }
-        binding.floatingActionButtonAddRow.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putBoolean("button_flag", true);
-            navController.navigate(R.id.action_chartMasterFragment_to_chartDetailsFragment, bundle);
-         });
     }
 
     @Override
