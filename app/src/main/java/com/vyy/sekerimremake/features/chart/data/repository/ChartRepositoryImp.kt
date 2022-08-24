@@ -18,8 +18,8 @@ class ChartRepositoryImp @Inject constructor(
     override fun getChartFromFirestore() = callbackFlow {
         val snapshotListener = chartRef.orderBy(DATE).addSnapshotListener { snapshot, e ->
             val response = if (snapshot != null) {
-                val books = snapshot.toObjects(ChartDayModel::class.java)
-                Response.Success(books)
+                val chartModels = snapshot.toObjects(ChartDayModel::class.java)
+                Response.Success(chartModels)
             } else {
                 Response.Error(e?.message ?: e.toString())
             }
