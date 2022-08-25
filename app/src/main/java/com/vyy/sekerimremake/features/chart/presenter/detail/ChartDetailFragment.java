@@ -18,7 +18,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -273,7 +272,7 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private void setCatalogRowModel() {
+    private void setChartRowModel() {
         newRow.setMorningEmpty(parseIntStringView(includedBinding.editTextNumberMorningEmpty));
         newRow.setMorningFull(parseIntStringView(includedBinding.editTextNumberMorningFull));
         newRow.setAfternoonEmpty(parseIntStringView(includedBinding.editTextNumberAfternoonEmpty));
@@ -370,7 +369,7 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private boolean addToDataBase() {
-        setCatalogRowModel();
+        setChartRowModel();
         try {
             if (newRow.getDayOfMonth() == 0 || newRow.getYear() == 0) {
                 Toast.makeText(mContext, "Bir tarih seçin.", Toast.LENGTH_SHORT).show();
@@ -398,7 +397,7 @@ public class ChartDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private boolean updateDataBase() {
-        setCatalogRowModel();
+        setChartRowModel();
         ChartDbHelper chartDbHelper = new ChartDbHelper(mContext);
         if (newRow.getMorningEmpty() == 0 && newRow.getMorningFull() == 0
                 && newRow.getAfternoonEmpty() == 0 && newRow.getAfternoonFull() == 0

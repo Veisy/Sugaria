@@ -8,6 +8,7 @@ buildscript {
         google_services_version = "4.3.13"
         hilt_version = "2.43.2"
         firebase_bom_version = "30.3.1"
+        play_services_version = "1.6.2"
         glide_version = "4.11.0"
     }
 

@@ -4,5 +4,4 @@ object ChartConstants {
 
     //Firestore
     const val CHARTS = "charts"
-    const val DATE = "date"
 }

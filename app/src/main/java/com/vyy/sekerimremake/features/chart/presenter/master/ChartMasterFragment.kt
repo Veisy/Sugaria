@@ -36,7 +36,6 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChartBinding.inflate(inflater, container, false)
-
         scrollPosition = savedInstanceState?.getInt("scrollPosition")
             ?: (arguments?.getInt("scrollPosition") ?: 0)
 
@@ -76,7 +75,6 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 val data = ChartDbHelper(requireContext()).everyone
-
                 val chartAdapter = ChartAdapter(
                     requireContext(),
                     data,
@@ -155,4 +153,32 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
         super.onDestroyView()
         _binding = null
     }
+
+//    private fun fillChartWithRandomData(
+//        monthStart: Int,
+//        monthEnd: Int,
+//        dayStart: Int,
+//        dayEnd: Int
+//    ) {
+//        val helper = ChartDbHelper(requireContext())
+//        var model: ChartDayModel?
+//        for (i in monthStart until monthEnd) {
+//            for (j in dayStart until dayEnd) {
+//                model = ChartDayModel(
+//                    -1,
+//                    j,
+//                    i,
+//                    2021,
+//                    if (Random().nextInt(10) > 1) Random().nextInt(75) + 65 else 0,
+//                    if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0,
+//                    if (Random().nextInt(10) > 1) Random().nextInt(75) + 65 else 0,
+//                    if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0,
+//                    if (Random().nextInt(10) > 1) Random().nextInt(75) + 65 else 0,
+//                    if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0,
+//                    if (Random().nextInt(10) > 5) Random().nextInt(75) + 85 else 0
+//                )
+//                helper.addOne(model)
+//            }
+//        }
+//    }
 }

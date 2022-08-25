@@ -6,6 +6,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.vyy.sekerimremake.features.chart.data.repository.ChartRepositoryImp
 import com.vyy.sekerimremake.features.chart.domain.repository.ChartRepository
+import com.vyy.sekerimremake.features.chart.domain.use_case.AddRow
+import com.vyy.sekerimremake.features.chart.domain.use_case.DeleteRow
 import com.vyy.sekerimremake.features.chart.domain.use_case.GetChart
 import com.vyy.sekerimremake.features.chart.domain.use_case.UseCases
 import com.vyy.sekerimremake.features.chart.utils.ChartConstants.CHARTS
@@ -34,6 +36,8 @@ object AppModule {
     fun provideUseCases(
         repo: ChartRepository
     ) = UseCases(
-        getChart = GetChart(repo)
+        getChart = GetChart(repo),
+        addRow = AddRow(repo),
+        deleteRow = DeleteRow(repo)
     )
 }
