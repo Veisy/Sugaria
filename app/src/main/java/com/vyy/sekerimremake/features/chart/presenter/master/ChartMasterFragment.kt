@@ -1,6 +1,7 @@
 package com.vyy.sekerimremake.features.chart.presenter.master
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +16,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vyy.sekerimremake.R
 import com.vyy.sekerimremake.databinding.FragmentChartBinding
-import com.vyy.sekerimremake.features.chart.data.source.local.ChartDbHelper
-import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
+import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.*
 
 @AndroidEntryPoint
 class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
@@ -36,6 +35,8 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChartBinding.inflate(inflater, container, false)
+
+        //TODO: scrollPosition seems not working.
         scrollPosition = savedInstanceState?.getInt("scrollPosition")
             ?: (arguments?.getInt("scrollPosition") ?: 0)
 
@@ -44,7 +45,6 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRecyclerView()
 
         binding.floatingActionButtonAddRow.setOnClickListener {
@@ -74,43 +74,44 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                val data = ChartDbHelper(requireContext()).everyone
-                val chartAdapter = ChartAdapter(
-                    requireContext(),
-                    data,
-                    this@ChartMasterFragment
-                )
+//                val data = ChartDbHelper(requireContext()).everyone
+//                val chartAdapter = ChartAdapter(
+//                    requireContext(),
+//                    data,
+//                    this@ChartMasterFragment
+//                )
+//
+//                with(binding.recyclerViewChart) {
+//                    this.adapter = chartAdapter
+//                    if (chartAdapter.itemCount > 1) {
+//                        this.scrollToPosition(chartAdapter.itemCount - 1)
+//                    }
+//                }
 
-                with(binding.recyclerViewChart) {
-                    this.adapter = chartAdapter
-                    if (chartAdapter.itemCount > 1) {
-                        this.scrollToPosition(chartAdapter.itemCount - 1)
+                viewModel.chartResponse.collect { response ->
+                    when (response) {
+                        is Response.Success -> {
+                            val chartAdapter = ChartAdapter(
+                                requireContext(),
+                                response.data,
+                                this@ChartMasterFragment
+                            )
+
+                            with(binding.recyclerViewChart) {
+                                this.adapter = chartAdapter
+                                if (chartAdapter.itemCount > 1) {
+                                    this.scrollToPosition(chartAdapter.itemCount - 1)
+                                }
+                            }
+                        }
+                        is Response.Error -> {
+                            Log.d("ChartMasterFragment", response.message)
+                        }
+                        else -> {
+                            //TODO
+                        }
                     }
                 }
-
-//                viewModel.chartResponse.collect { response ->
-//                    when (response) {
-//                        is Response.Success -> {
-//                            val chartAdapter = ChartAdapter(
-//                                requireContext(),
-//                                response.data,
-//                                this@ChartMasterFragment
-//                            )
-//
-//                            with(binding.recyclerViewChart) {
-//                                this.adapter = chartAdapter
-//                                if (chartAdapter.itemCount > 1) {
-//                                    this.scrollToPosition(chartAdapter.itemCount - 1)
-//                                }
-//                            }
-//                        }
-//                        is Response.Error -> {
-//                            Log.d("ChartMasterFragment", response.message )
-//                        }
-//                        else ->  {
-//                            //TODO
-//                        }
-//                    }
             }
         }
     }

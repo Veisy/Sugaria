@@ -12,18 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vyy.sekerimremake.R;
 import com.vyy.sekerimremake.databinding.ChartDayBinding;
-import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel;
+import com.vyy.sekerimremake.features.chart.domain.model.ChartRowModel;
 import com.vyy.sekerimremake.features.chart.utils.GlucoseLevelChecker;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHolder> {
 
     private final Context mContext;
-    private final List<ChartDayModel> chartDays;
+    private final List<ChartRowModel> chartDays;
     private final OnDayClickListener mOnDayListener;
 
-    public ChartAdapter(Context mContext, List<ChartDayModel> chartDays, OnDayClickListener onDayClickListener) {
+    public ChartAdapter(Context mContext, List<ChartRowModel> chartDays, OnDayClickListener onDayClickListener) {
         this.mContext = mContext;
         this.chartDays = chartDays;
         this.mOnDayListener = onDayClickListener;
@@ -40,8 +41,8 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
             binding.chartDay.setOnClickListener(this);
         }
 
-        public void setTransitionName(int imageId) {
-            ViewCompat.setTransitionName(binding.chartDay, String.valueOf(imageId));
+        public void setTransitionName(String imageId) {
+            ViewCompat.setTransitionName(binding.chartDay, imageId);
         }
 
         @Override
@@ -65,13 +66,13 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ChartViewHolder holder, int position) {
-        ChartDayModel theDay = chartDays.get(position);
+        ChartRowModel theDay = chartDays.get(position);
         String monthAndYearTogether = mContext.getResources()
-                .getStringArray(R.array.Months)[theDay.getMonth()] + "\n" + theDay.getYear();
-        holder.binding.textViewDayDay.setText(String.valueOf(theDay.getDayOfMonth()));
+                .getStringArray(R.array.Months)[Integer.parseInt(Objects.requireNonNull(theDay.getMonth()))] + "\n" + theDay.getYear();
+        holder.binding.textViewDayDay.setText(theDay.getDayOfMonth());
         holder.binding.textViewDayMonthYear.setText(monthAndYearTogether);
         holder.setTransitionName(theDay.getRowId());
-        final int[] theDayFields = {theDay.getMorningEmpty(), theDay.getMorningFull(),
+        final String[] theDayFields = {theDay.getMorningEmpty(), theDay.getMorningFull(),
                 theDay.getAfternoonEmpty(), theDay.getAfternoonFull(), theDay.getEveningEmpty(),
                 theDay.getEveningFull(), theDay.getNight()};
         final TextView[] holderTextViews = {holder.binding.textViewDayMorningEmpty,
@@ -82,12 +83,12 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
         //Chance background according to value range.
         int warningFlag;
         for(int i = 0; i < theDayFields.length; i++) {
-            if (theDayFields[i] == 0) {
+            if (theDayFields[i] == null) {
                 holderTextViews[i].setText("");
                 holderTextViews[i].setBackgroundResource(R.drawable.text_frame);
             } else {
-                holderTextViews[i].setText(String.valueOf(theDayFields[i]));
-                warningFlag = GlucoseLevelChecker.checkGlucoseLevel(mContext, i, theDayFields[i]);
+                holderTextViews[i].setText(theDayFields[i]);
+                warningFlag = GlucoseLevelChecker.checkGlucoseLevel(mContext, i, Integer.parseInt(theDayFields[i]));
                 if (warningFlag == 2){
                     holderTextViews[i].setBackgroundResource(R.drawable.text_frame_warning_range);
                 } else if (warningFlag == 3){

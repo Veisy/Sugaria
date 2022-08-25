@@ -38,7 +38,7 @@ class ChartViewModel  @Inject constructor(
         }
     }
 
-    fun deleteBook(rowId: String) = viewModelScope.launch {
+    fun deleteRow(rowId: String) = viewModelScope.launch {
         useCases.deleteRow(rowId).collect { response ->
             deleteRowResponse.update { response }
         }
