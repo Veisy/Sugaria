@@ -19,13 +19,13 @@
     <string name="evening">Evening</string>
     <string name="night">Night</string>
     <string name="hint_enter_result">Measurement</string>
-    <string name="morning_empty_measurement">Morning Empty:</string>
-    <string name="morning_full_measurement">Morning Full:</string>
-    <string name="afternoon_empty_measurement">Afternoon Empty:</string>
-    <string name="afternoon_full_measurement">Afternoon Full:</string>
-    <string name="evening_empty_measurement">Evening Empty:</string>
-    <string name="evening_full_measurement">Evening Full:</string>
-    <string name="night_measurement">Night:</string>
+    <string name="morning_empty_measurement">Morning Empty</string>
+    <string name="morning_full_measurement">Morning Full</string>
+    <string name="afternoon_empty_measurement">Afternoon Empty</string>
+    <string name="afternoon_full_measurement">Afternoon Full</string>
+    <string name="evening_empty_measurement">Evening Empty</string>
+    <string name="evening_full_measurement">Evening Full</string>
+    <string name="night_measurement">Night</string>
     <string name="select_date">Select Date</string>
     <string name="back">BACK</string>
     <string name="update">Update</string>
@@ -42,7 +42,11 @@
     <string name="glucose_measurement_instruction">*Measurements on an empty stomach should be done before starting the meal, measurements on a full stomach should be done 2 hours after taking the first bite.</string>
     <string name="catalog_item_swipe_reminder">You can scroll the page with your finger</string>
     <string name="choose_a_day">Choose A Day</string>
-    <string name="settings">Settings</string>
+    <string name="save_chart">Save Chart</string>
+    <string name="excel_file_name">BloodSugarChart.xls</string>
+    <string name="measurements">Measurements</string>
+    <string name="saved_succesfully">Saved successfully.</string>
+    <string name="operation_failed">The operation failed. Please contact the developer.</string>
 
     <string-array name="Months">
         <item>January</item>

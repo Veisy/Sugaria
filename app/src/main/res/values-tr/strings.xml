@@ -18,13 +18,13 @@
     <string name="evening">Akşam</string>
     <string name="night">Gece</string>
     <string name="hint_enter_result">Ölçüm değeri</string>
-    <string name="morning_empty_measurement">Sabah Aç Ölçüm:</string>
-    <string name="morning_full_measurement">Sabah Tok Ölçüm:</string>
-    <string name="afternoon_empty_measurement">Öğlen Aç Ölçüm:</string>
-    <string name="afternoon_full_measurement">Öğlen Tok Ölçüm:</string>
-    <string name="evening_empty_measurement">Akşam Aç Ölçüm:</string>
-    <string name="evening_full_measurement">Akşam Tok Ölçüm:</string>
-    <string name="night_measurement">Gece Ölçüm:</string>
+    <string name="morning_empty_measurement">Sabah Aç Ölçüm</string>
+    <string name="morning_full_measurement">Sabah Tok Ölçüm</string>
+    <string name="afternoon_empty_measurement">Öğlen Aç Ölçüm</string>
+    <string name="afternoon_full_measurement">Öğlen Tok Ölçüm</string>
+    <string name="evening_empty_measurement">Akşam Aç Ölçüm</string>
+    <string name="evening_full_measurement">Akşam Tok Ölçüm</string>
+    <string name="night_measurement">Gece Ölçüm</string>
     <string name="select_date">Tarih Seçin</string>
     <string name="back">GERİ</string>
     <string name="update">Güncelle</string>
@@ -41,7 +41,11 @@
     <string name="glucose_measurement_instruction">*Aç karna ölçümler yemeğe başlamadan önce, tok karna ölçümler ilk lokmayı ağza aldıktan 2 saat sonra yapılmalıdır.</string>
     <string name="catalog_item_swipe_reminder">Sayfayı Parmağınızla Kaydırabilirsiniz</string>
     <string name="choose_a_day">Bir Gün Seçin</string>
-    <string name="settings">Ayarlar</string>
+    <string name="save_chart">Çizelgeyi Kaydet</string>
+    <string name="excel_file_name">KanSekeriCizelgesi.xls</string>
+    <string name="measurements">Olcumler</string>
+    <string name="saved_succesfully">Başarılı bir şekilde kaydedildi.</string>
+    <string name="operation_failed">İşlem başarısız. Lütfen geliştiriciyle iletişime geçiniz.</string>
 
     <string-array name="Months">
         <item>Ocak</item>
