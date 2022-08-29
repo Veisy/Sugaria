@@ -74,7 +74,6 @@ public class ChartMasterFragment extends Fragment implements ChartAdapter.OnRowC
                 .getEveryone(), this);
         binding.recyclerViewChart.setAdapter(chartAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        linearLayoutManager.setStackFromEnd(true);
         binding.recyclerViewChart.setLayoutManager(linearLayoutManager);
         LayoutAnimationController layoutAnimationController = AnimationUtils
                 .loadLayoutAnimation(mContext, R.anim.recyclerview_layout_animation);
