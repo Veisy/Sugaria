@@ -1,17 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="grid_column_count">4</integer>
-    <integer name="min_measurement_value">20</integer>
-    <integer name="max_measurement_value">500</integer>
-    <!-- Blood Glucose Ranges -->
-    <!-- 70 < Fasting Value < 130  -->
-    <!-- 130 < After Meal Value < 180 -->
-    <!-- 90 < Before Bed Value < 150 -->
-    <integer name="low_measurement_value_empty">70</integer>
-    <integer name="low_measurement_value_full">100</integer>
-    <integer name="high_measurement_value_empty">130</integer>
-    <integer name="high_measurement_value_full">180</integer>
-    <integer name="low_measurement_value_night">90</integer>
-    <integer name="high_measurement_value_night">150</integer>
-    <integer name="measurement_margin">10</integer>
 </resources>
