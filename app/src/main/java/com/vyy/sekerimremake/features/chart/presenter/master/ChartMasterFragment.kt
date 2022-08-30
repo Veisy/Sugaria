@@ -60,7 +60,6 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
     //TODO: Revisit
     private fun initRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(requireContext())
-        linearLayoutManager.stackFromEnd = true
 
         val layoutAnimationController = AnimationUtils.loadLayoutAnimation(
             requireContext(),
