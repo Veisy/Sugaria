@@ -28,7 +28,7 @@
     <string name="select_date">Tarih Seçin</string>
     <string name="back">GERİ</string>
     <string name="update">Güncelle</string>
-    <string name="add">Add</string>
+    <string name="add">Ekle</string>
     <string name="low_glucose_warning">Eğitim Kataloğu\'nda Hipoglisemi başlığındaki adımları izleyin.</string>
     <string name="high_glucose_warning">Eğitim Kataloğu\'nda Hiperglisemi başlığındaki adımları izleyin.</string>
     <string name="invalid_input">Geçersiz giriş.</string>
