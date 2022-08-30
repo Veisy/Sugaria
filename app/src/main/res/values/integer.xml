@@ -11,7 +11,7 @@
     <integer name="low_measurement_value_empty">70</integer>
     <integer name="low_measurement_value_full">100</integer>
     <integer name="high_measurement_value_empty">130</integer>
-    <integer name="high_measurement_value_full">180</integer>
+    <integer name="high_measurement_value_full">170</integer>
     <integer name="low_measurement_value_night">90</integer>
     <integer name="high_measurement_value_night">150</integer>
     <integer name="measurement_margin">10</integer>
