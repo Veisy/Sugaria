@@ -1,13 +1,16 @@
 package com.vyy.sekerimremake.features.chart.domain.repository
 
-import com.vyy.sekerimremake.features.chart.domain.model.ChartRowModel
+import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
 import com.vyy.sekerimremake.utils.Response
 import kotlinx.coroutines.flow.Flow
 
+typealias AddChartResponse = Response<Boolean>
+typealias DeleteChartResponse = Response<Boolean>
+
 interface ChartRepository {
-    fun getChart(): Flow<Response<List<ChartRowModel>>>
+    fun getChart(): Flow<Response<List<ChartDayModel>>>
 
-    fun addChartRow(chartRowModel: ChartRowModel): Flow<Response<Void?>>
+    suspend fun addChartRow(chartDayModel: ChartDayModel): AddChartResponse
 
-    fun deleteChartRow(id: String): Flow<Response<Void?>>
+    suspend fun deleteChartRow(id: String): DeleteChartResponse
 }

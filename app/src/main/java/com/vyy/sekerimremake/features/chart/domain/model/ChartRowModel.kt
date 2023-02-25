@@ -1,15 +1,15 @@
 package com.vyy.sekerimremake.features.chart.domain.model
 
 data class ChartRowModel(
-    var rowId: String? = null,
-    var dayOfMonth: String? = null,
-    var month: String? = null,
-    var year: String? = null,
-    var morningEmpty: String? = null,
-    var morningFull: String? = null,
-    var afternoonEmpty: String? = null,
-    var afternoonFull: String? = null,
-    var eveningEmpty: String? = null,
-    var eveningFull: String? = null,
-    var night: String? = null
+    var rowId: Int = 0,
+    var dayOfMonth: Int = 0,
+    var month: Int = 0,
+    var year: Int = 0,
+    var morningEmpty: Int = 0,
+    var morningFull: Int = 0,
+    var afternoonEmpty: Int = 0,
+    var afternoonFull: Int = 0,
+    var eveningEmpty: Int = 0,
+    var eveningFull: Int = 0,
+    var night: Int = 0
 )

@@ -23,12 +23,12 @@ object AppModule {
     fun provideFirebaseFirestore() = Firebase.firestore
 
     @Provides
-    fun provideBooksRef(
+    fun provideChartsRef(
         db: FirebaseFirestore
     ) = db.collection(CHARTS)
 
     @Provides
-    fun provideBooksRepository(
+    fun provideChartRepository(
         chartRef: CollectionReference
     ): ChartRepository = ChartRepositoryImp(chartRef)
 

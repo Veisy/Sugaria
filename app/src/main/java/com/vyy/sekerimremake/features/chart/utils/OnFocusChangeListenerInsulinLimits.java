@@ -45,11 +45,8 @@ public class OnFocusChangeListenerInsulinLimits implements View.OnFocusChangeLis
                             message = resources.getString(R.string.high_glucose_warning);
                         }
                         builder.setTitle(title).setMessage(message);
-                        builder.setNeutralButton(R.string.okay, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                        builder.setNeutralButton(R.string.okay, (dialog, which) -> {
 
-                            }
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();

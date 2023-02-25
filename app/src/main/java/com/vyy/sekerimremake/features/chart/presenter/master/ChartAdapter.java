@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vyy.sekerimremake.R;
 import com.vyy.sekerimremake.databinding.ChartDayBinding;
-import com.vyy.sekerimremake.features.chart.domain.model.ChartRowModel;
+import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel;
 import com.vyy.sekerimremake.features.chart.utils.GlucoseLevelChecker;
 
 import java.util.List;
@@ -21,16 +21,16 @@ import java.util.Objects;
 public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHolder> {
 
     private final Context mContext;
-    private final List<ChartRowModel> chartDays;
+    private final List<ChartDayModel> chartDays;
     private final OnDayClickListener mOnDayListener;
 
-    public ChartAdapter(Context mContext, List<ChartRowModel> chartDays, OnDayClickListener onDayClickListener) {
+    public ChartAdapter(Context mContext, List<ChartDayModel> chartDays, OnDayClickListener onDayClickListener) {
         this.mContext = mContext;
         this.chartDays = chartDays;
         this.mOnDayListener = onDayClickListener;
     }
 
-    public static class ChartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ChartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ChartDayBinding binding;
         OnDayClickListener onDayClickListener;
 
@@ -47,13 +47,13 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            onDayClickListener.onRowClick(position, binding.chartDay);
+            String dayId = chartDays.get(getAdapterPosition()).getId();
+            onDayClickListener.onRowClick(dayId, binding.chartDay);
         }
     }
 
     public interface OnDayClickListener {
-        void onRowClick(int position, View view);
+        void onRowClick(String dayId, View view);
     }
 
     @NonNull
@@ -66,12 +66,12 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ChartViewHolder holder, int position) {
-        ChartRowModel theDay = chartDays.get(position);
+        ChartDayModel theDay = chartDays.get(position);
         String monthAndYearTogether = mContext.getResources()
                 .getStringArray(R.array.Months)[Integer.parseInt(Objects.requireNonNull(theDay.getMonth()))] + "\n" + theDay.getYear();
-        holder.binding.textViewDayDay.setText(theDay.getDayOfMonth());
-        holder.binding.textViewDayMonthYear.setText(monthAndYearTogether);
-        holder.setTransitionName(theDay.getRowId());
+        holder.binding.textViewDayDayOfMonth.setText(theDay.getDayOfMonth());
+        holder.binding.textViewDayMonthAndYear.setText(monthAndYearTogether);
+        holder.setTransitionName(theDay.getId());
         final String[] theDayFields = {theDay.getMorningEmpty(), theDay.getMorningFull(),
                 theDay.getAfternoonEmpty(), theDay.getAfternoonFull(), theDay.getEveningEmpty(),
                 theDay.getEveningFull(), theDay.getNight()};
@@ -83,12 +83,13 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
         //Chance background according to value range.
         int warningFlag;
         for(int i = 0; i < theDayFields.length; i++) {
-            if (theDayFields[i] == null) {
+            String field = theDayFields[i];
+            if (field == null || field.isEmpty() || field.equals("0")) {
                 holderTextViews[i].setText("");
                 holderTextViews[i].setBackgroundResource(R.drawable.text_frame);
             } else {
-                holderTextViews[i].setText(theDayFields[i]);
-                warningFlag = GlucoseLevelChecker.checkGlucoseLevel(mContext, i, Integer.parseInt(theDayFields[i]));
+                holderTextViews[i].setText(field);
+                warningFlag = GlucoseLevelChecker.checkGlucoseLevel(mContext, i, Integer.parseInt(field));
                 if (warningFlag == 2){
                     holderTextViews[i].setBackgroundResource(R.drawable.text_frame_warning_range);
                 } else if (warningFlag == 3){

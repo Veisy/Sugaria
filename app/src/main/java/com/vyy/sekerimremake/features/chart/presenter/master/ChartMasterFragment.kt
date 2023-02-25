@@ -16,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vyy.sekerimremake.R
 import com.vyy.sekerimremake.databinding.FragmentChartBinding
+import com.vyy.sekerimremake.features.chart.utils.ChartConstants.DAY_ID
+import com.vyy.sekerimremake.features.chart.utils.ChartConstants.INITIAL_BUTTON_FLAG
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -58,6 +60,7 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
     }
 
     //TODO: Revisit
+    //TODO: Loading Dialog
     private fun initRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(requireContext())
 
@@ -116,11 +119,11 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
     }
 
 
-    //TODO: Revisit
-    override fun onRowClick(position: Int, view: View?) {
+    //TODO: Send values instead of ID.
+    override fun onRowClick(dayId: String, view: View?) {
         val bundle = Bundle()
-        bundle.putBoolean("button_flag", false)
-        bundle.putInt("position", position)
+        bundle.putBoolean(INITIAL_BUTTON_FLAG, false)
+        bundle.putString(DAY_ID, dayId)
 
         if (view != null && view.transitionName != null) {
             val extras = FragmentNavigatorExtras(Pair(view, view.transitionName))

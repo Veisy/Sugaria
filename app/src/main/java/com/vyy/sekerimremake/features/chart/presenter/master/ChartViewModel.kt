@@ -2,7 +2,9 @@ package com.vyy.sekerimremake.features.chart.presenter.master
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vyy.sekerimremake.features.chart.domain.model.ChartRowModel
+import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
+import com.vyy.sekerimremake.features.chart.domain.repository.AddChartResponse
+import com.vyy.sekerimremake.features.chart.domain.repository.DeleteChartResponse
 import com.vyy.sekerimremake.features.chart.domain.use_case.UseCases
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,14 +14,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChartViewModel  @Inject constructor(
+class ChartViewModel @Inject constructor(
     private val useCases: UseCases
-): ViewModel() {
-    var chartResponse = MutableStateFlow<Response<List<ChartRowModel>>>(Response.Loading)
-    private set
-    var addRowResponse = MutableStateFlow<Response<Void?>>(Response.Success(null))
+) : ViewModel() {
+    var chartResponse = MutableStateFlow<Response<List<ChartDayModel>>>(Response.Loading)
         private set
-    var deleteRowResponse = MutableStateFlow<Response<Void?>>(Response.Success(null))
+    var addRowResponse = MutableStateFlow<AddChartResponse>(Response.Success(false))
+        private set
+    var deleteRowResponse = MutableStateFlow<DeleteChartResponse>(Response.Success(false))
         private set
 
     init {
@@ -32,15 +34,13 @@ class ChartViewModel  @Inject constructor(
         }
     }
 
-    fun addRow(chartRowModel: ChartRowModel) = viewModelScope.launch {
-        useCases.addRow(chartRowModel).collect { response ->
-            addRowResponse.update { response }
-        }
+    fun addRow(chartDayModel: ChartDayModel) = viewModelScope.launch {
+        addRowResponse.update { Response.Loading }
+        addRowResponse.update { useCases.addRow(chartDayModel) }
     }
 
     fun deleteRow(rowId: String) = viewModelScope.launch {
-        useCases.deleteRow(rowId).collect { response ->
-            deleteRowResponse.update { response }
-        }
+        addRowResponse.update { Response.Loading }
+        deleteRowResponse.update { useCases.deleteRow(rowId) }
     }
 }
