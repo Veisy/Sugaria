@@ -15,19 +15,18 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
+import com.vyy.sekerimremake.MainViewModel
 import com.vyy.sekerimremake.R
 import com.vyy.sekerimremake.databinding.ChartEditTableBinding
 import com.vyy.sekerimremake.databinding.FragmentChartDetailBinding
 import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
-import com.vyy.sekerimremake.features.chart.presenter.master.ChartViewModel
-import com.vyy.sekerimremake.features.chart.utils.ChartConstants.BUTTON_FLAG
-import com.vyy.sekerimremake.features.chart.utils.ChartConstants.DAY_ID
 import com.vyy.sekerimremake.features.chart.utils.ChartConstants.DAY_OF_MONTH
-import com.vyy.sekerimremake.features.chart.utils.ChartConstants.INITIAL_BUTTON_FLAG
 import com.vyy.sekerimremake.features.chart.utils.ChartConstants.MONTH
 import com.vyy.sekerimremake.features.chart.utils.ChartConstants.STATE_KEYS
 import com.vyy.sekerimremake.features.chart.utils.ChartConstants.YEAR
@@ -38,24 +37,26 @@ import com.vyy.sekerimremake.features.chart.utils.OnFocusChangeListenerInsulinLi
 import com.vyy.sekerimremake.utils.Response
 import com.vyy.sekerimremake.utils.filters.InputFilterMax
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
 class ChartDetailFragment : Fragment(), View.OnClickListener {
 
+    private val arguments: ChartDetailFragmentArgs by navArgs()
+
     private var _binding: FragmentChartDetailBinding? = null
     private val binding get() = _binding!!
     private lateinit var includedBinding: ChartEditTableBinding
-    private val viewModel: ChartViewModel by viewModels()
+    private val viewModelMain: MainViewModel by activityViewModels()
+    private val viewModelChartDetail: ChartDetailViewModel by viewModels()
 
     private var editTexts = listOf<EditText>()
-    private var editImageButtons = listOf<ImageButton>()
 
-    private lateinit var theDay: ChartDayModel
+    private var theDay = ChartDayModel(dayOfMonth = "0", month = "0", year = "2023")
     private lateinit var allChartDays: List<ChartDayModel>
-    private var addConfigurationFlag = true
-    private var dayId: String? = null
+    private var isAddNewConfiguration = true
 
 
     override fun onCreateView(
@@ -70,27 +71,61 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        createViewLists()
+        createEditTextLists()
         setListeners()
+
+        val chart = viewModelMain.chartResponse.value
+
+        var isInitialState = false
+        if (chart is Response.Success) {
+            allChartDays = chart.data
+            setInitialState(savedInstanceState)
+            setButtonLayout()
+            fillTextViews()
+            fillSingleRowHeader()
+            addSharedElementAnimation()
+            isInitialState = true
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.chartResponse.collect { response ->
-                    when (response) {
-                        is Response.Success -> {
-                            allChartDays = response.data
+                launch {
+                    viewModelMain.chartResponse.collectLatest { response ->
+                        if (!isInitialState) {
+                            when (response) {
+                                is Response.Success -> {
+                                    allChartDays = response.data
+                                    checkTheDay(
+                                        dayOfMonth = theDay.dayOfMonth,
+                                        month = theDay.month,
+                                        year = theDay.year
+                                    )
+                                    setButtonLayout()
+                                    fillTextViews()
+                                    fillSingleRowHeader()
+                                }
+                                is Response.Error -> {
+                                    Log.d("ChartMasterFragment", response.message)
+                                }
+                                else -> {
+                                    //TODO
+                                }
+                            }
+                        } else {
+                            isInitialState = false
+                        }
+                    }
+                }
 
-                            setInitialState(savedInstanceState)
-                            setButtonLayout(addConfigurationFlag)
-                            fillTextViews()
-                            fillSingleRowHeader()
-                        }
-                        is Response.Error -> {
-                            Log.d("ChartMasterFragment", response.message)
-                        }
-                        else -> {
-                            //TODO
-                        }
+                launch {
+                    viewModelChartDetail.addRowResponse.collectLatest { response ->
+                        doOnResponse(response, getString(R.string.saving))
+                    }
+                }
+
+                launch {
+                    viewModelChartDetail.deleteRowResponse.collectLatest { response ->
+                        doOnResponse(response, getString(R.string.deleting))
                     }
                 }
             }
@@ -99,40 +134,20 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
 
     //TODO: Review
     private fun setInitialState(savedInstanceState: Bundle?) {
-        val arguments = arguments
         if (savedInstanceState != null) {
-            addConfigurationFlag = savedInstanceState.getBoolean(BUTTON_FLAG)
-            if (!addConfigurationFlag) {
-                dayId = savedInstanceState.getString(DAY_ID)
-                //TODO: Review especially here
-                checkTheDay(id = dayId)
-            } else {
-                checkTheDay(
-                    dayOfMonth = savedInstanceState.getString(DAY_OF_MONTH),
-                    month = savedInstanceState.getString(MONTH),
-                    year = savedInstanceState.getString(YEAR)
-                )
-            }
+            checkTheDay(
+                dayOfMonth = savedInstanceState.getString(DAY_OF_MONTH),
+                month = savedInstanceState.getString(MONTH),
+                year = savedInstanceState.getString(YEAR)
+            )
         } else {
-            if (arguments != null) {
-                addConfigurationFlag = arguments.getBoolean(INITIAL_BUTTON_FLAG, true)
-                if (!addConfigurationFlag) {
-                    dayId = arguments.getString(DAY_ID)
-                    //TODO: Review especially here
-                    checkTheDay(id = dayId)
-                } else {
-                    val calendar = Calendar.getInstance()
-                    checkTheDay(
-                        dayOfMonth = calendar[Calendar.DAY_OF_MONTH].toString(),
-                        month = calendar[Calendar.MONTH].toString(),
-                        year = calendar[Calendar.YEAR].toString()
-                    )
-                }
-            }
+            checkTheDay(
+                dayOfMonth = arguments.day, month = arguments.month, year = arguments.year
+            )
         }
     }
 
-    private fun createViewLists() {
+    private fun createEditTextLists() {
         editTexts = listOf(
             includedBinding.editTextNumberMorningEmpty,
             includedBinding.editTextNumberMorningFull,
@@ -142,15 +157,23 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
             includedBinding.editTextNumberEveningFull,
             includedBinding.editTextNumberNight
         )
-        editImageButtons = listOf(
-            includedBinding.buttonMorningEmptyEdit,
-            includedBinding.buttonMorningFullEdit,
-            includedBinding.buttonAfternoonEmptyEdit,
-            includedBinding.buttonAfternoonFullEdit,
-            includedBinding.buttonEveningEmptyEdit,
-            includedBinding.buttonEveningFullEdit,
-            includedBinding.buttonNightEdit
-        )
+    }
+
+    private fun addSharedElementAnimation() {
+        val chartDayBinding = binding.includedChartDay
+        ViewCompat.setTransitionName(chartDayBinding.chartDay, theDay.id)
+        val transition =
+            TransitionInflater.from(requireContext()).inflateTransition(R.transition.shared_image)
+        sharedElementEnterTransition = transition
+        setEnterSharedElementCallback(object : androidx.core.app.SharedElementCallback() {
+            override fun onMapSharedElements(
+                names: List<String>, sharedElements: MutableMap<String, View>
+            ) {
+                super.onMapSharedElements(names, sharedElements)
+                sharedElements[binding.includedChartDay.chartDay.transitionName] =
+                    binding.includedChartDay.chartDay
+            }
+        })
     }
 
     private fun setListeners() {
@@ -196,9 +219,11 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun setButtonLayout(configureFlag: Boolean) {
-        includedBinding.buttonAddRow.visibility = if (configureFlag) View.VISIBLE else View.GONE
-        includedBinding.buttonUpdate.visibility = if (configureFlag) View.GONE else View.VISIBLE
+    private fun setButtonLayout() {
+        includedBinding.buttonAddRow.visibility =
+            if (isAddNewConfiguration) View.VISIBLE else View.GONE
+        includedBinding.buttonUpdate.visibility =
+            if (isAddNewConfiguration) View.GONE else View.VISIBLE
     }
 
     private fun fillTextViews() {
@@ -210,6 +235,16 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
             theDay.eveningEmpty,
             theDay.eveningFull,
             theDay.night
+        )
+
+        val editImageButtons = listOf(
+            includedBinding.buttonMorningEmptyEdit,
+            includedBinding.buttonMorningFullEdit,
+            includedBinding.buttonAfternoonEmptyEdit,
+            includedBinding.buttonAfternoonFullEdit,
+            includedBinding.buttonEveningEmptyEdit,
+            includedBinding.buttonEveningFullEdit,
+            includedBinding.buttonNightEdit
         )
 
         dayFields.forEachIndexed { index, field ->
@@ -232,19 +267,6 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
 
     private fun fillSingleRowHeader() {
         val chartDayBinding = binding.includedChartDay
-        ViewCompat.setTransitionName(chartDayBinding.chartDay, String())
-        val transition =
-            TransitionInflater.from(requireContext()).inflateTransition(R.transition.shared_image)
-        sharedElementEnterTransition = transition
-        setEnterSharedElementCallback(object : androidx.core.app.SharedElementCallback() {
-            override fun onMapSharedElements(
-                names: List<String>, sharedElements: MutableMap<String, View>
-            ) {
-                super.onMapSharedElements(names, sharedElements)
-                sharedElements[binding.includedChartDay.chartDay.transitionName] =
-                    binding.includedChartDay.chartDay
-            }
-        })
 
         val headerTextViews = arrayOf(
             chartDayBinding.textViewDayMorningEmpty,
@@ -328,36 +350,13 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
                     requireContext(), getString(R.string.enter_a_measurement), Toast.LENGTH_SHORT
                 ).show()
             } else {
-                addDay()
+                viewModelChartDetail.addRow(theDay)
             }
         } else {
             if (isAllMeasurementsEmpty()) {
-                deleteDay()
+                viewModelChartDetail.deleteRow(theDay.id!!)
             } else {
-                addDay()
-            }
-        }
-    }
-
-    private fun addDay() {
-        viewModel.addRow(theDay)
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.addRowResponse.collect { response ->
-                    doOnResponse(response, getString(R.string.saving))
-                }
-            }
-        }
-    }
-
-    private fun deleteDay() {
-        // Deleting the date from cloud.
-        viewModel.deleteRow(theDay.id!!)
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.deleteRowResponse.collect { response ->
-                    doOnResponse(response, getString(R.string.deleting))
-                }
+                viewModelChartDetail.addRow(theDay)
             }
         }
     }
@@ -365,7 +364,9 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
     private fun doOnResponse(response: Response<Boolean>, message: String) {
         when (response) {
             is Response.Success -> {
-                requireActivity().onBackPressed()
+                if (response.data) {
+                    requireActivity().onBackPressed()
+                }
             }
             is Response.Error -> {
                 Log.d("ChartMasterFragment", response.message)
@@ -398,22 +399,20 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
         dayOfMonth: String? = null,
         month: String? = null,
         year: String? = null,
-        id: String? = generateRowId(dayOfMonth, month, year)
     ) {
+        val id = generateRowId(dayOfMonth, month, year)
         val day = allChartDays.find { it.id == id }
 
         if (day != null) {
-            addConfigurationFlag = false
-            dayId = day.id
+            isAddNewConfiguration = false
             theDay = day
         } else {
-            addConfigurationFlag = true
+            isAddNewConfiguration = true
             theDay = ChartDayModel()
             theDay.id = generateRowId(dayOfMonth, month, year)
             theDay.dayOfMonth = dayOfMonth
             theDay.month = month
             theDay.year = year
-            dayId = theDay.id
         }
     }
 
@@ -423,7 +422,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
             requireContext(), { _: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
                 editTexts.forEach { it.setText("") }
                 checkTheDay(dayOfMonth.toString(), month.toString(), year.toString())
-                setButtonLayout(addConfigurationFlag)
+                setButtonLayout()
                 fillTextViews()
                 fillSingleRowHeader()
             }, calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH]
@@ -492,14 +491,10 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean(BUTTON_FLAG, addConfigurationFlag)
-        if (addConfigurationFlag) {
-            outState.putString(DAY_OF_MONTH, theDay.dayOfMonth)
-            outState.putString(MONTH, theDay.month)
-            outState.putString(YEAR, theDay.year)
-        } else {
-            outState.putString(DAY_ID, dayId)
-        }
+
+        outState.putString(DAY_OF_MONTH, theDay.dayOfMonth)
+        outState.putString(MONTH, theDay.month)
+        outState.putString(YEAR, theDay.year)
         for (i in STATE_KEYS.indices) {
             outState.putBoolean(STATE_KEYS[i], editTexts[i].isEnabled)
         }
@@ -510,4 +505,31 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
         _binding = null
     }
 
+//  private suspend fun fillChartWithRandomData(
+//        monthStart: Int,
+//        monthEnd: Int,
+//        dayStart: Int,
+//        dayEnd: Int
+//    ) {
+//        var model: ChartDayModel?
+//        for (i in monthStart until monthEnd) {
+//            for (j in dayStart until dayEnd) {
+//                model = ChartDayModel(
+//                    generateRowId(j.toString(), i.toString(), "2023"),
+//                    j.toString(),
+//                    i.toString(),
+//                    "2023",
+//                    (if (Random().nextInt(10) > 1) Random().nextInt(75) + 65 else 0).toString(),
+//                    (if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0).toString(),
+//                    (if (Random().nextInt(10) > 1) Random().nextInt(75) + 65 else 0).toString(),
+//                    (if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0).toString(),
+//                    (if (Random().nextInt(10) > 1) Random().nextInt(75) + 65 else 0).toString(),
+//                    (if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0).toString(),
+//                    (if (Random().nextInt(10) > 5) Random().nextInt(75) + 85 else 0).toString()
+//                )
+//                viewModelChartDetail.addRow(model)
+//                delay(500)
+//            }
+//        }
+//    }
 }

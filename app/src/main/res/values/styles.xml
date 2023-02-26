@@ -8,25 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="main_title">
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
-        <item name="android:textColor">@color/colorWhite</item>
-    </style>
-
     <style name="tabLayoutSubheadStyle" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="title_style">
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">@dimen/padding_small</item>
         <item name="android:background">@drawable/text_frame</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/textSize_x_medium</item>
@@ -37,7 +24,7 @@
     </style>
 
     <style name="subtitle_style">
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">@dimen/padding_small</item>
         <item name="android:background">@drawable/text_frame</item>
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
@@ -48,15 +35,15 @@
     </style>
 
     <style name="title_style_gray" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">@dimen/padding_small</item>
         <item name="android:background">@drawable/text_frame_greylevel6</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="values_style" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingTop">@dimen/padding_large</item>
+        <item name="android:paddingBottom">@dimen/padding_large</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#323232</item>
         <item name="android:textStyle">bold</item>
@@ -65,25 +52,25 @@
 
     <style name="header_measurement">
         <item name="android:textColor">@color/colorGreyLevel2</item>
-        <item name="paddingEnd">8dp</item>
-        <item name="android:paddingRight">8dp</item>
+        <item name="paddingEnd">@dimen/padding_medium</item>
+        <item name="android:paddingRight">@dimen/padding_medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_x_large</item>
 
     </style>
 
     <style name="button_add_row">
         <item name="android:visibility">gone</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:layout_marginRight">8dp</item>
-        <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginStart">8dp</item>
-        <item name="android:paddingStart">16dp</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingRight">16dp</item>
+        <item name="android:layout_marginRight">@dimen/margin_medium</item>
+        <item name="android:layout_marginEnd">@dimen/margin_medium</item>
+        <item name="android:layout_marginLeft">@dimen/margin_medium</item>
+        <item name="android:layout_marginStart">@dimen/margin_medium</item>
+        <item name="android:paddingStart">@dimen/padding_large</item>
+        <item name="android:paddingLeft">@dimen/padding_large</item>
+        <item name="android:paddingEnd">@dimen/padding_large</item>
+        <item name="android:paddingRight">@dimen/padding_large</item>
         <item name="android:textColor">@color/colorGreyLevel7</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -91,7 +78,9 @@
     <style name="button_measurement_edit">
         <item name="android:visibility">gone</item>
         <item name="android:background">@drawable/ic_edit</item>
-        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_large</item>
+        <item name="android:padding">@dimen/padding_medium</item>
+
     </style>
 
     <style name="edit_text_measurement" parent="Widget.AppCompat.EditText">

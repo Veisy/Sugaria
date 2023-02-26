@@ -47,13 +47,12 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
 
         @Override
         public void onClick(View v) {
-            String dayId = chartDays.get(getAdapterPosition()).getId();
-            onDayClickListener.onRowClick(dayId, binding.chartDay);
+            onDayClickListener.onRowClick(chartDays.get(getAdapterPosition()), binding.chartDay);
         }
     }
 
     public interface OnDayClickListener {
-        void onRowClick(String dayId, View view);
+        void onRowClick(ChartDayModel day, View view);
     }
 
     @NonNull

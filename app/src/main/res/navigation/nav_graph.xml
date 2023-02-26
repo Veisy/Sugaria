@@ -38,14 +38,9 @@
         android:name="com.vyy.sekerimremake.features.chart.presenter.detail.ChartDetailFragment"
         android:label="@string/chart"
         tools:layout="@layout/fragment_chart_detail">
-        <argument
-            android:name="button_flag"
-            android:defaultValue="false"
-            app:argType="boolean" />
-        <argument
-            android:name="position"
-            android:defaultValue="0"
-            app:argType="integer" />
+        <argument android:name="day" />
+        <argument android:name="month" />
+        <argument android:name="year" />
     </fragment>
 
 

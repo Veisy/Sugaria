@@ -7,20 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vyy.sekerimremake.MainViewModel
 import com.vyy.sekerimremake.R
 import com.vyy.sekerimremake.databinding.FragmentChartBinding
-import com.vyy.sekerimremake.features.chart.utils.ChartConstants.DAY_ID
-import com.vyy.sekerimremake.features.chart.utils.ChartConstants.INITIAL_BUTTON_FLAG
+import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
@@ -28,19 +30,19 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
     private var _binding: FragmentChartBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ChartViewModel by viewModels()
+    private val viewModelMain: MainViewModel by activityViewModels()
+
     private var scrollPosition: Int = 0
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChartBinding.inflate(inflater, container, false)
 
         //TODO: scrollPosition seems not working.
-        scrollPosition = savedInstanceState?.getInt("scrollPosition")
-            ?: (arguments?.getInt("scrollPosition") ?: 0)
+        scrollPosition =
+            savedInstanceState?.getInt("scrollPosition") ?: (arguments?.getInt("scrollPosition")
+                ?: 0)
 
         return binding.root
     }
@@ -50,12 +52,14 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
         initRecyclerView()
 
         binding.floatingActionButtonAddRow.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putBoolean("button_flag", true)
-            findNavController().navigate(
-                R.id.action_chartMasterFragment_to_chartDetailsFragment,
-                bundle
-            )
+            val calendar = Calendar.getInstance()
+            val action =
+                ChartMasterFragmentDirections.actionChartMasterFragmentToChartDetailsFragment(
+                    day = calendar[Calendar.DAY_OF_MONTH].toString(),
+                    month = calendar[Calendar.MONTH].toString(),
+                    year = calendar[Calendar.YEAR].toString()
+                )
+            findNavController().navigate(action)
         }
     }
 
@@ -65,8 +69,7 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
         val linearLayoutManager = LinearLayoutManager(requireContext())
 
         val layoutAnimationController = AnimationUtils.loadLayoutAnimation(
-            requireContext(),
-            R.anim.recyclerview_layout_animation
+            requireContext(), R.anim.recyclerview_layout_animation
         )
 
         binding.recyclerViewChart.apply {
@@ -76,27 +79,11 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                val data = ChartDbHelper(requireContext()).everyone
-//                val chartAdapter = ChartAdapter(
-//                    requireContext(),
-//                    data,
-//                    this@ChartMasterFragment
-//                )
-//
-//                with(binding.recyclerViewChart) {
-//                    this.adapter = chartAdapter
-//                    if (chartAdapter.itemCount > 1) {
-//                        this.scrollToPosition(chartAdapter.itemCount - 1)
-//                    }
-//                }
-
-                viewModel.chartResponse.collect { response ->
+                viewModelMain.chartResponse.collectLatest { response ->
                     when (response) {
                         is Response.Success -> {
                             val chartAdapter = ChartAdapter(
-                                requireContext(),
-                                response.data,
-                                this@ChartMasterFragment
+                                requireContext(), response.data, this@ChartMasterFragment
                             )
 
                             with(binding.recyclerViewChart) {
@@ -118,31 +105,28 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
         }
     }
 
-
-    //TODO: Send values instead of ID.
-    override fun onRowClick(dayId: String, view: View?) {
-        val bundle = Bundle()
-        bundle.putBoolean(INITIAL_BUTTON_FLAG, false)
-        bundle.putString(DAY_ID, dayId)
+    override fun onRowClick(day: ChartDayModel, view: View?) {
 
         if (view != null && view.transitionName != null) {
             val extras = FragmentNavigatorExtras(Pair(view, view.transitionName))
 
             setEnterSharedElementCallback(object : androidx.core.app.SharedElementCallback() {
                 override fun onMapSharedElements(
-                    names: List<String>,
-                    sharedElements: MutableMap<String, View>
+                    names: List<String>, sharedElements: MutableMap<String, View>
                 ) {
                     super.onMapSharedElements(names, sharedElements)
                     sharedElements[view.transitionName] = view
                 }
             })
 
+            val action =
+                ChartMasterFragmentDirections.actionChartMasterFragmentToChartDetailsFragment(
+                    day = day.dayOfMonth.toString(),
+                    month = day.month.toString(),
+                    year = day.year.toString()
+                )
             findNavController().navigate(
-                R.id.action_chartMasterFragment_to_chartDetailsFragment,
-                bundle,
-                null,
-                extras
+                action, extras
             )
         }
     }
@@ -156,32 +140,4 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
         super.onDestroyView()
         _binding = null
     }
-
-//    private fun fillChartWithRandomData(
-//        monthStart: Int,
-//        monthEnd: Int,
-//        dayStart: Int,
-//        dayEnd: Int
-//    ) {
-//        val helper = ChartDbHelper(requireContext())
-//        var model: ChartDayModel?
-//        for (i in monthStart until monthEnd) {
-//            for (j in dayStart until dayEnd) {
-//                model = ChartDayModel(
-//                    -1,
-//                    j,
-//                    i,
-//                    2021,
-//                    if (Random().nextInt(10) > 1) Random().nextInt(75) + 65 else 0,
-//                    if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0,
-//                    if (Random().nextInt(10) > 1) Random().nextInt(75) + 65 else 0,
-//                    if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0,
-//                    if (Random().nextInt(10) > 1) Random().nextInt(75) + 65 else 0,
-//                    if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0,
-//                    if (Random().nextInt(10) > 5) Random().nextInt(75) + 85 else 0
-//                )
-//                helper.addOne(model)
-//            }
-//        }
-//    }
 }

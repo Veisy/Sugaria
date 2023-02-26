@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -37,11 +37,11 @@
         style="@style/edit_text_measurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/morning_empty_measurement"
         app:layout_constraintBottom_toBottomOf="@id/textView_headerMorningEmpty"
         app:layout_constraintEnd_toStartOf="@id/button_morningEmpty_edit"
         app:layout_constraintStart_toStartOf="@id/guideline20"
-        app:layout_constraintTop_toTopOf="@id/textView_headerMorningEmpty"
-        android:contentDescription="@string/morning_empty_measurement"/>
+        app:layout_constraintTop_toTopOf="@id/textView_headerMorningEmpty" />
 
     <ImageButton
         android:id="@+id/button_morningEmpty_edit"
@@ -50,7 +50,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/editTextNumber_morningEmpty"
         app:layout_constraintStart_toEndOf="@id/editTextNumber_morningEmpty"
-        app:layout_constraintTop_toTopOf="@id/editTextNumber_morningEmpty" />
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_morningEmpty"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/line_horizontal3"
@@ -77,11 +78,11 @@
         style="@style/edit_text_measurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/morning_full_measurement"
         app:layout_constraintBottom_toBottomOf="@id/textView_headerMorningFull"
         app:layout_constraintEnd_toStartOf="@id/button_morningFull_edit"
         app:layout_constraintStart_toStartOf="@id/guideline20"
-        app:layout_constraintTop_toTopOf="@id/textView_headerMorningFull"
-        android:contentDescription="@string/morning_full_measurement"/>
+        app:layout_constraintTop_toTopOf="@id/textView_headerMorningFull" />
 
     <ImageButton
         android:id="@+id/button_morningFull_edit"
@@ -90,7 +91,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/editTextNumber_morningFull"
         app:layout_constraintStart_toEndOf="@id/editTextNumber_morningFull"
-        app:layout_constraintTop_toTopOf="@id/editTextNumber_morningFull" />
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_morningFull"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/line_horizontal4"
@@ -117,11 +119,11 @@
         style="@style/edit_text_measurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/afternoon_empty_measurement"
         app:layout_constraintBottom_toBottomOf="@id/textView_headerAfternoonEmpty"
         app:layout_constraintEnd_toStartOf="@id/button_afternoonEmpty_edit"
         app:layout_constraintStart_toStartOf="@id/guideline20"
-        app:layout_constraintTop_toTopOf="@id/textView_headerAfternoonEmpty"
-        android:contentDescription="@string/afternoon_empty_measurement"/>
+        app:layout_constraintTop_toTopOf="@id/textView_headerAfternoonEmpty" />
 
     <ImageButton
         android:id="@+id/button_afternoonEmpty_edit"
@@ -130,7 +132,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/editTextNumber_afternoonEmpty"
         app:layout_constraintStart_toEndOf="@id/editTextNumber_afternoonEmpty"
-        app:layout_constraintTop_toTopOf="@id/editTextNumber_afternoonEmpty" />
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_afternoonEmpty"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/line_horizontal5"
@@ -157,11 +160,11 @@
         style="@style/edit_text_measurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/afternoon_full_measurement"
         app:layout_constraintBottom_toBottomOf="@id/textView_headerAfternoonFull"
         app:layout_constraintEnd_toStartOf="@id/button_afternoonFull_edit"
         app:layout_constraintStart_toStartOf="@id/guideline20"
-        app:layout_constraintTop_toTopOf="@id/textView_headerAfternoonFull"
-        android:contentDescription="@string/afternoon_full_measurement" />
+        app:layout_constraintTop_toTopOf="@id/textView_headerAfternoonFull" />
 
     <ImageButton
         android:id="@+id/button_afternoonFull_edit"
@@ -170,7 +173,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/editTextNumber_afternoonFull"
         app:layout_constraintStart_toEndOf="@id/editTextNumber_afternoonFull"
-        app:layout_constraintTop_toTopOf="@id/editTextNumber_afternoonFull" />
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_afternoonFull"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/line_horizontal6"
@@ -197,11 +201,11 @@
         style="@style/edit_text_measurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/evening_empty_measurement"
         app:layout_constraintBottom_toBottomOf="@id/textView_headerEveningEmpty"
         app:layout_constraintEnd_toStartOf="@id/button_eveningEmpty_edit"
         app:layout_constraintStart_toStartOf="@id/guideline20"
-        app:layout_constraintTop_toTopOf="@id/textView_headerEveningEmpty"
-        android:contentDescription="@string/evening_empty_measurement"/>
+        app:layout_constraintTop_toTopOf="@id/textView_headerEveningEmpty" />
 
     <ImageButton
         android:id="@+id/button_eveningEmpty_edit"
@@ -210,7 +214,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/editTextNumber_eveningEmpty"
         app:layout_constraintStart_toEndOf="@id/editTextNumber_eveningEmpty"
-        app:layout_constraintTop_toTopOf="@id/editTextNumber_eveningEmpty" />
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_eveningEmpty"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/line_horizontal7"
@@ -237,11 +242,11 @@
         style="@style/edit_text_measurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/evening_full_measurement"
         app:layout_constraintBottom_toBottomOf="@+id/textView_headerEveningFull"
         app:layout_constraintEnd_toStartOf="@id/button_eveningFull_edit"
         app:layout_constraintStart_toStartOf="@+id/guideline20"
-        app:layout_constraintTop_toTopOf="@+id/textView_headerEveningFull"
-        android:contentDescription="@string/evening_full_measurement"/>
+        app:layout_constraintTop_toTopOf="@+id/textView_headerEveningFull" />
 
     <ImageButton
         android:id="@+id/button_eveningFull_edit"
@@ -250,7 +255,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/editTextNumber_eveningFull"
         app:layout_constraintStart_toEndOf="@id/editTextNumber_eveningFull"
-        app:layout_constraintTop_toTopOf="@id/editTextNumber_eveningFull" />
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_eveningFull"
+        tools:visibility="visible" />
+
     <View
         android:id="@+id/line_horizontal8"
         android:layout_width="0dp"
@@ -276,11 +283,12 @@
         style="@style/edit_text_measurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/night_measurement"
         app:layout_constraintBottom_toBottomOf="@id/textView_headerNight"
         app:layout_constraintEnd_toStartOf="@id/button_night_edit"
         app:layout_constraintStart_toStartOf="@+id/guideline20"
         app:layout_constraintTop_toTopOf="@id/textView_headerNight"
-        android:contentDescription="@string/night_measurement"/>
+        tools:visibility="visible" />
 
     <ImageButton
         android:id="@+id/button_night_edit"
@@ -289,7 +297,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/editTextNumber_night"
         app:layout_constraintStart_toEndOf="@id/editTextNumber_night"
-        app:layout_constraintTop_toTopOf="@id/editTextNumber_night" />
+        app:layout_constraintTop_toTopOf="@id/editTextNumber_night"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/line_horizontal2"
@@ -319,12 +328,12 @@
 
     <Button
         android:id="@+id/button_addRow"
-        app:backgroundTint="@null"
         style="@style/button_add_row"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_add"
         android:text="@string/add"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@id/button_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -334,12 +343,12 @@
 
     <Button
         android:id="@+id/button_update"
-        app:backgroundTint="@null"
         style="@style/button_add_row"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_update"
         android:text="@string/update"
+        app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
