@@ -45,10 +45,9 @@
     <string name="choose_a_date">Bir Tarih Seçin</string>
     <string name="enter_a_measurement">Bir Ölçüm Girin</string>
     <string name="saving">Kaydediliyor…</string>
+    <string name="saved">Kaydedildi</string>
     <string name="deleting">Siliniyor…</string>
-    <string name="updating">Güncelleniyor…</string>
-
-
+    <string name="deleted">Silindi</string>
 
     <string-array name="Months">
         <item>Ocak</item>

@@ -27,7 +27,7 @@ class ChartDetailViewModel @Inject constructor(
     }
 
     fun deleteRow(rowId: String) = viewModelScope.launch {
-        addRowResponse.emit (Response.Loading)
+        deleteRowResponse.emit (Response.Loading)
         deleteRowResponse.emit ( useCases.deleteRow(rowId) )
     }
 }

@@ -115,16 +115,22 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
                         }
                     }
                 }
-
                 launch {
-                    viewModelChartDetail.addRowResponse.collectLatest { response ->
-                        doOnResponse(response, getString(R.string.saving))
+                    viewModelChartDetail.addRowResponse.collect { response ->
+                        doOnResponse(
+                            response = response,
+                            loadingMessage = getString(R.string.saving),
+                            successfulMessage = getString(R.string.saved)
+                        )
                     }
                 }
-
                 launch {
-                    viewModelChartDetail.deleteRowResponse.collectLatest { response ->
-                        doOnResponse(response, getString(R.string.deleting))
+                    viewModelChartDetail.deleteRowResponse.collect { response ->
+                        doOnResponse(
+                            response = response,
+                            loadingMessage = getString(R.string.deleting),
+                            successfulMessage = getString(R.string.deleted)
+                        )
                     }
                 }
             }
@@ -344,16 +350,13 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
 
         setChartDayModel()
 
-        if (buttonId == R.id.button_addRow) {
-            if (isAllMeasurementsEmpty()) {
-                Toast.makeText(
-                    requireContext(), getString(R.string.enter_a_measurement), Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                viewModelChartDetail.addRow(theDay)
-            }
+        val isAllMeasurementsEmpty = isAllMeasurementsEmpty()
+        if (buttonId == R.id.button_addRow && isAllMeasurementsEmpty) {
+            Toast.makeText(
+                requireContext(), getString(R.string.enter_a_measurement), Toast.LENGTH_SHORT
+            ).show()
         } else {
-            if (isAllMeasurementsEmpty()) {
+            if (isAllMeasurementsEmpty) {
                 viewModelChartDetail.deleteRow(theDay.id!!)
             } else {
                 viewModelChartDetail.addRow(theDay)
@@ -361,10 +364,17 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun doOnResponse(response: Response<Boolean>, message: String) {
+    private fun doOnResponse(
+        response: Response<Boolean>,
+        loadingMessage: String,
+        successfulMessage: String
+    ) {
         when (response) {
             is Response.Success -> {
                 if (response.data) {
+                    Toast.makeText(
+                        requireContext(), successfulMessage, Toast.LENGTH_SHORT
+                    ).show()
                     requireActivity().onBackPressed()
                 }
             }
@@ -376,7 +386,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
             }
             else -> {
                 Toast.makeText(
-                    requireContext(), message, Toast.LENGTH_SHORT
+                    requireContext(), loadingMessage, Toast.LENGTH_SHORT
                 ).show()
             }
         }

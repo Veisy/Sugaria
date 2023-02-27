@@ -50,32 +50,7 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-
-        binding.floatingActionButtonAddRow.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val action =
-                ChartMasterFragmentDirections.actionChartMasterFragmentToChartDetailsFragment(
-                    day = calendar[Calendar.DAY_OF_MONTH].toString(),
-                    month = calendar[Calendar.MONTH].toString(),
-                    year = calendar[Calendar.YEAR].toString()
-                )
-            findNavController().navigate(action)
-        }
-    }
-
-    //TODO: Revisit
-    //TODO: Loading Dialog
-    private fun initRecyclerView() {
-        val linearLayoutManager = LinearLayoutManager(requireContext())
-
-        val layoutAnimationController = AnimationUtils.loadLayoutAnimation(
-            requireContext(), R.anim.recyclerview_layout_animation
-        )
-
-        binding.recyclerViewChart.apply {
-            layoutManager = linearLayoutManager
-            layoutAnimation = layoutAnimationController
-        }
+        setFloatingActionButton()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -101,7 +76,34 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
                         }
                     }
                 }
+
             }
+        }
+    }
+
+    //TODO: Revisit
+    //TODO: Loading Dialog
+    private fun initRecyclerView() {
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        val layoutAnimationController = AnimationUtils.loadLayoutAnimation(
+            requireContext(), R.anim.recyclerview_layout_animation
+        )
+        binding.recyclerViewChart.apply {
+            layoutManager = linearLayoutManager
+            layoutAnimation = layoutAnimationController
+        }
+    }
+
+    private fun setFloatingActionButton() {
+        binding.floatingActionButtonAddRow.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val action =
+                ChartMasterFragmentDirections.actionChartMasterFragmentToChartDetailsFragment(
+                    day = calendar[Calendar.DAY_OF_MONTH].toString(),
+                    month = calendar[Calendar.MONTH].toString(),
+                    year = calendar[Calendar.YEAR].toString()
+                )
+            findNavController().navigate(action)
         }
     }
 

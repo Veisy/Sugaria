@@ -46,9 +46,9 @@
     <string name="choose_a_date">Choose a Date</string>
     <string name="enter_a_measurement">Enter a Measurement</string>
     <string name="saving">Saving…</string>
+    <string name="saved">Saved</string>
     <string name="deleting">Deleting…</string>
-    <string name="updating">Updating…</string>
-
+    <string name="deleted">Deleted</string>
 
     <string-array name="Months">
         <item>January</item>
