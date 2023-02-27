@@ -6,7 +6,10 @@ import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
 import com.vyy.sekerimremake.features.chart.domain.use_case.UseCases
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,16 +18,22 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val useCases: UseCases
 ) : ViewModel() {
-    var chartResponse = MutableStateFlow<Response<List<ChartDayModel>>>(Response.Loading)
-        private set
+    private val _chartResponse = MutableStateFlow<Response<List<ChartDayModel>>>(Response.Loading)
+    val chartResponse = _chartResponse.asStateFlow()
+
+    private var getChartJob: Job? = null
 
     init {
         getChart()
     }
 
-    private fun getChart() = viewModelScope.launch {
-        useCases.getChart().collect { response ->
-            chartResponse.update { response }
+    //TODO: Inject Dispatchers
+    private fun getChart() {
+        getChartJob?.cancel()
+        getChartJob = viewModelScope.launch(Dispatchers.IO) {
+            useCases.getChart().collect { response ->
+                _chartResponse.update { response }
+            }
         }
     }
 }

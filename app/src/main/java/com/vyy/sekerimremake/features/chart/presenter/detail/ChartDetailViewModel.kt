@@ -8,7 +8,9 @@ import com.vyy.sekerimremake.features.chart.domain.repository.DeleteChartRespons
 import com.vyy.sekerimremake.features.chart.domain.use_case.UseCases
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,18 +18,20 @@ import javax.inject.Inject
 class ChartDetailViewModel @Inject constructor(
     private val useCases: UseCases
 ) : ViewModel() {
-    var addRowResponse = MutableSharedFlow<AddChartResponse>()
-        private set
-    var deleteRowResponse = MutableSharedFlow<DeleteChartResponse>()
-        private set
+    private val _addRowResponse = MutableSharedFlow<AddChartResponse>()
+    val addRowResponse = _addRowResponse.asSharedFlow()
 
-    fun addRow(chartDayModel: ChartDayModel) = viewModelScope.launch {
-        addRowResponse.emit (Response.Loading)
-        addRowResponse.emit ( useCases.addRow(chartDayModel) )
+    private var _deleteRowResponse = MutableSharedFlow<DeleteChartResponse>()
+    val deleteRowResponse = _deleteRowResponse.asSharedFlow()
+
+    //TODO: Inject Dispatchers
+    fun addRow(chartDayModel: ChartDayModel) = viewModelScope.launch(Dispatchers.IO) {
+        _addRowResponse.emit (Response.Loading)
+        _addRowResponse.emit ( useCases.addRow(chartDayModel) )
     }
 
-    fun deleteRow(rowId: String) = viewModelScope.launch {
-        deleteRowResponse.emit (Response.Loading)
-        deleteRowResponse.emit ( useCases.deleteRow(rowId) )
+    fun deleteRow(rowId: String) = viewModelScope.launch(Dispatchers.IO) {
+        _deleteRowResponse.emit (Response.Loading)
+        _deleteRowResponse.emit ( useCases.deleteRow(rowId) )
     }
 }
