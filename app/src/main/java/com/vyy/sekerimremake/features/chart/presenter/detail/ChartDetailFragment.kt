@@ -3,7 +3,6 @@ package com.vyy.sekerimremake.features.chart.presenter.detail
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.InputFilter
-import android.text.TextUtils
 import android.transition.TransitionInflater
 import android.util.Log
 import android.view.LayoutInflater
@@ -255,6 +254,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
     private fun setEditTextState(field: String?, editText: EditText, imageButton: ImageButton) {
         if (field.isNullOrBlank() || field == "0") {
             editText.isEnabled = true
+            editText.setText("")
             editText.setBackgroundResource(R.drawable.edit_text_measurement)
             imageButton.visibility = View.GONE
         } else {
@@ -281,7 +281,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
         chartDayBinding.textViewDayDayOfMonth.text = theDay.dayOfMonth.toString()
         val monthAndYearTogether =
             resources.getStringArray(R.array.Months)[convertToSingleDigit(theDay.month)?.toInt()
-                ?: 0] + "\n" + (theDay.year ?: 0)
+                ?: 0] + "\n" + (theDay.year ?: "0")
         chartDayBinding.textViewDayMonthAndYear.text = monthAndYearTogether
 
         val dayFields = arrayOf(
@@ -323,7 +323,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
     //Check all values while exiting this ChartDetailFragment if there is any value outside our range.
     private fun lastCheckValues() {
         editTexts.forEach { e ->
-            if (!TextUtils.isEmpty(e.text)) {
+            if (!(e.text.isNullOrBlank())) {
                 val value = e.text.toString().toInt()
                 if (value < resources.getInteger(R.integer.min_measurement_value) || value > resources.getInteger(
                         R.integer.max_measurement_value
@@ -383,17 +383,20 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setChartDayModel() {
-        theDay.morningEmpty = includedBinding.editTextNumberMorningEmpty.text.toString()
-        theDay.morningFull = includedBinding.editTextNumberMorningFull.text.toString()
-        theDay.afternoonEmpty = includedBinding.editTextNumberAfternoonEmpty.text.toString()
-        theDay.afternoonFull = includedBinding.editTextNumberAfternoonFull.text.toString()
-        theDay.eveningEmpty = includedBinding.editTextNumberEveningEmpty.text.toString()
-        theDay.eveningFull = includedBinding.editTextNumberEveningFull.text.toString()
-        theDay.night = includedBinding.editTextNumberNight.text.toString()
+        theDay.morningEmpty = includedBinding.editTextNumberMorningEmpty.text?.toString() ?: ""
+        theDay.morningFull = includedBinding.editTextNumberMorningFull.text?.toString() ?: ""
+        theDay.afternoonEmpty = includedBinding.editTextNumberAfternoonEmpty.text?.toString() ?: ""
+        theDay.afternoonFull = includedBinding.editTextNumberAfternoonFull.text?.toString() ?: ""
+        theDay.eveningEmpty = includedBinding.editTextNumberEveningEmpty.text?.toString() ?: ""
+        theDay.eveningFull = includedBinding.editTextNumberEveningFull.text?.toString() ?: ""
+        theDay.night = includedBinding.editTextNumberNight.text?.toString() ?: ""
     }
 
     private fun isAllMeasurementsEmpty() =
-        theDay.morningEmpty.isNullOrBlank() && theDay.morningFull.isNullOrBlank() && theDay.afternoonEmpty.isNullOrBlank() && theDay.afternoonFull.isNullOrBlank() && theDay.eveningEmpty.isNullOrBlank() && theDay.eveningFull.isNullOrBlank() && theDay.night.isNullOrBlank()
+        theDay.morningEmpty.isNullOrBlank() && theDay.morningFull.isNullOrBlank()
+                && theDay.afternoonEmpty.isNullOrBlank() && theDay.afternoonFull.isNullOrBlank()
+                && theDay.eveningEmpty.isNullOrBlank() && theDay.eveningFull.isNullOrBlank()
+                && theDay.night.isNullOrBlank()
 
     private fun checkTheDay(
         dayOfMonth: String? = null,
