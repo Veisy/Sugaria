@@ -116,7 +116,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
                     }
                 }
                 launch {
-                    viewModelChartDetail.addRowResponse.collect { response ->
+                    viewModelChartDetail.addDayResponse.collect { response ->
                         doOnResponse(
                             response = response,
                             loadingMessage = getString(R.string.saving),
@@ -125,7 +125,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
                     }
                 }
                 launch {
-                    viewModelChartDetail.deleteRowResponse.collect { response ->
+                    viewModelChartDetail.deleteDayResponse.collect { response ->
                         doOnResponse(
                             response = response,
                             loadingMessage = getString(R.string.deleting),
@@ -357,9 +357,9 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
             ).show()
         } else {
             if (isAllMeasurementsEmpty) {
-                viewModelChartDetail.deleteRow(theDay.id!!)
+                viewModelChartDetail.deleteDay(theDay.id!!)
             } else {
-                viewModelChartDetail.addRow(theDay)
+                viewModelChartDetail.addDay(theDay)
             }
         }
     }

@@ -6,10 +6,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.vyy.sekerimremake.features.chart.data.repository.ChartRepositoryImp
 import com.vyy.sekerimremake.features.chart.domain.repository.ChartRepository
-import com.vyy.sekerimremake.features.chart.domain.use_case.AddRow
-import com.vyy.sekerimremake.features.chart.domain.use_case.DeleteRow
-import com.vyy.sekerimremake.features.chart.domain.use_case.GetChart
-import com.vyy.sekerimremake.features.chart.domain.use_case.UseCases
+import com.vyy.sekerimremake.features.chart.domain.use_case.AddDayUseCase
+import com.vyy.sekerimremake.features.chart.domain.use_case.DeleteDayUseCase
+import com.vyy.sekerimremake.features.chart.domain.use_case.GetChartUseCase
+import com.vyy.sekerimremake.features.chart.domain.use_case.ChartUseCases
 import com.vyy.sekerimremake.features.chart.utils.ChartConstants.CHARTS
 import dagger.Module
 import dagger.Provides
@@ -35,9 +35,9 @@ object AppModule {
     @Provides
     fun provideUseCases(
         repo: ChartRepository
-    ) = UseCases(
-        getChart = GetChart(repo),
-        addRow = AddRow(repo),
-        deleteRow = DeleteRow(repo)
+    ) = ChartUseCases(
+        getChart = GetChartUseCase(repo),
+        addDayUseCase = AddDayUseCase(repo),
+        deleteDayUseCase = DeleteDayUseCase(repo)
     )
 }

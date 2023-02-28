@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
 import com.vyy.sekerimremake.features.chart.domain.repository.AddChartResponse
 import com.vyy.sekerimremake.features.chart.domain.repository.DeleteChartResponse
-import com.vyy.sekerimremake.features.chart.domain.use_case.UseCases
+import com.vyy.sekerimremake.features.chart.domain.use_case.ChartUseCases
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,22 +16,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChartDetailViewModel @Inject constructor(
-    private val useCases: UseCases
+    private val chartUseCases: ChartUseCases
 ) : ViewModel() {
-    private val _addRowResponse = MutableSharedFlow<AddChartResponse>()
-    val addRowResponse = _addRowResponse.asSharedFlow()
+    private val _addDayResponse = MutableSharedFlow<AddChartResponse>()
+    val addDayResponse = _addDayResponse.asSharedFlow()
 
-    private var _deleteRowResponse = MutableSharedFlow<DeleteChartResponse>()
-    val deleteRowResponse = _deleteRowResponse.asSharedFlow()
+    private var _deleteDayResponse = MutableSharedFlow<DeleteChartResponse>()
+    val deleteDayResponse = _deleteDayResponse.asSharedFlow()
 
     //TODO: Inject Dispatchers
-    fun addRow(chartDayModel: ChartDayModel) = viewModelScope.launch(Dispatchers.IO) {
-        _addRowResponse.emit (Response.Loading)
-        _addRowResponse.emit ( useCases.addRow(chartDayModel) )
+    fun addDay(chartDayModel: ChartDayModel) = viewModelScope.launch(Dispatchers.IO) {
+        _addDayResponse.emit (Response.Loading)
+        _addDayResponse.emit ( chartUseCases.addDayUseCase(chartDayModel) )
     }
 
-    fun deleteRow(rowId: String) = viewModelScope.launch(Dispatchers.IO) {
-        _deleteRowResponse.emit (Response.Loading)
-        _deleteRowResponse.emit ( useCases.deleteRow(rowId) )
+     fun deleteDay(rowId: String) = viewModelScope.launch(Dispatchers.IO) {
+        _deleteDayResponse.emit (Response.Loading)
+        _deleteDayResponse.emit ( chartUseCases.deleteDayUseCase(rowId) )
     }
 }
