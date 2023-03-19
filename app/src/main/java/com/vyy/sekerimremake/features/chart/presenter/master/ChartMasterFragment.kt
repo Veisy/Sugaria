@@ -26,7 +26,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
-
+    //TODO: BaseFragment for binding.
     private var _binding: FragmentChartBinding? = null
     private val binding get() = _binding!!
 

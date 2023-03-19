@@ -88,13 +88,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAuthStateListener() {
-        viewModelMain.setAuthStateListener()
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModelMain.authState.collectLatest { isCurrentUserNull ->
+                viewModelMain.getAuthState().collectLatest { isCurrentUserNull ->
                     if (isCurrentUserNull) {
                         signInUi()
+                    } else {
+                        viewModelMain.getChart()
                     }
                 }
             }
@@ -109,7 +109,9 @@ class MainActivity : AppCompatActivity() {
         )
         val signInIntent =
             AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers)
-                .setIsSmartLockEnabled(false).setLogo(R.mipmap.ic_launcher_foreground).build()
+                .setIsSmartLockEnabled(false)
+                .setLogo(R.mipmap.ic_launcher_foreground).setTheme(R.style.AppTheme)
+                .build()
         signInLauncher.launch(signInIntent)
     }
 

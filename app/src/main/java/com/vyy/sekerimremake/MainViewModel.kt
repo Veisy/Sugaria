@@ -18,20 +18,12 @@ class MainViewModel @Inject constructor(
     private val authUseCases: AuthUseCases,
     private val chartUseCases: ChartUseCases
 ) : ViewModel() {
-    private val _authState = MutableSharedFlow<Boolean>()
-    val authState = _authState.asSharedFlow()
-    private var authStateJob: Job? = null
-
     private val _chartResponse = MutableStateFlow<Response<List<ChartDayModel>>>(Response.Loading)
     val chartResponse = _chartResponse.asStateFlow()
     private var getChartJob: Job? = null
 
-    init {
-        getChart()
-    }
-
     //TODO: Inject Dispatchers
-    private fun getChart() {
+    fun getChart() {
         getChartJob?.cancel()
         getChartJob = viewModelScope.launch(Dispatchers.IO) {
             chartUseCases.getChart().collectLatest { response ->
@@ -40,12 +32,5 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun setAuthStateListener() {
-        authStateJob?.cancel()
-        authStateJob = viewModelScope.launch(Dispatchers.IO) {
-            authUseCases.getAuthState().collectLatest { isCurrentUserNull ->
-                _authState.emit(isCurrentUserNull)
-            }
-        }
-    }
+    fun getAuthState() = authUseCases.getAuthState().shareIn(viewModelScope, SharingStarted.Eagerly)
 }
