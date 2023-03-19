@@ -1,4 +1,4 @@
-package com.vyy.sekerimremake.views;
+package com.vyy.sekerimremake.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;

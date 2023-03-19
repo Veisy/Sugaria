@@ -4,7 +4,6 @@ import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
 import com.vyy.sekerimremake.utils.Response
 import kotlinx.coroutines.flow.Flow
 
-typealias GetChartResponse = Response<List<ChartDayModel>>
 typealias AddChartResponse = Response<Boolean>
 typealias DeleteChartResponse = Response<Boolean>
 

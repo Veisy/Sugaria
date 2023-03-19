@@ -41,13 +41,17 @@
     <string name="glucose_measurement_instruction">*Aç karna ölçümler yemeğe başlamadan önce, tok karna ölçümler ilk lokmayı ağza aldıktan 2 saat sonra yapılmalıdır.</string>
     <string name="catalog_item_swipe_reminder">Sayfayı Parmağınızla Kaydırabilirsiniz</string>
     <string name="choose_a_day">Bir Gün Seçin</string>
-    <string name="settings">Ayarlar</string>
     <string name="choose_a_date">Bir Tarih Seçin</string>
     <string name="enter_a_measurement">Bir Ölçüm Girin</string>
     <string name="saving">Kaydediliyor…</string>
     <string name="saved">Kaydedildi</string>
     <string name="deleting">Siliniyor…</string>
     <string name="deleted">Silindi</string>
+    <string name="successfully_signed_in">Başarıyla oturum açıldı.</string>
+    <string name="sign_in_failed">Oturum açma başarısız!</string>
+    <string name="successfully_signed_out">Başarıyla oturum kapatıldı.</string>
+    <string name="sign_out_failed">Oturum kapatma başarısız!</string>
+    <string name="sign_out">Oturumu Kapat</string>
 
     <string-array name="Months">
         <item>Ocak</item>

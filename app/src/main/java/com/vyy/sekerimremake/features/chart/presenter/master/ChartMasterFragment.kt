@@ -96,14 +96,16 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
 
     private fun setFloatingActionButton() {
         binding.floatingActionButtonAddRow.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val action =
-                ChartMasterFragmentDirections.actionChartMasterFragmentToChartDetailsFragment(
-                    day = calendar[Calendar.DAY_OF_MONTH].toString(),
-                    month = calendar[Calendar.MONTH].toString(),
-                    year = calendar[Calendar.YEAR].toString()
-                )
-            findNavController().navigate(action)
+            if (viewModelMain.chartResponse.value is Response.Success) {
+                val calendar = Calendar.getInstance()
+                val action =
+                    ChartMasterFragmentDirections.actionChartMasterFragmentToChartDetailsFragment(
+                        day = calendar[Calendar.DAY_OF_MONTH].toString(),
+                        month = calendar[Calendar.MONTH].toString(),
+                        year = calendar[Calendar.YEAR].toString()
+                    )
+                findNavController().navigate(action)
+            }
         }
     }
 
