@@ -7,7 +7,19 @@
     tools:context=".features.ai.AiFragment">
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBar_entering"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:max="100"
+        android:progress="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_predicting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -25,7 +37,7 @@
         android:text="@string/blood_glucose"
         app:layout_constraintEnd_toEndOf="@id/editTextNumber_glucose1"
         app:layout_constraintStart_toStartOf="@id/editTextNumber_glucose1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/progressBar_entering" />
 
 
     <TextView

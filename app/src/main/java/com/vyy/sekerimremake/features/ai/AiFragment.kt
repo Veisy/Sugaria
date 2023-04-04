@@ -49,11 +49,10 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.textViewPredictedResultValue.text = ""
         binding.buttonPredict.setOnClickListener(this@AiFragment)
 
         bindEditTexts()
-        handleViewsVisibility()
+        handleViewInitialState()
         addGlucoseTextChangeListeners()
     }
 
@@ -88,7 +87,7 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
     private fun inverseTransform(standardValue: Float) = (standardValue * std) + mean
 
     private fun predict() {
-        binding.progressBar.visibility = View.VISIBLE
+        binding.progressBarPredicting.visibility = View.VISIBLE
         getValuesFromEditTexts()
         makeRequiredCalculations()
 
@@ -141,7 +140,7 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
         }
     }
 
-    private fun handleViewsVisibility() {
+    private fun handleViewInitialState() {
         editTexts.forEachIndexed { index, editText ->
             if (index == 0) {
                 editText.visibility = View.VISIBLE
@@ -152,8 +151,12 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
             }
         }
 
-        binding.buttonPredict.visibility = View.GONE
-        binding.constraintLayoutPredictedResult.visibility = View.GONE
+        binding.apply {
+            progressBarEntering.progress = 0
+            textViewPredictedResultValue.text = ""
+            buttonPredict.visibility = View.GONE
+            constraintLayoutPredictedResult.visibility = View.GONE
+        }
     }
 
     private fun addGlucoseTextChangeListeners() {
@@ -173,12 +176,22 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
                         } else {
                             binding.buttonPredict.visibility = View.GONE
                         }
+                        binding.progressBarEntering.apply {
+                            progress = (max / VALUE_SIZE) * (index)
+                        }
                     } else {
                         if (index != glucoseEditTexts.size - 1) {
                             glucoseEditTexts[index + 1].visibility = View.VISIBLE
                             headerNumberTexts[index + 1].visibility = View.VISIBLE
+
+                            binding.progressBarEntering.apply {
+                                progress = (max / VALUE_SIZE) * (index + 1)
+                            }
                         } else {
                             binding.buttonPredict.visibility = View.VISIBLE
+                            binding.progressBarEntering.apply {
+                                progress = max
+                            }
                         }
 
                         when (GlucoseLevelChecker.checkGlucoseValuesForAI(
@@ -208,7 +221,7 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
 
-        binding.progressBar.visibility = View.INVISIBLE
+        binding.progressBarPredicting.visibility = View.INVISIBLE
         val resultBackground: Int = when (GlucoseLevelChecker.checkGlucoseValuesForAI(
             this.context,
             result.toInt()
