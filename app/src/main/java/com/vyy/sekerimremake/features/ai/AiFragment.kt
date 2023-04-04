@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import com.vyy.sekerimremake.R
@@ -26,11 +27,11 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
         private const val VALUE_SIZE = 6
     }
 
-
     private var _binding: FragmentAiBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var editTexts: List<EditText>
+    private lateinit var headerNumberTexts: List<TextView>
     private val values = FloatArray(VALUE_SIZE)
     private var mean: Float = 0.0f
     private var std: Float = 1.0f
@@ -52,7 +53,70 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
         binding.buttonPredict.setOnClickListener(this@AiFragment)
 
         bindEditTexts()
+        handleViewsVisibility()
         addGlucoseTextChangeListeners()
+    }
+
+    private fun makeRequiredCalculations() {
+        calculateMean()
+        getStandardDeviation()
+        standardizeValues()
+    }
+
+    private fun calculateMean() {
+        mean = values.average().toFloat()
+        Log.d("AI", "calculateMean: $mean")
+    }
+
+    private fun getStandardDeviation() {
+        var sum = 0.0
+        for (i in values.indices) {
+            sum += (values[i] - mean).pow(2.0f)
+        }
+        std = kotlin.math.sqrt(sum / values.size).toFloat()
+        Log.d("AI", "getStandardDeviation: $std")
+    }
+
+    private fun standardizeValues() {
+        for (i in values.indices) {
+            values[i] = (values[i] - mean) / std
+        }
+        Log.d("AI", "standardizeValues: $values")
+    }
+
+    // Inverse transform
+    private fun inverseTransform(standardValue: Float) = (standardValue * std) + mean
+
+    private fun predict() {
+        binding.progressBar.visibility = View.VISIBLE
+        getValuesFromEditTexts()
+        makeRequiredCalculations()
+
+        val tfliteModel = loadModelFile(requireActivity())
+
+        //inputData.array(value2)
+        val data = arrayOf(
+            arrayOf(values)
+        )
+
+        val labelProbArray: Array<FloatArray> = Array(1) { FloatArray(VALUE_SIZE) }
+        val tflite = Interpreter(tfliteModel, Interpreter.Options())
+        tflite.run(data, labelProbArray)
+
+        Log.d("AI", "labelProbArray: $labelProbArray")
+
+        val result = inverseTransform(labelProbArray[0][5])
+
+        handleResultUi(result)
+    }
+
+    private fun loadModelFile(activity: Activity): MappedByteBuffer {
+        val fileDescriptor = activity.assets.openFd("lstmmodel.tflite")
+        val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
+        val fileChannel = inputStream.channel
+        val startOffset = fileDescriptor.startOffset
+        val declaredLength = fileDescriptor.declaredLength
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
     }
 
     private fun bindEditTexts() {
@@ -65,7 +129,31 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
                 editTextNumberGlucose5,
                 editTextNumberGlucose6,
             )
+
+            headerNumberTexts = listOf(
+                textViewHeaderNumber1,
+                textViewHeaderNumber2,
+                textViewHeaderNumber3,
+                textViewHeaderNumber4,
+                textViewHeaderNumber5,
+                textViewHeaderNumber6,
+            )
         }
+    }
+
+    private fun handleViewsVisibility() {
+        editTexts.forEachIndexed { index, editText ->
+            if (index == 0) {
+                editText.visibility = View.VISIBLE
+                headerNumberTexts[index].visibility = View.VISIBLE
+            } else {
+                editText.visibility = View.GONE
+                headerNumberTexts[index].visibility = View.GONE
+            }
+        }
+
+        binding.buttonPredict.visibility = View.GONE
+        binding.constraintLayoutPredictedResult.visibility = View.GONE
     }
 
     private fun addGlucoseTextChangeListeners() {
@@ -73,15 +161,26 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
             binding.editTextNumberGlucose1, binding.editTextNumberGlucose2, binding.editTextNumberGlucose3,
             binding.editTextNumberGlucose4, binding.editTextNumberGlucose5, binding.editTextNumberGlucose6
         )
-        glucoseEditTexts.forEach { editText ->
+        glucoseEditTexts.forEachIndexed { index, editText  ->
             editText.doAfterTextChanged { text ->
                 editText.postDelayed({
-                    if (text.isNullOrEmpty()) {
+                    if (text.isNullOrEmpty() || text.toString().toInt() == 0) {
                         editText.setBackgroundResource(R.drawable.text_frame)
-                    } else if (text.toString().toInt() == 0) {
-                        editText.setText("")
-                        editText.setBackgroundResource(R.drawable.text_frame)
+
+                        if (index != glucoseEditTexts.size - 1) {
+                            glucoseEditTexts[index + 1].visibility = View.GONE
+                            headerNumberTexts[index + 1].visibility = View.GONE
+                        } else {
+                            binding.buttonPredict.visibility = View.GONE
+                        }
                     } else {
+                        if (index != glucoseEditTexts.size - 1) {
+                            glucoseEditTexts[index + 1].visibility = View.VISIBLE
+                            headerNumberTexts[index + 1].visibility = View.VISIBLE
+                        } else {
+                            binding.buttonPredict.visibility = View.VISIBLE
+                        }
+
                         when (GlucoseLevelChecker.checkGlucoseValuesForAI(
                             this.context,
                             text.toString().toInt()
@@ -142,74 +241,12 @@ class AiFragment : Fragment(R.layout.fragment_ai), View.OnClickListener {
         Log.d("TAG", "getValuesFromEditTexts: $values")
     }
 
-    private fun makeRequiredCalculations() {
-        calculateMean()
-        getStandardDeviation()
-        standardizeValues()
-    }
-
-    private fun calculateMean() {
-        mean = values.average().toFloat()
-        Log.d("AI", "calculateMean: $mean")
-    }
-
-    private fun getStandardDeviation() {
-        var sum = 0.0
-        for (i in values.indices) {
-            sum += (values[i] - mean).pow(2.0f)
-        }
-        std = kotlin.math.sqrt(sum / values.size).toFloat()
-        Log.d("AI", "getStandardDeviation: $std")
-    }
-
-    private fun standardizeValues() {
-        for (i in values.indices) {
-            values[i] = (values[i] - mean) / std
-        }
-        Log.d("AI", "standardizeValues: $values")
-    }
-
-    // Inverse transform
-    private fun inverseTransform(standardValue: Float) = (standardValue * std) + mean
-
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
                 R.id.button_predict -> predict()
             }
         }
-    }
-
-    private fun predict() {
-        binding.progressBar.visibility = View.VISIBLE
-        getValuesFromEditTexts()
-        makeRequiredCalculations()
-
-        val tfliteModel = loadModelFile(requireActivity())
-
-        //inputData.array(value2)
-        val data = arrayOf(
-            arrayOf(values)
-        )
-
-        val labelProbArray: Array<FloatArray> = Array(1) { FloatArray(VALUE_SIZE) }
-        val tflite = Interpreter(tfliteModel, Interpreter.Options())
-        tflite.run(data, labelProbArray)
-
-        Log.d("AI", "labelProbArray: $labelProbArray")
-
-        val result = inverseTransform(labelProbArray[0][5])
-
-        handleResultUi(result)
-    }
-
-    private fun loadModelFile(activity: Activity): MappedByteBuffer {
-        val fileDescriptor = activity.assets.openFd("lstmmodel.tflite")
-        val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
-        val fileChannel = inputStream.channel
-        val startOffset = fileDescriptor.startOffset
-        val declaredLength = fileDescriptor.declaredLength
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
     }
 
     override fun onDestroyView() {
