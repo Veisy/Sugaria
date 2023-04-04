@@ -11,4 +11,16 @@
         android:enabled="true"
         android:icon="@drawable/ic_catalog"
         android:title="@string/catalog_navigation" />
+
+    <item
+        android:id="@+id/aiFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_ai"
+        android:title="@string/ai" />
+
+    <item
+        android:id="@+id/diagnoseFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_diagnose"
+        android:title="@string/diagnose" />
 </menu>

@@ -79,8 +79,6 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
                 holder.binding.textViewDayAfternoonFull, holder.binding.textViewDayEveningEmpty,
                 holder.binding.textViewDayEveningFull, holder.binding.textViewDayNight};
 
-        //Chance background according to value range.
-        int warningFlag;
         for(int i = 0; i < theDayFields.length; i++) {
             String field = theDayFields[i];
             if (field == null || field.isEmpty() || field.equals("0")) {
@@ -88,7 +86,8 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ChartViewHol
                 holderTextViews[i].setBackgroundResource(R.drawable.text_frame);
             } else {
                 holderTextViews[i].setText(field);
-                warningFlag = GlucoseLevelChecker.checkGlucoseLevel(mContext, i, Integer.parseInt(field));
+                //Chance background according to value range.
+                int warningFlag = GlucoseLevelChecker.checkGlucoseLevel(mContext, i, Integer.parseInt(field));
                 if (warningFlag == 2){
                     holderTextViews[i].setBackgroundResource(R.drawable.text_frame_warning_range);
                 } else if (warningFlag == 3){

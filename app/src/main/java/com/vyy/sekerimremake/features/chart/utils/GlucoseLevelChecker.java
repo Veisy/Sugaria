@@ -52,7 +52,21 @@ public class GlucoseLevelChecker {
                return 1;
             }
         }
+    }
 
-
+    public static int checkGlucoseValuesForAI(Context context, int value) {
+        Resources resources = context.getResources();
+        int margin = resources.getInteger(R.integer.measurement_margin);
+        if ((value <= resources
+                .getInteger(R.integer.low_measurement_value_empty)
+                || value >= resources.getInteger(R.integer.high_measurement_value_full))) {
+            return 2;
+        } else if ((value <= resources
+                .getInteger(R.integer.low_measurement_value_empty) + margin
+                || value >= resources.getInteger(R.integer.high_measurement_value_full) - margin)) {
+            return 3;
+        } else {
+            return 1;
+        }
     }
 }

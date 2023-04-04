@@ -36,7 +36,6 @@
     <string name="low_glucose_warning_title">"↓Düşük Kan Şekeri!"</string>
     <string name="warning">Dikkat!</string>
     <string name="okay">Tamam</string>
-    <string name="glucose_warning_recommendation">Eğitim kataloğunda \'Hipoglisemi\' ve \'Hiperglisemi\' başlıklarından kan şekerinizin kontrolü için hangi adımları atmanız gerektiğine bakabilirsiniz.</string>
     <string name="add_or_update_measurements">Add or Update Measurements</string>
     <string name="glucose_measurement_instruction">*Aç karna ölçümler yemeğe başlamadan önce, tok karna ölçümler ilk lokmayı ağza aldıktan 2 saat sonra yapılmalıdır.</string>
     <string name="catalog_item_swipe_reminder">Sayfayı Parmağınızla Kaydırabilirsiniz</string>
@@ -52,6 +51,12 @@
     <string name="successfully_signed_out">Başarıyla oturum kapatıldı.</string>
     <string name="sign_out_failed">Oturum kapatma başarısız!</string>
     <string name="sign_out">Oturumu Kapat</string>
+
+    <string name="ai">AI</string>
+    <string name="diagnose">Teşhis</string>
+    <string name="predicted_value">Tahmin Değeri</string>
+    <string name="predict">Tahmin Et</string>
+    <string name="blood_glucose">Kan Şekeri</string>
 
     <string-array name="Months">
         <item>Ocak</item>

@@ -54,7 +54,6 @@
         tools:visibility="visible" />
 
     <View
-        android:id="@+id/line_horizontal3"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorGreyLevel5"
@@ -95,7 +94,6 @@
         tools:visibility="visible" />
 
     <View
-        android:id="@+id/line_horizontal4"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorGreyLevel5"
@@ -136,7 +134,6 @@
         tools:visibility="visible" />
 
     <View
-        android:id="@+id/line_horizontal5"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorGreyLevel5"
@@ -177,7 +174,6 @@
         tools:visibility="visible" />
 
     <View
-        android:id="@+id/line_horizontal6"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorGreyLevel5"
@@ -218,7 +214,6 @@
         tools:visibility="visible" />
 
     <View
-        android:id="@+id/line_horizontal7"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorGreyLevel5"
@@ -259,7 +254,6 @@
         tools:visibility="visible" />
 
     <View
-        android:id="@+id/line_horizontal8"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorGreyLevel5"
@@ -317,7 +311,6 @@
         app:layout_constraintTop_toBottomOf="@id/textView_headerNight" />
 
     <View
-        android:id="@+id/line_vertical"
         android:layout_width="2dp"
         android:layout_height="0dp"
         android:background="@color/colorGreyLevel5"

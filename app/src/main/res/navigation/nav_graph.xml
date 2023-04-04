@@ -2,7 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
     app:startDestination="@id/chartMasterFragment">
 
     <fragment
@@ -43,5 +42,15 @@
         <argument android:name="year" />
     </fragment>
 
+    <fragment
+        android:id="@+id/aiFragment"
+        android:name="com.vyy.sekerimremake.features.ai.AiFragment"
+        android:label="@string/ai"
+        tools:layout="@layout/fragment_ai" />
+    <fragment
+        android:id="@+id/diagnoseFragment"
+        android:name="com.vyy.sekerimremake.features.diagnose.presenter.DiagnoseFragment"
+        android:label="@string/diagnose"
+        tools:layout="@layout/fragment_diagnose" />
 
 </navigation>
