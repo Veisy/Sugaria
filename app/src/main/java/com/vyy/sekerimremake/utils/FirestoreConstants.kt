@@ -6,4 +6,5 @@ object FirestoreConstants {
     const val CHART = "chart"
     const val ACCOUNT = "account"
     const val USER_INFO = "user_info"
+    const val CONTACTS = "contacts"
 }

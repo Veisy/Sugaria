@@ -1,4 +1,4 @@
-package com.vyy.sekerimremake.features.auth.domain.model
+package com.vyy.sekerimremake.features.settings.domain.model
 
 data class UserInfoModel(
     var email: String? = null,

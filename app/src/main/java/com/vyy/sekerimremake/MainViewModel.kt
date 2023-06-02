@@ -2,10 +2,11 @@ package com.vyy.sekerimremake
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vyy.sekerimremake.features.auth.domain.repository.UserInfoResponse
 import com.vyy.sekerimremake.features.auth.domain.usecase.AuthUseCases
 import com.vyy.sekerimremake.features.chart.domain.repository.GetChartResponse
 import com.vyy.sekerimremake.features.chart.domain.use_case.ChartUseCases
+import com.vyy.sekerimremake.features.settings.domain.repository.UserInfoResponse
+import com.vyy.sekerimremake.features.settings.domain.use_cases.SettingsUseCases
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val authUseCases: AuthUseCases,
+    private val settingUserCases: SettingsUseCases,
     private val chartUseCases: ChartUseCases
 ) : ViewModel() {
     private val _userInfoResponse = MutableStateFlow<UserInfoResponse>(Response.Loading)
@@ -31,7 +33,7 @@ class MainViewModel @Inject constructor(
     fun getUserInfo() {
         getUserInfoJob?.cancel()
         getUserInfoJob = viewModelScope.launch(Dispatchers.IO) {
-            authUseCases.getUserInfoUseCase().collectLatest { response ->
+            settingUserCases.getUserInfoUseCase().collectLatest { response ->
                 _userInfoResponse.update { response }
                 if (response is Response.Success && response.data?.userId != null) {
                     getChart(response.data.userId!!)

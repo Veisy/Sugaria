@@ -7,13 +7,17 @@ import com.google.firebase.ktx.Firebase
 import com.vyy.sekerimremake.features.auth.data.AuthRepositoryImp
 import com.vyy.sekerimremake.features.auth.domain.usecase.AuthUseCases
 import com.vyy.sekerimremake.features.auth.domain.usecase.GetAuthStateUseCase
-import com.vyy.sekerimremake.features.auth.domain.usecase.GetUserInfoUseCase
 import com.vyy.sekerimremake.features.chart.data.repository.ChartRepositoryImp
 import com.vyy.sekerimremake.features.chart.domain.repository.ChartRepository
 import com.vyy.sekerimremake.features.chart.domain.use_case.AddDayUseCase
 import com.vyy.sekerimremake.features.chart.domain.use_case.ChartUseCases
 import com.vyy.sekerimremake.features.chart.domain.use_case.DeleteDayUseCase
 import com.vyy.sekerimremake.features.chart.domain.use_case.GetChartUseCase
+import com.vyy.sekerimremake.features.settings.data.repository.SettingsRepositoryImp
+import com.vyy.sekerimremake.features.settings.domain.repository.SettingsRepository
+import com.vyy.sekerimremake.features.settings.domain.use_cases.GetContactsUseCase
+import com.vyy.sekerimremake.features.settings.domain.use_cases.GetUserInfoUseCase
+import com.vyy.sekerimremake.features.settings.domain.use_cases.SettingsUseCases
 import com.vyy.sekerimremake.utils.FirestoreConstants.USERS
 import com.vyy.sekerimremake.utils.FirestoreConstants.USER_CHARTS
 import dagger.Module
@@ -32,9 +36,8 @@ object AppModule {
 
     @Provides
     fun provideAuthRepository(
-        auth: FirebaseAuth,
-        db: FirebaseFirestore
-    ) = AuthRepositoryImp(auth = auth, usersRef = db.collection(USERS))
+        auth: FirebaseAuth
+    ) = AuthRepositoryImp(auth = auth)
 
     @Provides
     fun provideChartRepository(
@@ -43,11 +46,16 @@ object AppModule {
     ): ChartRepository = ChartRepositoryImp(auth = auth, userChartsRef = db.collection(USER_CHARTS))
 
     @Provides
+    fun provideSettingsRepository(
+        auth: FirebaseAuth,
+        db: FirebaseFirestore
+    ): SettingsRepository = SettingsRepositoryImp(auth = auth, usersRef = db.collection(USERS))
+
+    @Provides
     fun provideAuthUseCases(
         repo: AuthRepositoryImp
     ) = AuthUseCases(
-        getAuthState = GetAuthStateUseCase(repo),
-        getUserInfoUseCase = GetUserInfoUseCase(repo)
+        getAuthState = GetAuthStateUseCase(repo)
     )
 
     @Provides
@@ -57,5 +65,13 @@ object AppModule {
         getChartUserCase = GetChartUseCase(repo),
         addDayUseCase = AddDayUseCase(repo),
         deleteDayUseCase = DeleteDayUseCase(repo)
+    )
+
+    @Provides
+    fun provideSettingsUseCases(
+        repo: SettingsRepository
+    ) = SettingsUseCases(
+        getUserInfoUseCase = GetUserInfoUseCase(repo),
+        getContactUseCase = GetContactsUseCase(repo)
     )
 }
