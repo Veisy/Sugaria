@@ -369,7 +369,6 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
             Toast.makeText(
                 requireContext(), getString(R.string.user_info_not_found), Toast.LENGTH_SHORT
             ).show()
-            viewModelMain.getUser()
         }
     }
 

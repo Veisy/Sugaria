@@ -96,9 +96,6 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
 
     private fun setFloatingActionButton() {
         binding.floatingActionButtonAddRow.setOnClickListener {
-            if (viewModelMain.userResponse.value !is Response.Success) {
-               viewModelMain.getUser()
-            }
             val chartResponse = viewModelMain.chartResponse.value
             if (chartResponse is Response.Success) {
                 val calendar = Calendar.getInstance()
