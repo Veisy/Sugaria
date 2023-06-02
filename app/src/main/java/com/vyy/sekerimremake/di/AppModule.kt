@@ -15,8 +15,7 @@ import com.vyy.sekerimremake.features.chart.domain.use_case.DeleteDayUseCase
 import com.vyy.sekerimremake.features.chart.domain.use_case.GetChartUseCase
 import com.vyy.sekerimremake.features.settings.data.repository.SettingsRepositoryImp
 import com.vyy.sekerimremake.features.settings.domain.repository.SettingsRepository
-import com.vyy.sekerimremake.features.settings.domain.use_cases.GetContactsUseCase
-import com.vyy.sekerimremake.features.settings.domain.use_cases.GetUserInfoUseCase
+import com.vyy.sekerimremake.features.settings.domain.use_cases.GetUserUseCase
 import com.vyy.sekerimremake.features.settings.domain.use_cases.SettingsUseCases
 import com.vyy.sekerimremake.utils.FirestoreConstants.USERS
 import com.vyy.sekerimremake.utils.FirestoreConstants.USER_CHARTS
@@ -71,7 +70,6 @@ object AppModule {
     fun provideSettingsUseCases(
         repo: SettingsRepository
     ) = SettingsUseCases(
-        getUserInfoUseCase = GetUserInfoUseCase(repo),
-        getContactUseCase = GetContactsUseCase(repo)
+        getUserUseCase = GetUserUseCase(repo),
     )
 }

@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.vyy.sekerimremake.MainViewModel
 import com.vyy.sekerimremake.databinding.FragmentMonitoredsBinding
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +23,7 @@ class MonitoredsFragment : Fragment() {
     private var _binding: FragmentMonitoredsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModelMonitoreds: MonitoredsViewModel by viewModels()
+    private val viewModelMain: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,7 @@ class MonitoredsFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModelMonitoreds.getContactsResponse.collectLatest { response ->
+                viewModelMain.userResponse.collectLatest { response ->
                     when (response) {
                         is Response.Success -> {
                             binding.textView.text = response.data?.monitoreds.toString()

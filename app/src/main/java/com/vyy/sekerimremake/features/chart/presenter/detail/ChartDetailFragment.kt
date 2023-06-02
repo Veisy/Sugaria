@@ -348,9 +348,9 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
             return
         }
 
-        val userInfoResponse = viewModelMain.userInfoResponse.value
-        if (userInfoResponse is Response.Success && userInfoResponse.data?.userId != null) {
-            val userId = userInfoResponse.data.userId!!
+        val userResponse = viewModelMain.userResponse.value
+        if (userResponse is Response.Success && userResponse.data?.userId != null) {
+            val userId = userResponse.data.userId!!
             setChartDayModel()
 
             val isAllMeasurementsEmpty = isAllMeasurementsEmpty()
@@ -369,7 +369,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
             Toast.makeText(
                 requireContext(), getString(R.string.user_info_not_found), Toast.LENGTH_SHORT
             ).show()
-            viewModelMain.getUserInfo()
+            viewModelMain.getUser()
         }
     }
 

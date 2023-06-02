@@ -1,14 +1,11 @@
 package com.vyy.sekerimremake.features.settings.domain.repository
 
-import com.vyy.sekerimremake.features.settings.domain.model.ContactsModel
-import com.vyy.sekerimremake.features.settings.domain.model.UserInfoModel
+import com.vyy.sekerimremake.features.settings.domain.model.UserModel
 import com.vyy.sekerimremake.utils.Response
 import kotlinx.coroutines.flow.Flow
 
-typealias GetContactsResponse = Response<ContactsModel?>
-typealias UserInfoResponse = Response<UserInfoModel?>
+typealias GetUserResponse = Response<UserModel?>
 
 interface SettingsRepository {
-    fun getUserInfo(): Flow<UserInfoResponse>
-    fun getContacts(): Flow<GetContactsResponse>
+    fun getUser(): Flow<GetUserResponse>
 }
