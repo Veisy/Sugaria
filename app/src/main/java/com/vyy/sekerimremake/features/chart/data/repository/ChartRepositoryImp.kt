@@ -6,7 +6,7 @@ import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
 import com.vyy.sekerimremake.features.chart.domain.repository.AddChartResponse
 import com.vyy.sekerimremake.features.chart.domain.repository.ChartRepository
 import com.vyy.sekerimremake.features.chart.domain.repository.DeleteChartResponse
-import com.vyy.sekerimremake.features.chart.utils.ChartConstants.CHARTS
+import com.vyy.sekerimremake.utils.FirestoreConstants.CHART
 import com.vyy.sekerimremake.utils.Response
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -17,20 +17,20 @@ import javax.inject.Singleton
 @Singleton
 class ChartRepositoryImp @Inject constructor(
     private val auth: FirebaseAuth,
-    private val usersRef: CollectionReference
+    private val userChartsRef: CollectionReference
 ) : ChartRepository {
 
-    private fun getChartRef(): CollectionReference? {
+    private fun getChartRef(userId: String): CollectionReference? {
         val uid = auth.currentUser?.uid
         return if (uid != null) {
-            usersRef.document(uid).collection(CHARTS)
+            userChartsRef.document(userId).collection(CHART)
         } else {
             null
         }
     }
 
-    override fun getChart() = callbackFlow {
-        val snapshotListener = getChartRef()?.addSnapshotListener { snapshot, e ->
+    override fun getChart(userId: String) = callbackFlow {
+        val snapshotListener = getChartRef(userId)?.addSnapshotListener { snapshot, e ->
             val response = if (snapshot != null) {
                 try {
                     val chartDayModels = snapshot.toObjects(ChartDayModel::class.java)
@@ -48,11 +48,11 @@ class ChartRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun addChartRow(chartDayModel: ChartDayModel): AddChartResponse {
+    override suspend fun addChartRow(userId: String, chartDayModel: ChartDayModel): AddChartResponse {
         return try {
             val id = chartDayModel.id
             if (id != null) {
-                getChartRef()?.document(id)?.set(chartDayModel)?.await()
+                getChartRef(userId)?.document(id)?.set(chartDayModel)?.await()
                 Response.Success(true)
             } else {
                 Response.Error("ChartModel document id is null.")
@@ -62,9 +62,9 @@ class ChartRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun deleteChartRow(id: String): DeleteChartResponse {
+    override suspend fun deleteChartRow(userId: String, id: String): DeleteChartResponse {
         return try {
-            getChartRef()?.document(id)?.delete()?.await()
+            getChartRef(userId)?.document(id)?.delete()?.await()
             Response.Success(true)
         } catch (e: Exception) {
             Response.Error(e.message ?: e.toString())

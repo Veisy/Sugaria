@@ -54,6 +54,7 @@
     <string name="successfully_signed_out">Successfully signed out</string>
     <string name="sign_out_failed">Sign out failed!</string>
     <string name="sign_out">Sign Out</string>
+    <string name="user_info_not_found">User Information Not Found!</string>
 
     <string-array name="Months">
         <item>January</item>

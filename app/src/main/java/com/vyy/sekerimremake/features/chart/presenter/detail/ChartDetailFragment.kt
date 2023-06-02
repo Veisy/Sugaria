@@ -348,19 +348,28 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
             return
         }
 
-        setChartDayModel()
+        val userInfoResponse = viewModelMain.userInfoResponse.value
+        if (userInfoResponse is Response.Success && userInfoResponse.data?.userId != null) {
+            val userId = userInfoResponse.data.userId!!
+            setChartDayModel()
 
-        val isAllMeasurementsEmpty = isAllMeasurementsEmpty()
-        if (buttonId == R.id.button_addRow && isAllMeasurementsEmpty) {
-            Toast.makeText(
-                requireContext(), getString(R.string.enter_a_measurement), Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            if (isAllMeasurementsEmpty) {
-                viewModelChartDetail.deleteDay(theDay.id!!)
+            val isAllMeasurementsEmpty = isAllMeasurementsEmpty()
+            if (buttonId == R.id.button_addRow && isAllMeasurementsEmpty) {
+                Toast.makeText(
+                    requireContext(), getString(R.string.enter_a_measurement), Toast.LENGTH_SHORT
+                ).show()
             } else {
-                viewModelChartDetail.addDay(theDay)
+                if (isAllMeasurementsEmpty) {
+                    viewModelChartDetail.deleteDay(userId, theDay.id!!)
+                } else {
+                    viewModelChartDetail.addDay(userId, theDay)
+                }
             }
+        } else {
+            Toast.makeText(
+                requireContext(), getString(R.string.user_info_not_found), Toast.LENGTH_SHORT
+            ).show()
+            viewModelMain.getUserInfo()
         }
     }
 
@@ -540,8 +549,13 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
 //                    (if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0).toString(),
 //                    (if (Random().nextInt(10) > 5) Random().nextInt(75) + 85 else 0).toString()
 //                )
-//                viewModelChartDetail.addRow(model)
-//                delay(500)
+//                val userIdResponse = viewModelMain.userInfoResponse.value
+//                if (userIdResponse is Response.Success && userIdResponse.data?.userId != null) {
+//                    val userId = userIdResponse.data.userId!!
+//                    viewModelChartDetail.addDay(userId, model)
+//                    delay(500)
+//                }
+//
 //            }
 //        }
 //    }

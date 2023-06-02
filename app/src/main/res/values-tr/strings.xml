@@ -53,6 +53,7 @@
     <string name="successfully_signed_out">Başarıyla oturum kapatıldı.</string>
     <string name="sign_out_failed">Oturum kapatma başarısız!</string>
     <string name="sign_out">Oturumu Kapat</string>
+    <string name="user_info_not_found">Kullanıcı bilgisi bulunamadı!</string>
 
     <string-array name="Months">
         <item>Ocak</item>

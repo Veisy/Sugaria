@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                     if (isCurrentUserNull) {
                         signInUi()
                     } else {
-                        viewModelMain.getChart()
+                        viewModelMain.getUserInfo()
                     }
                 }
             }
