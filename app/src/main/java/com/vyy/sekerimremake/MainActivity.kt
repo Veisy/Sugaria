@@ -52,9 +52,9 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             (supportFragmentManager.findFragmentById(R.id.navigation_host_fragment) as NavHostFragment?)!!
         val navController = navHostFragment.navController
-        val appBarConfiguration =
-            AppBarConfiguration.Builder(R.id.catalogMasterFragment, R.id.chartMasterFragment)
-                .build()
+        val appBarConfiguration = AppBarConfiguration.Builder(
+            R.id.catalogMasterFragment, R.id.monitoredsFragment, R.id.chartMasterFragment
+        ).build()
 
         // Handle toolbar and bottom navigation menu.
         navController.addOnDestinationChangedListener { _: NavController?, destination: NavDestination, _: Bundle? ->
@@ -64,7 +64,9 @@ class MainActivity : AppCompatActivity() {
                 binding.toolbar.visibility = View.VISIBLE
             }
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-                && (destination.id == R.id.catalogDetailsFragment || destination.id == R.id.chartMasterFragment)
+                && (destination.id == R.id.catalogDetailsFragment
+                        || destination.id == R.id.chartMasterFragment
+                        || destination.id == R.id.monitoredsFragment)
             ) {
                 binding.bottomNavigation.visibility = View.GONE
             } else {
@@ -109,9 +111,8 @@ class MainActivity : AppCompatActivity() {
         )
         val signInIntent =
             AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers)
-                .setIsSmartLockEnabled(false)
-                .setLogo(R.mipmap.ic_launcher_foreground).setTheme(R.style.AppTheme)
-                .build()
+                .setIsSmartLockEnabled(false).setLogo(R.mipmap.ic_launcher_foreground)
+                .setTheme(R.style.AppTheme).build()
         signInLauncher.launch(signInIntent)
     }
 
@@ -135,9 +136,7 @@ class MainActivity : AppCompatActivity() {
         AuthUI.getInstance().signOut(this).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
-                    this,
-                    getString(R.string.successfully_signed_out),
-                    Toast.LENGTH_SHORT
+                    this, getString(R.string.successfully_signed_out), Toast.LENGTH_SHORT
                 ).show()
             } else {
                 Toast.makeText(this, getString(R.string.sign_out_failed), Toast.LENGTH_SHORT).show()

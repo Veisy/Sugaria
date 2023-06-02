@@ -42,6 +42,11 @@
         <argument android:name="month" />
         <argument android:name="year" />
     </fragment>
+    <fragment
+        android:id="@+id/monitoredsFragment"
+        android:name="com.vyy.sekerimremake.features.monitoreds.presenter.MonitoredsFragment"
+        android:label="@string/monitoreds_navigation"
+        tools:layout="@layout/fragment_monitoreds" />
 
 
 </navigation>

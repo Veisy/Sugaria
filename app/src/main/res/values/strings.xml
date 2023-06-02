@@ -6,6 +6,7 @@
     <string name="catalog">Education Catalogue</string>
     <string name="chart_navigation">Chart</string>
     <string name="chart">Tracking Chart</string>
+    <string name="monitoreds_navigation">Monitoreds</string>
     <string name="next">NEXT</string>
     <string name="end">FINISH</string>
     <string name="insulin_types_and_information">Types and Details of Insulin</string>

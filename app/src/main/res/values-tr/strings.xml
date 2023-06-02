@@ -5,6 +5,7 @@
     <string name="catalog">Eğitim Kataloğu</string>
     <string name="chart_navigation">Çizelge</string>
     <string name="chart">Takip Çizelgesi</string>
+    <string name="monitoreds_navigation">İzlenenler</string>
     <string name="next">İLERİ</string>
     <string name="end">BİTTİ</string>
     <string name="insulin_types_and_information">İnsülin Çeşitleri Ve Bilgileri</string>

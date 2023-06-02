@@ -7,6 +7,11 @@
         android:icon="@drawable/ic_chart"
         android:title="@string/chart_navigation"/>
     <item
+        android:id="@+id/monitoredsFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_monitoreds"
+        android:title="@string/monitoreds_navigation"/>
+    <item
         android:id="@+id/catalogMasterFragment"
         android:enabled="true"
         android:icon="@drawable/ic_catalog"
