@@ -4,7 +4,6 @@ object FirestoreConstants {
     const val USERS = "users"
     const val USER_CHARTS = "user_charts"
     const val CHART = "chart"
-    const val ACCOUNT = "account"
-    const val USER_INFO = "user_info"
-    const val CONTACTS = "contacts"
+    const val USER_ID = "userId"
+    const val NAME = "name"
 }

@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
 
     private val _chartResponse = MutableStateFlow<GetChartResponse>(Response.Loading)
     val chartResponse = _chartResponse.asStateFlow()
-    private var getChartJob: Job? = null
+    private var chartJob: Job? = null
 
     //TODO: Inject Dispatchers
     fun getUser() {
@@ -45,8 +45,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getChart(userId: String) {
-        getChartJob?.cancel()
-        getChartJob = viewModelScope.launch(Dispatchers.IO) {
+        chartJob?.cancel()
+        chartJob = viewModelScope.launch(Dispatchers.IO) {
             chartUseCases.getChartUserCase(userId).collectLatest { response ->
                 _chartResponse.update { response }
             }
