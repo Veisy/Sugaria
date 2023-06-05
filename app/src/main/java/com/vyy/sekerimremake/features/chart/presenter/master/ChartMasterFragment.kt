@@ -1,11 +1,11 @@
 package com.vyy.sekerimremake.features.chart.presenter.master
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -15,7 +15,6 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vyy.sekerimremake.MainViewModel
-import com.vyy.sekerimremake.R
 import com.vyy.sekerimremake.databinding.FragmentChartBinding
 import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
 import com.vyy.sekerimremake.utils.Response
@@ -25,7 +24,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
-class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
+class ChartMasterFragment : Fragment() {
     //TODO: BaseFragment for binding.
     private var _binding: FragmentChartBinding? = null
     private val binding get() = _binding!!
@@ -33,6 +32,12 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
     private val viewModelMain: MainViewModel by activityViewModels()
 
     private var scrollPosition: Int = 0
+
+    private val listAdapter: ChartAdapter by lazy {
+        ChartAdapter { chartDayModel, chartDayView ->
+            onRowClick(chartDayModel, chartDayView)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,31 +52,34 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         setFloatingActionButton()
+        viewModelMain.resetChartResponse()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModelMain.chartResponse.collectLatest { response ->
                     when (response) {
                         is Response.Success -> {
-                            val chartAdapter = ChartAdapter(
-                                requireContext(), response.data, this@ChartMasterFragment
-                            )
-
-                            with(binding.recyclerViewChart) {
-                                this.adapter = chartAdapter
-                                if (chartAdapter.itemCount > 1) {
-                                    this.scrollToPosition(chartAdapter.itemCount - 1)
+                            if (response.data.isNotEmpty()) {
+                                binding.recyclerViewChart.apply {
+                                    scheduleLayoutAnimation()
+                                    listAdapter.submitList(response.data)
+                                    if (scrollPosition != 0) {
+                                        scrollToPosition(scrollPosition)
+                                    }
                                 }
                             }
                         }
                         is Response.Error -> {
+                            listAdapter.submitList(null)
                             Log.d("ChartMasterFragment", response.message)
                         }
                         else -> {
+                            listAdapter.submitList(null)
                             //TODO
                         }
                     }
@@ -85,12 +93,14 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
     //TODO: Loading Dialog
     private fun initRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(requireContext())
-        val layoutAnimationController = AnimationUtils.loadLayoutAnimation(
-            requireContext(), R.anim.recyclerview_layout_animation
-        )
-        binding.recyclerViewChart.apply {
-            layoutManager = linearLayoutManager
-            layoutAnimation = layoutAnimationController
+        linearLayoutManager.reverseLayout = true
+        linearLayoutManager.stackFromEnd = true
+        binding.apply {
+            recyclerViewChart.apply {
+                adapter = listAdapter
+                layoutManager = linearLayoutManager
+                setHasFixedSize(true)
+            }
         }
     }
 
@@ -110,8 +120,7 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
         }
     }
 
-    override fun onRowClick(day: ChartDayModel, view: View?) {
-
+    private fun onRowClick(day: ChartDayModel, view: View?) {
         if (view != null && view.transitionName != null) {
             val extras = FragmentNavigatorExtras(Pair(view, view.transitionName))
 
@@ -123,7 +132,6 @@ class ChartMasterFragment : Fragment(), ChartAdapter.OnDayClickListener {
                     sharedElements[view.transitionName] = view
                 }
             })
-
             val action =
                 ChartMasterFragmentDirections.actionChartMasterFragmentToChartDetailsFragment(
                     day = day.dayOfMonth.toString(),
