@@ -57,7 +57,6 @@ class ChartMasterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         setFloatingActionButton()
-        viewModelMain.resetChartResponse()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

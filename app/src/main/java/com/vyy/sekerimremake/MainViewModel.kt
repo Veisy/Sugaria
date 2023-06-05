@@ -29,10 +29,6 @@ class MainViewModel @Inject constructor(
     val chartResponse = _chartResponse.asStateFlow()
     private var chartJob: Job? = null
 
-    fun resetChartResponse() {
-        _chartResponse.update { Response.Loading }
-    }
-
     //TODO: Inject Dispatchers
     fun getUser() {
         userJob?.cancel()
