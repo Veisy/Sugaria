@@ -25,13 +25,13 @@ class ChartDetailViewModel @Inject constructor(
     val deleteDayResponse = _deleteDayResponse.asSharedFlow()
 
     //TODO: Inject Dispatchers
-    fun addDay(userId: String, chartDayModel: ChartDayModel) = viewModelScope.launch(Dispatchers.IO) {
+    fun addDay(chartDayModel: ChartDayModel) = viewModelScope.launch(Dispatchers.IO) {
         _addDayResponse.emit (Response.Loading)
-        _addDayResponse.emit ( chartUseCases.addDayUseCase(userId, chartDayModel) )
+        _addDayResponse.emit ( chartUseCases.addDayUseCase(chartDayModel) )
     }
 
-     fun deleteDay(userId: String, rowId: String) = viewModelScope.launch(Dispatchers.IO) {
+     fun deleteDay(rowId: String) = viewModelScope.launch(Dispatchers.IO) {
         _deleteDayResponse.emit (Response.Loading)
-        _deleteDayResponse.emit ( chartUseCases.deleteDayUseCase(userId, rowId) )
+        _deleteDayResponse.emit ( chartUseCases.deleteDayUseCase(rowId) )
     }
 }

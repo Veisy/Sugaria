@@ -349,8 +349,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
         }
 
         val userResponse = viewModelMain.userResponse.value
-        if (userResponse is Response.Success && userResponse.data?.userId != null) {
-            val userId = userResponse.data.userId!!
+        if (userResponse is Response.Success) {
             setChartDayModel()
 
             val isAllMeasurementsEmpty = isAllMeasurementsEmpty()
@@ -360,9 +359,9 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
                 ).show()
             } else {
                 if (isAllMeasurementsEmpty) {
-                    viewModelChartDetail.deleteDay(userId, theDay.id!!)
+                    viewModelChartDetail.deleteDay(theDay.id!!)
                 } else {
-                    viewModelChartDetail.addDay(userId, theDay)
+                    viewModelChartDetail.addDay(theDay)
                 }
             }
         } else {
@@ -548,10 +547,9 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
 //                    (if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0).toString(),
 //                    (if (Random().nextInt(10) > 5) Random().nextInt(75) + 85 else 0).toString()
 //                )
-//                val userIdResponse = viewModelMain.userInfoResponse.value
-//                if (userIdResponse is Response.Success && userIdResponse.data?.userId != null) {
-//                    val userId = userIdResponse.data.userId!!
-//                    viewModelChartDetail.addDay(userId, model)
+//                val userIdResponse = viewModelMain.userResponse.value
+//                if (userIdResponse is Response.Success) {
+//                    viewModelChartDetail.addDay(model)
 //                    delay(500)
 //                }
 //

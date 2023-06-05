@@ -9,9 +9,9 @@ typealias DeleteChartResponse = Response<Boolean>
 typealias GetChartResponse = Response<List<ChartDayModel>>
 
 interface ChartRepository {
-    fun getChart(userId: String): Flow<GetChartResponse>
+    fun getChart(uid: String): Flow<GetChartResponse>
 
-    suspend fun addChartRow(userId: String, chartDayModel: ChartDayModel): AddChartResponse
+    suspend fun addChartRow(chartDayModel: ChartDayModel): AddChartResponse
 
-    suspend fun deleteChartRow(userId: String, id: String): DeleteChartResponse
+    suspend fun deleteChartRow(dayId: String): DeleteChartResponse
 }

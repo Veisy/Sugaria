@@ -5,5 +5,5 @@ import com.vyy.sekerimremake.features.chart.domain.repository.ChartRepository
 class GetChartUseCase(
     private val repo: ChartRepository
 ) {
-    operator fun invoke(userId: String) = repo.getChart(userId)
+    operator fun invoke(uid: String) = repo.getChart(uid)
 }

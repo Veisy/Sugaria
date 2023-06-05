@@ -59,7 +59,7 @@ class MonitoredsAdapter(private val onMonitoredClicked: (Int) -> Unit) :
             oldItem === newItem
 
         override fun areContentsTheSame(oldItem: MonitoredModel, newItem: MonitoredModel): Boolean =
-            oldItem.userId == newItem.userId
+            oldItem.uid == newItem.uid
 
     }
 }

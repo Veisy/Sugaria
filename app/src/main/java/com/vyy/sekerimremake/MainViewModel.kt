@@ -35,8 +35,8 @@ class MainViewModel @Inject constructor(
         userJob = viewModelScope.launch(Dispatchers.IO) {
             settingUserCases.getUserUseCase().collectLatest { response ->
                 _userResponse.update { response }
-                if (response is Response.Success && response.data?.userId != null) {
-                    getChart(response.data.userId!!)
+                if (response is Response.Success && response.data?.uid != null) {
+                    getChart(response.data.uid!!)
                 } else {
                     _chartResponse.update { Response.Error("User not found") }
                 }
@@ -44,10 +44,10 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun getChart(userId: String) {
+    private fun getChart(uid: String) {
         chartJob?.cancel()
         chartJob = viewModelScope.launch(Dispatchers.IO) {
-            chartUseCases.getChartUserCase(userId).collectLatest { response ->
+            chartUseCases.getChartUserCase(uid).collectLatest { response ->
                 _chartResponse.update { response }
             }
         }

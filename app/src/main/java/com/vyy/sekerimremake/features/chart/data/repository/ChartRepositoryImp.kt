@@ -20,17 +20,16 @@ class ChartRepositoryImp @Inject constructor(
     private val userChartsRef: CollectionReference
 ) : ChartRepository {
 
-    private fun getChartRef(userId: String): CollectionReference? {
-        val uid = auth.currentUser?.uid
+    private fun getChartRef(uid: String? = auth.currentUser?.uid): CollectionReference? {
         return if (uid != null) {
-            userChartsRef.document(userId).collection(CHART)
+            userChartsRef.document(uid).collection(CHART)
         } else {
             null
         }
     }
 
-    override fun getChart(userId: String) = callbackFlow {
-        val snapshotListener = getChartRef(userId)?.addSnapshotListener { snapshot, e ->
+    override fun getChart(uid: String) = callbackFlow {
+        val snapshotListener = getChartRef(uid)?.addSnapshotListener { snapshot, e ->
             val response = if (snapshot != null) {
                 try {
                     val chartDayModels = snapshot.toObjects(ChartDayModel::class.java)
@@ -48,11 +47,11 @@ class ChartRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun addChartRow(userId: String, chartDayModel: ChartDayModel): AddChartResponse {
+    override suspend fun addChartRow(chartDayModel: ChartDayModel): AddChartResponse {
         return try {
             val id = chartDayModel.id
             if (id != null) {
-                getChartRef(userId)?.document(id)?.set(chartDayModel)?.await()
+                getChartRef()?.document(id)?.set(chartDayModel)?.await()
                 Response.Success(true)
             } else {
                 Response.Error("ChartModel document id is null.")
@@ -62,9 +61,9 @@ class ChartRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun deleteChartRow(userId: String, id: String): DeleteChartResponse {
+    override suspend fun deleteChartRow(dayId: String): DeleteChartResponse {
         return try {
-            getChartRef(userId)?.document(id)?.delete()?.await()
+            getChartRef()?.document(dayId)?.delete()?.await()
             Response.Success(true)
         } catch (e: Exception) {
             Response.Error(e.message ?: e.toString())

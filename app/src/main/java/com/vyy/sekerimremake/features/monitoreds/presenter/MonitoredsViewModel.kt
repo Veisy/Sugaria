@@ -24,10 +24,10 @@ class MonitoredsViewModel @Inject constructor(
     val chartResponse = _monitoredChartResponse.asStateFlow()
     private var monitoredChartJob: Job? = null
 
-    fun getChart(userId: String) {
+    fun getChart(uid: String) {
         monitoredChartJob?.cancel()
         monitoredChartJob = viewModelScope.launch(Dispatchers.IO) {
-            chartUseCases.getChartUserCase(userId).collectLatest { response ->
+            chartUseCases.getChartUserCase(uid).collectLatest { response ->
                 _monitoredChartResponse.update { response }
             }
         }

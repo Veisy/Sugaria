@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -20,6 +21,7 @@ import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
 import com.vyy.sekerimremake.features.chart.presenter.master.ChartAdapter
 import com.vyy.sekerimremake.features.settings.domain.model.MonitoredModel
 import com.vyy.sekerimremake.utils.FirestoreConstants.NAME
+import com.vyy.sekerimremake.utils.FirestoreConstants.UID
 import com.vyy.sekerimremake.utils.FirestoreConstants.USER_ID
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +35,9 @@ class MonitoredsFragment : Fragment(), ChartAdapter.OnDayClickListener {
     private val binding get() = _binding!!
 
     private val viewModelMain: MainViewModel by activityViewModels()
-    private val viewModelMonitoreds: MonitoredsViewModel by activityViewModels()
+    private val viewModelMonitoreds: MonitoredsViewModel by viewModels()
+
+
 
     private val listAdapter: MonitoredsAdapter by lazy {
         MonitoredsAdapter { position: Int ->
@@ -62,12 +66,13 @@ class MonitoredsFragment : Fragment(), ChartAdapter.OnDayClickListener {
                             is Response.Success -> {
                                 val monitoredList = response.data?.monitoreds
                                     ?.filter { monitored ->
-                                        monitored[NAME] != null && monitored[USER_ID] != null
+                                        monitored[NAME] != null && monitored[UID] != null
                                     }
                                     ?.map { monitored ->
                                         MonitoredModel(
-                                            userId = monitored[USER_ID],
-                                            name = monitored[NAME]
+                                            uid = monitored[UID],
+                                            name = monitored[NAME],
+                                            userId = monitored[USER_ID]
                                         )
                                     }
                                 monitoredList.let {
@@ -84,7 +89,7 @@ class MonitoredsFragment : Fragment(), ChartAdapter.OnDayClickListener {
                     }
                 }
                 launch {
-                    viewModelMonitoreds.chartResponse.collectLatest { response ->
+                    viewModelMain.chartResponse.collectLatest { response ->
                         when (response) {
                             is Response.Success -> {
                                 val chartAdapter = ChartAdapter(
@@ -139,7 +144,7 @@ class MonitoredsFragment : Fragment(), ChartAdapter.OnDayClickListener {
         }
         binding.progressBarMonitoredsChart.visibility = View.VISIBLE
         listAdapter.selectMonitored(position)
-        listAdapter.currentList[position].userId?.let {
+        listAdapter.currentList[position].uid?.let {
             viewModelMonitoreds.getChart(it)
         }
     }
