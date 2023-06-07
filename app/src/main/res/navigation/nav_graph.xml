@@ -47,6 +47,11 @@
         android:name="com.vyy.sekerimremake.features.monitoreds.presenter.MonitoredsFragment"
         android:label="@string/monitoreds_navigation"
         tools:layout="@layout/fragment_monitoreds" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.vyy.sekerimremake.features.settings.presenter.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" /><action android:id="@+id/action_global_settingsFragment" app:destination="@id/settingsFragment"/>
 
 
 </navigation>

@@ -20,6 +20,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vyy.sekerimremake.MainViewModel
 import com.vyy.sekerimremake.R
 import com.vyy.sekerimremake.databinding.ChartEditTableBinding
@@ -69,6 +70,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
     //TODO: Loading Dialog
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.GONE
 
         createEditTextLists()
         setListeners()

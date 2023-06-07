@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModelMain: MainViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
 
     private val signInLauncher = registerForActivityResult(
@@ -51,26 +52,26 @@ class MainActivity : AppCompatActivity() {
     private fun setNavigationComponents() {
         val navHostFragment =
             (supportFragmentManager.findFragmentById(R.id.navigation_host_fragment) as NavHostFragment?)!!
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration.Builder(
             R.id.catalogMasterFragment, R.id.monitoredsFragment, R.id.chartMasterFragment
         ).build()
-
         // Handle toolbar and bottom navigation menu.
         navController.addOnDestinationChangedListener { _: NavController?, destination: NavDestination, _: Bundle? ->
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                binding.toolbar.visibility = View.GONE
-            } else {
-                binding.toolbar.visibility = View.VISIBLE
-            }
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-                && (destination.id == R.id.catalogDetailsFragment
-                        || destination.id == R.id.chartMasterFragment
-                        || destination.id == R.id.monitoredsFragment)
-            ) {
-                binding.bottomNavigation.visibility = View.GONE
-            } else {
-                binding.bottomNavigation.visibility = View.VISIBLE
+            binding.apply {
+                toolbar.menu.findItem(R.id.action_settings)?.isVisible = destination.id != R.id.settingsFragment
+
+                when (destination.id) {
+                    R.id.catalogMasterFragment, R.id.chartMasterFragment, R.id.monitoredsFragment -> {
+                        bottomNavigation.visibility = View.VISIBLE
+                    }
+                }
+
+                toolbar.visibility = when (destination.id) {
+                    R.id.chartDetailsFragment, R.id.catalogDetailsFragment ->
+                        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) View.GONE else View.VISIBLE
+                    else -> View.VISIBLE
+                }
             }
         }
         setupWithNavController(binding.bottomNavigation, navController)
@@ -81,6 +82,10 @@ class MainActivity : AppCompatActivity() {
                 when (item?.itemId) {
                     R.id.action_sign_out -> {
                         signOut()
+                        return true
+                    }
+                    R.id.action_settings -> {
+                        navController.navigate(R.id.action_global_settingsFragment)
                         return true
                     }
                 }
