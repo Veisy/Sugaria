@@ -6,7 +6,7 @@
             android:shape="ring"
             android:thickness="3dp"
             android:useLevel="false">
-            <solid android:color="@color/colorGrey"/>
+            <solid android:color="@color/color_grey"/>
             <padding android:left="3dp"
                 android:top="3dp"
                 android:right="3dp"

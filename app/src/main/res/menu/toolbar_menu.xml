@@ -6,10 +6,6 @@
         android:title="@string/settings"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/action_contacts"
-        android:title="@string/contacts"
-        app:showAsAction="never"/>
-
     <item android:id="@+id/action_sign_out"
         android:title="@string/sign_out"
         app:showAsAction="never"/>

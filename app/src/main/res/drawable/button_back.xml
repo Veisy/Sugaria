@@ -3,22 +3,22 @@
     <item android:state_pressed="true" >
         <shape android:shape="rectangle" >
             <corners android:radius="5dip" />
-            <stroke android:width="1dip" android:color="@color/colorGreyLevel6" />
-            <gradient android:angle="-90" android:startColor="@color/colorGreyLevel5" android:endColor="@color/colorGreyLevel7" />
+            <stroke android:width="1dip" android:color="@color/color_grey_level_7" />
+            <gradient android:angle="-90" android:startColor="@color/color_grey_level_6" android:endColor="@color/color_grey_level_8" />
         </shape>
     </item>
     <item android:state_focused="true">
         <shape android:shape="rectangle" >
             <corners android:radius="5dip" />
-            <stroke android:width="1dip" android:color="@color/colorGreyLevel6" />
-            <solid android:color="@color/colorGreyLevel7"/>
+            <stroke android:width="1dip" android:color="@color/color_grey_level_7" />
+            <solid android:color="@color/color_grey_level_8"/>
         </shape>
     </item>
     <item >
         <shape android:shape="rectangle" >
             <corners android:radius="5dip" />
-            <stroke android:width="1dip" android:color="@color/colorGreyLevel6" />
-            <gradient android:angle="-90" android:startColor="@color/colorGreyLevel7" android:endColor="@color/colorGreyLevel5" />
+            <stroke android:width="1dip" android:color="@color/color_grey_level_7" />
+            <gradient android:angle="-90" android:startColor="@color/color_grey_level_8" android:endColor="@color/color_grey_level_6" />
         </shape>
     </item>
 </selector>

@@ -5,15 +5,15 @@
         android:id="@+id/chartMasterFragment"
         android:enabled="true"
         android:icon="@drawable/ic_chart"
-        android:title="@string/chart_navigation"/>
+        android:title="@string/chart"/>
     <item
         android:id="@+id/monitoredsFragment"
         android:enabled="true"
         android:icon="@drawable/ic_monitoreds"
-        android:title="@string/monitoreds_navigation"/>
+        android:title="@string/monitoreds"/>
     <item
         android:id="@+id/catalogMasterFragment"
         android:enabled="true"
         android:icon="@drawable/ic_catalog"
-        android:title="@string/catalog_navigation" />
+        android:title="@string/education" />
 </menu>

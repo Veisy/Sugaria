@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">Şekerim</string>
 
-    <string name="catalog_navigation">Eğitim</string>
-    <string name="catalog">Eğitim Kataloğu</string>
-    <string name="chart_navigation">Çizelge</string>
-    <string name="chart">Takip Çizelgesi</string>
-    <string name="monitoreds_navigation">İzlenenler</string>
+    <string name="education">Eğitim</string>
+    <string name="education_catalog">Eğitim Kataloğu</string>
+    <string name="chart">Çizelge</string>
+    <string name="tracking_chart">Takip Çizelgesi</string>
+    <string name="monitoreds">Gözlemlediklerim</string>
+    <string name="monitors">Gözlemcilerim</string>
+    <string name="blocklist">Engellenenler</string>
     <string name="next">İLERİ</string>
     <string name="end">BİTTİ</string>
     <string name="insulin_types_and_information">İnsülin Çeşitleri Ve Bilgileri</string>
@@ -54,8 +56,12 @@
     <string name="sign_out_failed">Oturum kapatma başarısız!</string>
     <string name="sign_out">Oturumu Kapat</string>
     <string name="settings">Ayarlar</string>
-    <string name="contacts">Kişiler</string>
     <string name="user_info_not_found">Kullanıcı bilgisi bulunamadı!</string>
+    <string name="my_user_icon">Kullanıcı Simgem</string>
+    <string name="account">Hesap</string>
+    <string name="user_name">Kullanıcı Adı</string>
+    <string name="email">E-posta</string>
+    <string name="add_a_monitor">Gözlemci Ekle</string>
 
     <string-array name="Months">
         <item>Ocak</item>

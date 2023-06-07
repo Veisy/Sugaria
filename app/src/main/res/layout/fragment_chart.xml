@@ -44,7 +44,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier"
-        app:srcCompat="@drawable/ic_addrow" />
+        app:srcCompat="@drawable/ic_add" />
 
     <TextView
         android:id="@+id/textView"
