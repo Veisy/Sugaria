@@ -62,7 +62,7 @@
     <string name="user_name">Kullanıcı Adı</string>
     <string name="email">E-posta</string>
     <string name="add_a_monitor">Gözlemci Ekle</string>
-
+    <string name="my_values">Benim Değerlerim</string>
     <string-array name="Months">
         <item>Ocak</item>
         <item>Şubat</item>

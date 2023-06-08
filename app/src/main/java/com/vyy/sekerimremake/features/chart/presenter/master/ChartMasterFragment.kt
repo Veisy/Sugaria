@@ -1,6 +1,5 @@
 package com.vyy.sekerimremake.features.chart.presenter.master
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +14,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vyy.sekerimremake.MainViewModel
+import com.vyy.sekerimremake.R
 import com.vyy.sekerimremake.databinding.FragmentChartBinding
 import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
 import com.vyy.sekerimremake.features.settings.domain.model.UserModel
@@ -48,6 +48,7 @@ class ChartMasterFragment : Fragment() {
         }
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -59,7 +60,6 @@ class ChartMasterFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUsersRecyclerView()
@@ -73,38 +73,14 @@ class ChartMasterFragment : Fragment() {
                         when (response) {
                             is Response.Success -> {
                                 response.data?.let { data ->
-                                    val userList = mutableListOf(
-                                        UserModel(
-                                            uid = data.uid,
-                                            name = "My Values"
-                                        )
-                                    )
-                                    if (data.monitoreds.isNullOrEmpty()) {
-                                        binding.recyclerViewUsers?.visibility = View.GONE
-                                    } else {
-                                        val monitoredList = data.monitoreds!!.filter { monitored ->
-                                            monitored[FirestoreConstants.NAME] != null && monitored[FirestoreConstants.UID] != null
-                                        }.map { monitored ->
-                                            UserModel(
-                                                uid = monitored[FirestoreConstants.UID],
-                                                name = monitored[FirestoreConstants.NAME],
-                                                userName = monitored[FirestoreConstants.USER_NAME]
-                                            )
-                                        }
-                                        userList.addAll(monitoredList)
-                                        binding.recyclerViewUsers?.visibility = View.VISIBLE
-                                        if (usersAdapter.selectedPosition < 0 || usersAdapter.selectedPosition >= userList.size) {
-                                            usersAdapter.selectedPosition = 0
-                                        }
-                                    }
-                                    usersAdapter.submitList(userList)
+                                    handleSelectedUser(data)
                                 }
                             }
                             is Response.Error -> {
                                 Log.e("MonitoredsFragment", response.message)
                             }
                             else -> {
-                                //TODO
+                                // TODO
                             }
                         }
                     }
@@ -174,11 +150,59 @@ class ChartMasterFragment : Fragment() {
         }
     }
 
-    private fun onUserClicked(position: Int) {
-        usersAdapter.selectUser(position)
-        usersAdapter.currentList[position].uid?.let {
-            viewModelMain.getChart(it)
+    private fun handleSelectedUser(mUser: UserModel) {
+        val userList = mutableListOf<UserModel>().apply {
+            add(UserModel(uid = mUser.uid, name = getString(R.string.my_values)))
         }
+
+        if (mUser.monitoreds.isNullOrEmpty()) {
+            binding.recyclerViewUsers?.visibility = View.GONE
+            usersAdapter.selectedPosition = -1
+        } else {
+            binding.recyclerViewUsers?.visibility = View.VISIBLE
+            val monitoredList = mUser.monitoreds!!.filter { monitored ->
+                monitored[FirestoreConstants.NAME] != null && monitored[FirestoreConstants.UID] != null
+            }.map { monitored ->
+                UserModel(
+                    uid = monitored[FirestoreConstants.UID],
+                    name = monitored[FirestoreConstants.NAME],
+                    userName = monitored[FirestoreConstants.USER_NAME]
+                )
+            }
+            userList.addAll(monitoredList)
+            if (usersAdapter.selectedPosition < 0 || usersAdapter.selectedPosition >= userList.size) {
+                usersAdapter.selectedPosition = 0
+            }
+        }
+
+        if (usersAdapter.selectedPosition <= 0) {
+            viewModelMain.getChart(mUser.uid!!)
+            binding.constraintLayoutFloatActionGroup?.visibility = View.VISIBLE
+        } else {
+            userList[usersAdapter.selectedPosition].uid?.let {
+                viewModelMain.getChart(it)
+            }
+            binding.constraintLayoutFloatActionGroup?.visibility = View.GONE
+        }
+
+        usersAdapter.submitList(userList)
+    }
+
+    private fun onUserClicked(position: Int) {
+        val userResponse = viewModelMain.userResponse.value as? Response.Success ?: return
+        val currentUser = usersAdapter.currentList.getOrNull(position) ?: return
+
+        val uid = if (currentUser.uid.isNullOrEmpty() || userResponse.data?.uid == currentUser.uid) {
+            usersAdapter.selectUser(0)
+            binding.constraintLayoutFloatActionGroup?.visibility = View.VISIBLE
+            userResponse.data?.uid
+        } else {
+            usersAdapter.selectUser(position)
+            binding.constraintLayoutFloatActionGroup?.visibility = View.GONE
+            currentUser.uid
+        }
+
+        uid?.let { viewModelMain.getChart(it) }
     }
 
     private fun onRowClick(day: ChartDayModel, view: View?) {

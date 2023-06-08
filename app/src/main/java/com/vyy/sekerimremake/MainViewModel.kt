@@ -35,11 +35,6 @@ class MainViewModel @Inject constructor(
         userJob = viewModelScope.launch(Dispatchers.IO) {
             settingUserCases.getUserUseCase().collectLatest { response ->
                 _userResponse.update { response }
-                if (response is Response.Success && response.data?.uid != null) {
-                    getChart(response.data.uid!!)
-                } else {
-                    _chartResponse.update { Response.Error("User not found") }
-                }
             }
         }
     }
