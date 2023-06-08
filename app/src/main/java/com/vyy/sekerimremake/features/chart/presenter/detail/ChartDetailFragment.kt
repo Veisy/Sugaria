@@ -378,27 +378,23 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
         loadingMessage: String,
         successfulMessage: String
     ) {
-        when (response) {
+        val message = when (response) {
             is Response.Success -> {
                 if (response.data) {
-                    Toast.makeText(
-                        requireContext(), successfulMessage, Toast.LENGTH_SHORT
-                    ).show()
                     requireActivity().onBackPressed()
                 }
+                successfulMessage
+
             }
             is Response.Error -> {
-                Log.e("ChartMasterFragment", response.message)
-                Toast.makeText(
-                    requireContext(), response.message, Toast.LENGTH_SHORT
-                ).show()
+                Log.e("SettingsFragment", response.message)
+                response.message
             }
             else -> {
-                Toast.makeText(
-                    requireContext(), loadingMessage, Toast.LENGTH_SHORT
-                ).show()
+                loadingMessage
             }
         }
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setChartDayModel() {

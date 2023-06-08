@@ -62,7 +62,7 @@
     <string name="account">Account</string>
     <string name="user_name">User Name</string>
     <string name="email">E-mail</string>
-    <string name="add_a_monitor">Add a monitor</string>
+    <string name="request_a_monitor">Request a monitor</string>
     <string name="my_values">My Values</string>
 
     <string-array name="Months">

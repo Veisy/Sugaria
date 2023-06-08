@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -20,14 +21,16 @@ import com.vyy.sekerimremake.databinding.FragmentSettingsBinding
 import com.vyy.sekerimremake.features.settings.domain.model.UserModel
 import com.vyy.sekerimremake.utils.FirestoreConstants
 import com.vyy.sekerimremake.utils.Response
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class SettingsFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
     private val viewModelMain: MainViewModel by activityViewModels()
+    private val viewModelSettings: SettingsViewModel by viewModels()
 
     private val monitorsAdapter: UsersAdapter by lazy {
         UsersAdapter { position: Int ->
@@ -58,11 +61,12 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().apply {
             findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.GONE
-            findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_settings).isVisible = false
+            findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_settings).isVisible =
+                false
         }
 
 
-        binding.linearLayoutAddMonitor.setOnClickListener(this)
+        binding.linearLayoutRequestMonitor.setOnClickListener(this)
         initRecyclerViews()
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -149,6 +153,26 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    private fun doOnResponse(
+        response: Response<Boolean>,
+        loadingMessage: String,
+        successfulMessage: String
+    ) {
+        val message = when (response) {
+            is Response.Success -> {
+                successfulMessage
+            }
+            is Response.Error -> {
+                Log.e("SettingsFragment", response.message)
+                response.message
+            }
+            else -> {
+                loadingMessage
+            }
+        }
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
     private fun onMonitorClicked(position: Int) {
         //TODO("Not yet implemented")
         Log.d("SettingsFragment", "onMonitorClicked: $position")
@@ -165,8 +189,24 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        // TODO("Not yet implemented")
-        Toast.makeText(requireContext(), "Add Monitor Clicked", Toast.LENGTH_SHORT).show()
+        when (view?.id) {
+            R.id.linearLayout_request_monitor -> {
+                Toast.makeText(requireContext(), "Request a Monitor Clicked", Toast.LENGTH_SHORT)
+                    .show()
+                requestMonitor()
+            }
+        }
+    }
+
+    private fun requestMonitor() {
+        // TODO
+//        viewModelSettings.requestMonitor(
+//            UserModel(
+//                uid = "veli123 ",
+//                name = "Veli",
+//                userName = "veli123"
+//            )
+//        )
     }
 
     override fun onDestroyView() {

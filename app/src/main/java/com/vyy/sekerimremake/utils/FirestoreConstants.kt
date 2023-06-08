@@ -7,4 +7,5 @@ object FirestoreConstants {
     const val UID = "uid"
     const val USER_NAME = "userName"
     const val NAME = "name"
+    const val WAITING_MONITORS = "waiting_monitors"
 }

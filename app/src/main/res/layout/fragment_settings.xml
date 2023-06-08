@@ -117,7 +117,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/linearLayout_add_monitor"
+                android:id="@+id/linearLayout_request_monitor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -133,15 +133,15 @@
                     android:layout_width="@dimen/user_image_width"
                     android:layout_height="@dimen/user_image_height"
                     android:background="@color/color_white"
-                    android:contentDescription="@string/add_a_monitor"
+                    android:contentDescription="@string/request_a_monitor"
                     android:src="@drawable/ic_person_add" />
 
                 <TextView
-                    android:id="@+id/textView_add_monitor"
+                    android:id="@+id/textView_request_monitor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_x_medium"
-                    android:text="@string/add_a_monitor"
+                    android:text="@string/request_a_monitor"
                     android:textColor="@color/color_text_green"
                     android:textSize="@dimen/textSize_xx_medium" />
             </LinearLayout>
@@ -151,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/color_grey_level_8"
-                app:layout_constraintTop_toBottomOf="@id/linearLayout_add_monitor" />
+                app:layout_constraintTop_toBottomOf="@id/linearLayout_request_monitor" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_monitors"

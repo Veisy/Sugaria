@@ -2,6 +2,7 @@ package com.vyy.sekerimremake
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -20,6 +21,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.vyy.sekerimremake.databinding.ActivityMainBinding
+import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -47,6 +49,26 @@ class MainActivity : AppCompatActivity() {
 
         setNavigationComponents()
         setAuthStateListener()
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModelMain.userResponse.collectLatest { response ->
+                    when (response) {
+                        is Response.Success -> {
+                            response.data?.let { user ->
+                                handleMonitorInvitation(user.waiting_monitors)
+                            }
+                        }
+                        is Response.Error -> {
+                            Log.e("MonitoredsFragment", response.message)
+                        }
+                        else -> {
+                            //TODO
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setNavigationComponents() {
@@ -149,5 +171,29 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.sign_out_failed), Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun handleMonitorInvitation(invitationList: List<HashMap<String, String>>?) {
+        // TODO
+//        invitationList?.let { invitations ->
+//            if (invitations.isNotEmpty()) {
+//                AlertDialog.Builder(this).apply {
+//                    setTitle("Monitor Invitation")
+//                    setMessage(" <b><i>${invitations[0][FirestoreConstants.USER_NAME]}</i></b> wants wants you to monitor his/her glucose levels. \nDo you accept?")
+//                    setPositiveButton("ACCEPT") { _, _ ->
+//                        Log.d("SettingsFragment", "Accept")
+//                    }
+//                    setNegativeButton("DECLINE") { _, _ ->
+//                        Log.d("SettingsFragment", "Block User")
+//                    }
+//                    setNeutralButton("BLOCK USER") { _, _ ->
+//                        Log.d("SettingsFragment", "Decline")
+//                    }
+//
+//                    create()
+//                    show()
+//                }
+//            }
+//        }
     }
 }

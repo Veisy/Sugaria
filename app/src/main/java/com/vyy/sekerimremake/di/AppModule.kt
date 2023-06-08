@@ -16,6 +16,7 @@ import com.vyy.sekerimremake.features.chart.domain.use_case.GetChartUseCase
 import com.vyy.sekerimremake.features.settings.data.repository.SettingsRepositoryImp
 import com.vyy.sekerimremake.features.settings.domain.repository.SettingsRepository
 import com.vyy.sekerimremake.features.settings.domain.use_cases.GetUserUseCase
+import com.vyy.sekerimremake.features.settings.domain.use_cases.RequestMonitorUseCase
 import com.vyy.sekerimremake.features.settings.domain.use_cases.SettingsUseCases
 import com.vyy.sekerimremake.utils.FirestoreConstants.USERS
 import com.vyy.sekerimremake.utils.FirestoreConstants.USER_CHARTS
@@ -71,5 +72,6 @@ object AppModule {
         repo: SettingsRepository
     ) = SettingsUseCases(
         getUserUseCase = GetUserUseCase(repo),
+        requestMonitorUseCase = RequestMonitorUseCase(repo)
     )
 }

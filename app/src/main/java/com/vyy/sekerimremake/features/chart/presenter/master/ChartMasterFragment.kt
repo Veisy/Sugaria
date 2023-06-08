@@ -89,13 +89,11 @@ class ChartMasterFragment : Fragment() {
                     viewModelMain.chartResponse.collectLatest { response ->
                         when (response) {
                             is Response.Success -> {
-                                if (response.data.isNotEmpty()) {
-                                    binding.recyclerViewChart.apply {
-                                        scheduleLayoutAnimation()
-                                        chartAdapter.submitList(response.data)
-                                        if (scrollPosition != 0) {
-                                            scrollToPosition(scrollPosition)
-                                        }
+                                binding.recyclerViewChart.apply {
+                                    scheduleLayoutAnimation()
+                                    chartAdapter.submitList(response.data)
+                                    if (scrollPosition != 0) {
+                                        scrollToPosition(scrollPosition)
                                     }
                                 }
                             }
