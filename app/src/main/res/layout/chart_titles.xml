@@ -16,7 +16,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_afternoon" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/guideline_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/date"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,7 +84,7 @@
         android:layout_marginEnd="@dimen/margin_x_small"
         android:text="@string/morning"
         app:layout_constraintEnd_toStartOf="@id/guideline2"
-        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="@id/guideline_header"
         app:layout_constraintTop_toTopOf="@id/textView_date" />
 
     <TextView
@@ -130,7 +130,7 @@
         android:layout_height="wrap_content"
         android:text="@string/empty"
         app:layout_constraintEnd_toStartOf="@id/guideline5"
-        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="@id/guideline_header"
         app:layout_constraintTop_toBottomOf="@id/textView_morning" />
 
     <TextView

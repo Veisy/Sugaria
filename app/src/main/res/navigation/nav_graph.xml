@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/chartMasterFragment"
         android:name="com.vyy.sekerimremake.features.chart.presenter.master.ChartMasterFragment"
-        android:label="@string/chart"
+        android:label="@string/tracking_chart"
         tools:layout="@layout/fragment_chart">
         <action
             android:id="@+id/action_chartMasterFragment_to_chartDetailsFragment"
@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/catalogMasterFragment"
         android:name="com.vyy.sekerimremake.features.catalog.presenter.master.CatalogMasterFragment"
-        android:label="@string/catalog"
+        android:label="@string/education_catalog"
         tools:layout="@layout/fragment_catalog">
         <action
             android:id="@+id/action_catalogMasterFragment_to_catalogDetailsFragment"
@@ -25,7 +25,7 @@
     <fragment
         android:id="@+id/catalogDetailsFragment"
         android:name="com.vyy.sekerimremake.features.catalog.presenter.detail.CatalogDetailFragment"
-        android:label="@string/catalog"
+        android:label="@string/education_catalog"
         tools:layout="@layout/fragment_catalog_detail">
         <argument
             android:name="position"
@@ -35,12 +35,17 @@
     <fragment
         android:id="@+id/chartDetailsFragment"
         android:name="com.vyy.sekerimremake.features.chart.presenter.detail.ChartDetailFragment"
-        android:label="@string/chart"
+        android:label="@string/tracking_chart"
         tools:layout="@layout/fragment_chart_detail">
         <argument android:name="day" />
         <argument android:name="month" />
         <argument android:name="year" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.vyy.sekerimremake.features.settings.presenter.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" /><action android:id="@+id/action_global_settingsFragment" app:destination="@id/settingsFragment"/>
 
     <fragment
         android:id="@+id/aiFragment"

@@ -4,15 +4,24 @@
     <color name="colorPrimaryDark">#3C5754</color>
     <color name="colorSecondary">#FFAB40</color>
     <color name="colorAccent">#C51162</color>
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="colorBlack">#000000</color>
-    <color name="colorCatalogTitleBackground">#1B5E20</color>
-    <color name="colorCatalogItemTitleBackground">#80000000</color>
-    <color name="colorGrey">#C3C3C3</color>
-    <color name="colorGreyDark">#464646</color>
-    <color name="colorGreyLevel1">#323232</color>
-    <color name="colorGreyLevel2">#646464</color>
-    <color name="colorGreyLevel5">#C8C8C8</color>
-    <color name="colorGreyLevel7">#F0F0F0</color>
-
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_black">#000000</color>
+    <color name="color_catalog_title_background">#1B5E20</color>
+    <color name="color_catalog_item_title_background">#80000000</color>
+    <color name="color_grey">#C3C3C3</color>
+    <color name="color_grey_dark">#464646</color>
+    <color name="color_grey_level_1">#323232</color>
+    <color name="color_grey_level_2">#646464</color>
+    <color name="color_grey_level_3">#7D7D7D</color>
+    <color name="color_grey_level_4">#969696</color>
+    <color name="color_grey_level_5">#AFAFAF</color>
+    <color name="color_grey_level_6">#C8C8C8</color>
+    <color name="color_grey_level_7">#E1E1E1</color>
+    <color name="color_grey_level_8">#F0F0F0</color>
+    <color name="color_blue">#1E88E5</color>
+    <color name="color_light_yellow">#FFE0B2</color>
+    <color name="color_dark_green">#2E7D32</color>
+    <color name="color_text_green">#33691E</color>
+    <color name="color_text_blue">#3949AB</color>
+    <color name="color_text_red">#B71C1C</color>
 </resources>

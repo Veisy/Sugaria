@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,19 +18,16 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.vyy.sekerimremake.R;
 import com.vyy.sekerimremake.databinding.FragmentCatalogDetailBinding;
-import com.vyy.sekerimremake.features.catalog.domain.model.CatalogModel;
 import com.vyy.sekerimremake.features.catalog.data.resources.ApplicationOfInsulin;
 import com.vyy.sekerimremake.features.catalog.data.resources.CatalogItems;
 import com.vyy.sekerimremake.features.catalog.data.resources.Chiropody;
@@ -36,10 +37,8 @@ import com.vyy.sekerimremake.features.catalog.data.resources.Hypoglycemia;
 import com.vyy.sekerimremake.features.catalog.data.resources.MeasurementItems;
 import com.vyy.sekerimremake.features.catalog.data.resources.Nutrition;
 import com.vyy.sekerimremake.features.catalog.data.resources.OralAntidiabeticDrugs;
+import com.vyy.sekerimremake.features.catalog.domain.model.CatalogModel;
 import com.vyy.sekerimremake.utils.transformers.DepthTransformation;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.List;
 import java.util.Map;
@@ -84,6 +83,7 @@ public class CatalogDetailFragment extends Fragment implements View.OnClickListe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        requireActivity().findViewById(R.id.bottom_navigation).setVisibility(View.GONE);
 
         binding.buttonPrevious.setOnClickListener(this);
         binding.buttonNext.setOnClickListener(this);
@@ -181,7 +181,9 @@ public class CatalogDetailFragment extends Fragment implements View.OnClickListe
             setSharedElementEnterTransition(transition);
             transition.addListener(new Transition.TransitionListener() {
                 @Override
-                public void onTransitionStart(@NonNull Transition transition) {}
+                public void onTransitionStart(@NonNull Transition transition) {
+                }
+
                 @Override
                 public void onTransitionEnd(@NonNull Transition transition) {
                     if (binding != null) {
@@ -190,14 +192,18 @@ public class CatalogDetailFragment extends Fragment implements View.OnClickListe
                         fadeInAnimation(binding.buttonNext);
                     }
                 }
-                @Override
-                public void onTransitionCancel(@NonNull Transition transition) {}
 
                 @Override
-                public void onTransitionPause(@NonNull Transition transition) {}
+                public void onTransitionCancel(@NonNull Transition transition) {
+                }
 
                 @Override
-                public void onTransitionResume(@NonNull Transition transition) {}
+                public void onTransitionPause(@NonNull Transition transition) {
+                }
+
+                @Override
+                public void onTransitionResume(@NonNull Transition transition) {
+                }
             });
             setEnterSharedElementCallback(new SharedElementCallback() {
                 @Override
@@ -208,21 +214,21 @@ public class CatalogDetailFragment extends Fragment implements View.OnClickListe
                 }
             });
             Glide.with(this).load(catalogModel.getImage()).centerCrop()
-                    .listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model,
-                                            Target<Drawable> target, boolean isFirstResource) {
-                    startPostponedEnterTransition();
-                    return false;
-                }
+                    .listener(new RequestListener<>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model,
+                                                    Target<Drawable> target, boolean isFirstResource) {
+                            startPostponedEnterTransition();
+                            return false;
+                        }
 
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
-                                               DataSource dataSource, boolean isFirstResource) {
-                    startPostponedEnterTransition();
-                    return false;
-                }
-            }).into(headerImage);
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
+                                                       DataSource dataSource, boolean isFirstResource) {
+                            startPostponedEnterTransition();
+                            return false;
+                        }
+                    }).into(headerImage);
             binding.catalogItemHeader.textViewCatalogItem.setText(catalogModel.getTitle());
             binding.catalogItemHeader.imageViewCatalogItem.setContentDescription(catalogModel.getTitle());
         }
@@ -239,11 +245,8 @@ public class CatalogDetailFragment extends Fragment implements View.OnClickListe
         }
 
         new TabLayoutMediator(binding.tabLayoutIndicator, binding.viewPagerCatalogItem, true,
-                new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override
-                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        //TabLayout is an indicator, so it does not change.
-                    }
+                (tab, position) -> {
+                    //TabLayout is an indicator, so it does not change.
                 }).attach();
         binding.viewPagerCatalogItem.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 

@@ -6,11 +6,12 @@ import kotlinx.coroutines.flow.Flow
 
 typealias AddChartResponse = Response<Boolean>
 typealias DeleteChartResponse = Response<Boolean>
+typealias GetChartResponse = Response<List<ChartDayModel>>
 
 interface ChartRepository {
-    fun getChart(): Flow<Response<List<ChartDayModel>>>
+    fun getChart(uid: String): Flow<GetChartResponse>
 
     suspend fun addChartRow(chartDayModel: ChartDayModel): AddChartResponse
 
-    suspend fun deleteChartRow(id: String): DeleteChartResponse
+    suspend fun deleteChartRow(dayId: String): DeleteChartResponse
 }

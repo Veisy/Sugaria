@@ -3,19 +3,28 @@
     <dimen name="catalogImagesWidth">140dp</dimen>
     <dimen name="catalogImagesHeight">140dp</dimen>
 
+    <dimen name="user_image_width">36dp</dimen>
+    <dimen name="user_image_height">36dp</dimen>
+
     <dimen name="margin_x_small">2dp</dimen>
     <dimen name="margin_small">5dp</dimen>
     <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_x_medium">12dp</dimen>
     <dimen name="margin_large">16dp</dimen>
     <dimen name="margin_x_large">24dp</dimen>
     <dimen name="margin_xx_large">36dp</dimen>
     <dimen name="margin_xxx_large">48dp</dimen>
+    <dimen name="padding_x_small">2dp</dimen>
     <dimen name="padding_small">5dp</dimen>
     <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_x_medium">12dp</dimen>
     <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_x_large">24dp</dimen>
     <dimen name="textSize_small">10sp</dimen>
+    <dimen name="textSize_x_small">11sp</dimen>
     <dimen name="textSize_medium">12sp</dimen>
-    <dimen name="textSize_x_medium">14sp</dimen>
+    <dimen name="textSize_x_medium">13sp</dimen>
+    <dimen name="textSize_xx_medium">14sp</dimen>
     <dimen name="textSize_large">16sp</dimen>
     <dimen name="textSize_x_large">20sp</dimen>
 </resources>

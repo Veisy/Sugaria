@@ -3,8 +3,10 @@ package com.vyy.sekerimremake
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vyy.sekerimremake.features.auth.domain.usecase.AuthUseCases
-import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
+import com.vyy.sekerimremake.features.chart.domain.repository.GetChartResponse
 import com.vyy.sekerimremake.features.chart.domain.use_case.ChartUseCases
+import com.vyy.sekerimremake.features.settings.domain.repository.GetUserResponse
+import com.vyy.sekerimremake.features.settings.domain.use_cases.SettingsUseCases
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,17 +18,31 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val authUseCases: AuthUseCases,
+    private val settingUserCases: SettingsUseCases,
     private val chartUseCases: ChartUseCases
 ) : ViewModel() {
-    private val _chartResponse = MutableStateFlow<Response<List<ChartDayModel>>>(Response.Loading)
+    private val _userResponse = MutableStateFlow<GetUserResponse>(Response.Loading)
+    val userResponse = _userResponse.asStateFlow()
+    private var userJob: Job? = null
+
+    private val _chartResponse = MutableStateFlow<GetChartResponse>(Response.Loading)
     val chartResponse = _chartResponse.asStateFlow()
-    private var getChartJob: Job? = null
+    private var chartJob: Job? = null
 
     //TODO: Inject Dispatchers
-    fun getChart() {
-        getChartJob?.cancel()
-        getChartJob = viewModelScope.launch(Dispatchers.IO) {
-            chartUseCases.getChart().collectLatest { response ->
+    fun getUser() {
+        userJob?.cancel()
+        userJob = viewModelScope.launch(Dispatchers.IO) {
+            settingUserCases.getUserUseCase().collectLatest { response ->
+                _userResponse.update { response }
+            }
+        }
+    }
+
+    fun getChart(uid: String) {
+        chartJob?.cancel()
+        chartJob = viewModelScope.launch(Dispatchers.IO) {
+            chartUseCases.getChartUserCase(uid).collectLatest { response ->
                 _chartResponse.update { response }
             }
         }

@@ -20,6 +20,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vyy.sekerimremake.MainViewModel
 import com.vyy.sekerimremake.R
 import com.vyy.sekerimremake.databinding.ChartEditTableBinding
@@ -69,6 +70,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
     //TODO: Loading Dialog
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.GONE
 
         createEditTextLists()
         setListeners()
@@ -104,7 +106,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
                                     fillSingleRowHeader()
                                 }
                                 is Response.Error -> {
-                                    Log.d("ChartMasterFragment", response.message)
+                                    Log.e("ChartMasterFragment", response.message)
                                 }
                                 else -> {
                                     //TODO
@@ -348,19 +350,26 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
             return
         }
 
-        setChartDayModel()
+        val userResponse = viewModelMain.userResponse.value
+        if (userResponse is Response.Success) {
+            setChartDayModel()
 
-        val isAllMeasurementsEmpty = isAllMeasurementsEmpty()
-        if (buttonId == R.id.button_addRow && isAllMeasurementsEmpty) {
-            Toast.makeText(
-                requireContext(), getString(R.string.enter_a_measurement), Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            if (isAllMeasurementsEmpty) {
-                viewModelChartDetail.deleteDay(theDay.id!!)
+            val isAllMeasurementsEmpty = isAllMeasurementsEmpty()
+            if (buttonId == R.id.button_addRow && isAllMeasurementsEmpty) {
+                Toast.makeText(
+                    requireContext(), getString(R.string.enter_a_measurement), Toast.LENGTH_SHORT
+                ).show()
             } else {
-                viewModelChartDetail.addDay(theDay)
+                if (isAllMeasurementsEmpty) {
+                    viewModelChartDetail.deleteDay(theDay.id!!)
+                } else {
+                    viewModelChartDetail.addDay(theDay)
+                }
             }
+        } else {
+            Toast.makeText(
+                requireContext(), getString(R.string.user_info_not_found), Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -369,27 +378,23 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
         loadingMessage: String,
         successfulMessage: String
     ) {
-        when (response) {
+        val message = when (response) {
             is Response.Success -> {
                 if (response.data) {
-                    Toast.makeText(
-                        requireContext(), successfulMessage, Toast.LENGTH_SHORT
-                    ).show()
                     requireActivity().onBackPressed()
                 }
+                successfulMessage
+
             }
             is Response.Error -> {
-                Log.d("ChartMasterFragment", response.message)
-                Toast.makeText(
-                    requireContext(), response.message, Toast.LENGTH_SHORT
-                ).show()
+                Log.e("SettingsFragment", response.message)
+                response.message
             }
             else -> {
-                Toast.makeText(
-                    requireContext(), loadingMessage, Toast.LENGTH_SHORT
-                ).show()
+                loadingMessage
             }
         }
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setChartDayModel() {
@@ -540,8 +545,12 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
 //                    (if (Random().nextInt(10) > 1) Random().nextInt(95) + 95 else 0).toString(),
 //                    (if (Random().nextInt(10) > 5) Random().nextInt(75) + 85 else 0).toString()
 //                )
-//                viewModelChartDetail.addRow(model)
-//                delay(500)
+//                val userIdResponse = viewModelMain.userResponse.value
+//                if (userIdResponse is Response.Success) {
+//                    viewModelChartDetail.addDay(model)
+//                    delay(500)
+//                }
+//
 //            }
 //        }
 //    }

@@ -1,11 +1,6 @@
 package com.vyy.sekerimremake.features.chart.utils
 
 object ChartConstants {
-
-    //Firestore
-    const val USERS = "users"
-    const val CHARTS = "charts"
-
     val STATE_KEYS = arrayOf(
         "MORNING_EMPTY_STATE", "MORNING_FULL_STATE",
         "AFTERNOON_EMPTY_STATE", "AFTERNOON_FULL_STATE", "EVENING_EMPTY_STATE",

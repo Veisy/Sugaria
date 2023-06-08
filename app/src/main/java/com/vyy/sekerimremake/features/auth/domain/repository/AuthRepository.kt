@@ -5,6 +5,5 @@ import kotlinx.coroutines.flow.Flow
 typealias AuthStateResponse = Flow<Boolean>
 
 interface AuthRepository {
-
     fun getAuthState(): AuthStateResponse
 }

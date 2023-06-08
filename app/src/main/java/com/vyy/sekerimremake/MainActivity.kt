@@ -2,6 +2,7 @@ package com.vyy.sekerimremake
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -20,6 +21,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.vyy.sekerimremake.databinding.ActivityMainBinding
+import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModelMain: MainViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
 
     private val signInLauncher = registerForActivityResult(
@@ -46,6 +49,26 @@ class MainActivity : AppCompatActivity() {
 
         setNavigationComponents()
         setAuthStateListener()
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModelMain.userResponse.collectLatest { response ->
+                    when (response) {
+                        is Response.Success -> {
+                            response.data?.let { user ->
+                                handleMonitorInvitation(user.waiting_monitors)
+                            }
+                        }
+                        is Response.Error -> {
+                            Log.e("MonitoredsFragment", response.message)
+                        }
+                        else -> {
+                            //TODO
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setNavigationComponents() {
@@ -53,22 +76,27 @@ class MainActivity : AppCompatActivity() {
             (supportFragmentManager.findFragmentById(R.id.navigation_host_fragment) as NavHostFragment?)!!
         val navController = navHostFragment.navController
         val appBarConfiguration =
-            AppBarConfiguration.Builder(R.id.catalogMasterFragment, R.id.chartMasterFragment, R.id.aiFragment, R.id.diagnoseFragment)
+            AppBarConfiguration.Builder(R.id.catalogMasterFragment, R.id.chartMasterFragment, R.id.aiFragment)
                 .build()
 
         // Handle toolbar and bottom navigation menu.
         navController.addOnDestinationChangedListener { _: NavController?, destination: NavDestination, _: Bundle? ->
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                binding.toolbar.visibility = View.GONE
-            } else {
-                binding.toolbar.visibility = View.VISIBLE
-            }
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-                && (destination.id == R.id.catalogDetailsFragment || destination.id == R.id.chartMasterFragment)
-            ) {
-                binding.bottomNavigation.visibility = View.GONE
-            } else {
-                binding.bottomNavigation.visibility = View.VISIBLE
+            binding.apply {
+                if (destination.id != R.id.settingsFragment) {
+                    toolbar.menu.findItem(R.id.action_settings)?.isVisible = true
+                }
+
+                when (destination.id) {
+                    R.id.catalogMasterFragment, R.id.chartMasterFragment -> {
+                        bottomNavigation.visibility = View.VISIBLE
+                    }
+                }
+
+                toolbar.visibility = when (destination.id) {
+                    R.id.chartDetailsFragment, R.id.catalogDetailsFragment ->
+                        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) View.GONE else View.VISIBLE
+                    else -> View.VISIBLE
+                }
             }
         }
         setupWithNavController(binding.bottomNavigation, navController)
@@ -79,6 +107,10 @@ class MainActivity : AppCompatActivity() {
                 when (item?.itemId) {
                     R.id.action_sign_out -> {
                         signOut()
+                        return true
+                    }
+                    R.id.action_settings -> {
+                        navController.navigate(R.id.action_global_settingsFragment)
                         return true
                     }
                 }
@@ -94,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                     if (isCurrentUserNull) {
                         signInUi()
                     } else {
-                        viewModelMain.getChart()
+                        viewModelMain.getUser()
                     }
                 }
             }
@@ -109,9 +141,8 @@ class MainActivity : AppCompatActivity() {
         )
         val signInIntent =
             AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers)
-                .setIsSmartLockEnabled(false)
-                .setLogo(R.mipmap.ic_launcher_foreground).setTheme(R.style.AppTheme)
-                .build()
+                .setIsSmartLockEnabled(false).setLogo(R.mipmap.ic_launcher_foreground)
+                .setTheme(R.style.AppTheme).build()
         signInLauncher.launch(signInIntent)
     }
 
@@ -135,13 +166,35 @@ class MainActivity : AppCompatActivity() {
         AuthUI.getInstance().signOut(this).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
-                    this,
-                    getString(R.string.successfully_signed_out),
-                    Toast.LENGTH_SHORT
+                    this, getString(R.string.successfully_signed_out), Toast.LENGTH_SHORT
                 ).show()
             } else {
                 Toast.makeText(this, getString(R.string.sign_out_failed), Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun handleMonitorInvitation(invitationList: List<HashMap<String, String>>?) {
+        // TODO
+//        invitationList?.let { invitations ->
+//            if (invitations.isNotEmpty()) {
+//                AlertDialog.Builder(this).apply {
+//                    setTitle("Monitor Invitation")
+//                    setMessage(" <b><i>${invitations[0][FirestoreConstants.USER_NAME]}</i></b> wants wants you to monitor his/her glucose levels. \nDo you accept?")
+//                    setPositiveButton("ACCEPT") { _, _ ->
+//                        Log.d("SettingsFragment", "Accept")
+//                    }
+//                    setNegativeButton("DECLINE") { _, _ ->
+//                        Log.d("SettingsFragment", "Block User")
+//                    }
+//                    setNeutralButton("BLOCK USER") { _, _ ->
+//                        Log.d("SettingsFragment", "Decline")
+//                    }
+//
+//                    create()
+//                    show()
+//                }
+//            }
+//        }
     }
 }

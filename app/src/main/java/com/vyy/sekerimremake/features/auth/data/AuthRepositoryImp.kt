@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AuthRepositoryImp @Inject constructor(
-    private val auth: FirebaseAuth
+    private val auth: FirebaseAuth,
 ) : AuthRepository {
 
     override fun getAuthState() = callbackFlow {

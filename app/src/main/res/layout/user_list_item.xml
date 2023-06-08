@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout_user_list_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingStart="@dimen/padding_small"
+    android:paddingEnd="@dimen/padding_small">
+
+    <ImageView
+        android:id="@+id/imageView_user_icon"
+        android:layout_width="@dimen/user_image_width"
+        android:layout_height="@dimen/user_image_height"
+        android:adjustViewBounds="true"
+        android:background="@color/color_white"
+        android:contentDescription="@string/my_user_icon"
+        android:src="@drawable/ic_person_24"
+        app:tint="@color/color_grey_level_2" />
+
+    <TextView
+        android:id="@+id/textView_user_displayName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_x_medium"
+        android:textColor="@color/color_grey_level_2"
+        android:textSize="@dimen/textSize_xx_medium"
+        android:textStyle="bold"
+        tools:text="Alan Turing" />
+
+    <TextView
+        android:id="@+id/textView_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_x_medium"
+        android:textColor="@color/color_grey_level_2"
+        android:textSize="@dimen/textSize_xx_medium"
+        android:textStyle="italic"
+        tools:text="\@alan1954" />
+
+    <CheckBox
+        android:id="@+id/checkBox_is_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/colorSecondary"
+        android:clickable="false"
+        android:enabled="false"
+        android:visibility="invisible"
+        tools:checked="true"
+        tools:visibility="visible" />
+
+</LinearLayout>

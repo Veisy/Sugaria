@@ -6,7 +6,7 @@ import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
 import com.vyy.sekerimremake.features.chart.domain.repository.AddChartResponse
 import com.vyy.sekerimremake.features.chart.domain.repository.ChartRepository
 import com.vyy.sekerimremake.features.chart.domain.repository.DeleteChartResponse
-import com.vyy.sekerimremake.features.chart.utils.ChartConstants.CHARTS
+import com.vyy.sekerimremake.utils.FirestoreConstants.CHART
 import com.vyy.sekerimremake.utils.Response
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -17,20 +17,19 @@ import javax.inject.Singleton
 @Singleton
 class ChartRepositoryImp @Inject constructor(
     private val auth: FirebaseAuth,
-    private val usersRef: CollectionReference
+    private val userChartsRef: CollectionReference
 ) : ChartRepository {
 
-    private fun getChartRef(): CollectionReference? {
-        val uid = auth.currentUser?.uid
+    private fun getChartRef(uid: String? = auth.currentUser?.uid): CollectionReference? {
         return if (uid != null) {
-            usersRef.document(uid).collection(CHARTS)
+            userChartsRef.document(uid).collection(CHART)
         } else {
             null
         }
     }
 
-    override fun getChart() = callbackFlow {
-        val snapshotListener = getChartRef()?.addSnapshotListener { snapshot, e ->
+    override fun getChart(uid: String) = callbackFlow {
+        val snapshotListener = getChartRef(uid)?.addSnapshotListener { snapshot, e ->
             val response = if (snapshot != null) {
                 try {
                     val chartDayModels = snapshot.toObjects(ChartDayModel::class.java)
@@ -62,9 +61,9 @@ class ChartRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun deleteChartRow(id: String): DeleteChartResponse {
+    override suspend fun deleteChartRow(dayId: String): DeleteChartResponse {
         return try {
-            getChartRef()?.document(id)?.delete()?.await()
+            getChartRef()?.document(dayId)?.delete()?.await()
             Response.Success(true)
         } catch (e: Exception) {
             Response.Error(e.message ?: e.toString())
