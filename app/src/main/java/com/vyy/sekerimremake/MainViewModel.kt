@@ -44,7 +44,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun getChart(uid: String) {
+    fun getChart(uid: String) {
         chartJob?.cancel()
         chartJob = viewModelScope.launch(Dispatchers.IO) {
             chartUseCases.getChartUserCase(uid).collectLatest { response ->

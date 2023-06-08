@@ -43,11 +43,6 @@
         <argument android:name="year" />
     </fragment>
     <fragment
-        android:id="@+id/monitoredsFragment"
-        android:name="com.vyy.sekerimremake.features.monitoreds.presenter.MonitoredsFragment"
-        android:label="@string/monitoreds"
-        tools:layout="@layout/fragment_monitoreds" />
-    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.vyy.sekerimremake.features.settings.presenter.SettingsFragment"
         android:label="@string/settings"

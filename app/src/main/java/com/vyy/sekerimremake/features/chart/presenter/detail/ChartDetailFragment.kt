@@ -106,7 +106,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
                                     fillSingleRowHeader()
                                 }
                                 is Response.Error -> {
-                                    Log.d("ChartMasterFragment", response.message)
+                                    Log.e("ChartMasterFragment", response.message)
                                 }
                                 else -> {
                                     //TODO
@@ -388,7 +388,7 @@ class ChartDetailFragment : Fragment(), View.OnClickListener {
                 }
             }
             is Response.Error -> {
-                Log.d("ChartMasterFragment", response.message)
+                Log.e("ChartMasterFragment", response.message)
                 Toast.makeText(
                     requireContext(), response.message, Toast.LENGTH_SHORT
                 ).show()

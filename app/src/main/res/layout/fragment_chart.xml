@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context="com.vyy.sekerimremake.features.chart.presenter.master.ChartMasterFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_users"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
     <include
         android:id="@+id/included_titles"
         layout="@layout/chart_titles"
@@ -17,7 +32,7 @@
         app:layout_constraintBottom_toTopOf="@id/recyclerView_chart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerView_users"
         app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <androidx.recyclerview.widget.RecyclerView

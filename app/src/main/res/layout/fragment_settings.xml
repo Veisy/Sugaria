@@ -51,6 +51,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout_account"
             style="@style/constraint_layout_settings"
+            android:paddingBottom="@dimen/padding_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/constraintLayout_account_header">
@@ -77,7 +78,7 @@
                 app:layout_constraintTop_toBottomOf="@id/textView_username_field" />
 
             <View
-                android:id="@+id/view_seperator_username_email"
+                android:id="@+id/view_separator_username_email"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/margin_x_medium"
@@ -88,7 +89,7 @@
                 android:id="@+id/textView_email_field"
                 style="@style/text_style_setting_field"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_seperator_username_email"
+                app:layout_constraintTop_toBottomOf="@id/view_separator_username_email"
                 tools:text="corto_maltese@hotmail.com" />
 
             <TextView
@@ -105,7 +106,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
-            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/constraintLayout_account"
             tools:visibility="visible">
 
@@ -116,25 +116,50 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="@dimen/margin_xxx_large"
-                android:background="@color/color_white"
-                android:contentDescription="@string/add_a_monitor"
-                android:src="@drawable/ic_person_add"
-                app:layout_constraintBottom_toBottomOf="@id/textView_monitors"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/textView_monitors" />
+            <LinearLayout
+                android:id="@+id/linearLayout_add_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="@dimen/padding_x_medium"
+                android:paddingEnd="@dimen/padding_x_medium"
+                android:paddingBottom="@dimen/padding_x_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_monitors"
+                tools:ignore="RtlSymmetry">
+
+                <ImageButton
+                    android:id="@+id/imageButton_add_monitor"
+                    android:layout_width="@dimen/user_image_width"
+                    android:layout_height="@dimen/user_image_height"
+                    android:background="@color/color_white"
+                    android:contentDescription="@string/add_a_monitor"
+                    android:src="@drawable/ic_person_add" />
+
+                <TextView
+                    android:id="@+id/textView_add_monitor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_x_medium"
+                    android:text="@string/add_a_monitor"
+                    android:textColor="@color/color_text_green"
+                    android:textSize="@dimen/textSize_xx_medium" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_separator_monitors"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_grey_level_8"
+                app:layout_constraintTop_toBottomOf="@id/linearLayout_add_monitor" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_monitors"
                 style="@style/recyclerview_users"
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/margin_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_monitors" />
+                app:layout_constraintTop_toBottomOf="@id/view_separator_monitors" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -184,7 +209,6 @@
                 android:id="@+id/recyclerView_blocklist"
                 style="@style/recyclerview_users"
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/margin_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView_blocklist" />

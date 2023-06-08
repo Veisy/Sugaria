@@ -54,15 +54,17 @@ class MainActivity : AppCompatActivity() {
             (supportFragmentManager.findFragmentById(R.id.navigation_host_fragment) as NavHostFragment?)!!
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.catalogMasterFragment, R.id.monitoredsFragment, R.id.chartMasterFragment
+            R.id.catalogMasterFragment, R.id.chartMasterFragment
         ).build()
         // Handle toolbar and bottom navigation menu.
         navController.addOnDestinationChangedListener { _: NavController?, destination: NavDestination, _: Bundle? ->
             binding.apply {
-                toolbar.menu.findItem(R.id.action_settings)?.isVisible = destination.id != R.id.settingsFragment
+                if (destination.id != R.id.settingsFragment) {
+                    toolbar.menu.findItem(R.id.action_settings)?.isVisible = true
+                }
 
                 when (destination.id) {
-                    R.id.catalogMasterFragment, R.id.chartMasterFragment, R.id.monitoredsFragment -> {
+                    R.id.catalogMasterFragment, R.id.chartMasterFragment -> {
                         bottomNavigation.visibility = View.VISIBLE
                     }
                 }

@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.vyy.sekerimremake.MainViewModel
 import com.vyy.sekerimremake.databinding.FragmentChartBinding
 import com.vyy.sekerimremake.features.chart.domain.model.ChartDayModel
+import com.vyy.sekerimremake.features.settings.domain.model.UserModel
+import com.vyy.sekerimremake.features.settings.presenter.UsersAdapter
+import com.vyy.sekerimremake.utils.FirestoreConstants
 import com.vyy.sekerimremake.utils.Response
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -33,7 +36,13 @@ class ChartMasterFragment : Fragment() {
 
     private var scrollPosition: Int = 0
 
-    private val listAdapter: ChartAdapter by lazy {
+    private val usersAdapter: UsersAdapter by lazy {
+        UsersAdapter { position: Int ->
+            onUserClicked(position)
+        }
+    }
+
+    private val chartAdapter: ChartAdapter by lazy {
         ChartAdapter { chartDayModel, chartDayView ->
             onRowClick(chartDayModel, chartDayView)
         }
@@ -43,8 +52,6 @@ class ChartMasterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChartBinding.inflate(inflater, container, false)
-
-        //TODO: scrollPosition seems not working.
         scrollPosition =
             savedInstanceState?.getInt("scrollPosition") ?: (arguments?.getInt("scrollPosition")
                 ?: 0)
@@ -55,51 +62,99 @@ class ChartMasterFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView()
+        initUsersRecyclerView()
+        initChartRecyclerView()
         setFloatingActionButton()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModelMain.chartResponse.collectLatest { response ->
-                    when (response) {
-                        is Response.Success -> {
-                            if (response.data.isNotEmpty()) {
-                                binding.recyclerViewChart.apply {
-                                    scheduleLayoutAnimation()
-                                    listAdapter.submitList(response.data)
-                                    if (scrollPosition != 0) {
-                                        scrollToPosition(scrollPosition)
+                launch {
+                    viewModelMain.userResponse.collectLatest { response ->
+                        when (response) {
+                            is Response.Success -> {
+                                response.data?.let { data ->
+                                    val userList = mutableListOf(
+                                        UserModel(
+                                            uid = data.uid,
+                                            name = "My Values"
+                                        )
+                                    )
+                                    if (data.monitoreds.isNullOrEmpty()) {
+                                        binding.recyclerViewUsers?.visibility = View.GONE
+                                    } else {
+                                        val monitoredList = data.monitoreds!!.filter { monitored ->
+                                            monitored[FirestoreConstants.NAME] != null && monitored[FirestoreConstants.UID] != null
+                                        }.map { monitored ->
+                                            UserModel(
+                                                uid = monitored[FirestoreConstants.UID],
+                                                name = monitored[FirestoreConstants.NAME],
+                                                userName = monitored[FirestoreConstants.USER_NAME]
+                                            )
+                                        }
+                                        userList.addAll(monitoredList)
+                                        binding.recyclerViewUsers?.visibility = View.VISIBLE
+                                        if (usersAdapter.selectedPosition < 0 || usersAdapter.selectedPosition >= userList.size) {
+                                            usersAdapter.selectedPosition = 0
+                                        }
                                     }
+                                    usersAdapter.submitList(userList)
                                 }
                             }
-                        }
-                        is Response.Error -> {
-                            listAdapter.submitList(null)
-                            Log.d("ChartMasterFragment", response.message)
-                        }
-                        else -> {
-                            listAdapter.submitList(null)
-                            //TODO
+                            is Response.Error -> {
+                                Log.e("MonitoredsFragment", response.message)
+                            }
+                            else -> {
+                                //TODO
+                            }
                         }
                     }
                 }
-
+                launch {
+                    viewModelMain.chartResponse.collectLatest { response ->
+                        when (response) {
+                            is Response.Success -> {
+                                if (response.data.isNotEmpty()) {
+                                    binding.recyclerViewChart.apply {
+                                        scheduleLayoutAnimation()
+                                        chartAdapter.submitList(response.data)
+                                        if (scrollPosition != 0) {
+                                            scrollToPosition(scrollPosition)
+                                        }
+                                    }
+                                }
+                            }
+                            is Response.Error -> {
+                                chartAdapter.submitList(null)
+                                Log.d("ChartMasterFragment", response.message)
+                            }
+                            else -> {
+                                chartAdapter.submitList(null)
+                                //TODO
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
+    private fun initUsersRecyclerView() {
+        binding.recyclerViewUsers?.apply {
+            adapter = usersAdapter
+            setHasFixedSize(true)
+        }
+    }
+
     //TODO: Revisit
-    //TODO: Loading Dialog
-    private fun initRecyclerView() {
+//TODO: Loading Dialog
+    private fun initChartRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
-        binding.apply {
-            recyclerViewChart.apply {
-                adapter = listAdapter
-                layoutManager = linearLayoutManager
-                setHasFixedSize(true)
-            }
+        binding.recyclerViewChart.apply {
+            adapter = chartAdapter
+            layoutManager = linearLayoutManager
+            setHasFixedSize(true)
         }
     }
 
@@ -116,6 +171,13 @@ class ChartMasterFragment : Fragment() {
                     )
                 findNavController().navigate(action)
             }
+        }
+    }
+
+    private fun onUserClicked(position: Int) {
+        usersAdapter.selectUser(position)
+        usersAdapter.currentList[position].uid?.let {
+            viewModelMain.getChart(it)
         }
     }
 

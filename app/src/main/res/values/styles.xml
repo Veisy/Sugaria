@@ -100,8 +100,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/margin_medium</item>
-        <item name="android:textColor">@color/color_grey_level_2</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/color_grey_level_1</item>
         <item name="android:textSize">@dimen/textSize_xx_medium</item>
     </style>
 
@@ -109,7 +108,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/margin_small</item>
-        <item name="android:textColor">@color/color_grey_level_2</item>
+        <item name="android:textColor">@color/color_grey_level_3</item>
         <item name="android:textSize">@dimen/textSize_x_medium</item>
     </style>
 
@@ -129,13 +128,15 @@
         <item name="android:background">@color/color_white</item>
         <item name="android:paddingStart">@dimen/padding_x_large</item>
         <item name="android:paddingEnd">@dimen/padding_large</item>
-        <item name="android:paddingBottom">@dimen/padding_large</item>
+        <item name="android:paddingBottom">@dimen/padding_x_small</item>
     </style>
 
     <style name="recyclerview_users">
         <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:nestedScrollingEnabled">false</item>
-        <item name="android:layout_marginTop">@dimen/margin_medium</item>
+        <item name="android:layout_marginTop">@dimen/margin_small</item>
     </style>
 </resources>

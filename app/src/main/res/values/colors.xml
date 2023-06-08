@@ -18,9 +18,10 @@
     <color name="color_grey_level_6">#C8C8C8</color>
     <color name="color_grey_level_7">#E1E1E1</color>
     <color name="color_grey_level_8">#F0F0F0</color>
+    <color name="color_blue">#1E88E5</color>
+    <color name="color_light_yellow">#FFE0B2</color>
     <color name="color_dark_green">#2E7D32</color>
     <color name="color_text_green">#33691E</color>
     <color name="color_text_blue">#3949AB</color>
     <color name="color_text_red">#B71C1C</color>
-
 </resources>
