@@ -134,7 +134,7 @@
     </style>
 
     <style name="ai_header_measurement">
-        <item name="android:textColor">@color/colorGreyLevel2</item>
+        <item name="android:textColor">@color/color_grey_level_2</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginEnd">@dimen/margin_small</item>
@@ -149,7 +149,7 @@
         <item name="android:padding">@dimen/padding_medium</item>
         <item name="android:ems">5</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/colorGreyLevel1</item>
+        <item name="android:textColor">@color/color_grey_level_1</item>
         <item name="android:inputType">numberDecimal</item>
         <item name="android:maxLength">6</item>
     </style>

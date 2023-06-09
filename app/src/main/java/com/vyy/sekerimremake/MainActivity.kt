@@ -76,7 +76,11 @@ class MainActivity : AppCompatActivity() {
             (supportFragmentManager.findFragmentById(R.id.navigation_host_fragment) as NavHostFragment?)!!
         val navController = navHostFragment.navController
         val appBarConfiguration =
-            AppBarConfiguration.Builder(R.id.catalogMasterFragment, R.id.chartMasterFragment, R.id.aiFragment)
+            AppBarConfiguration.Builder(
+                R.id.catalogMasterFragment,
+                R.id.chartMasterFragment,
+                R.id.aiFragment
+            )
                 .build()
 
         // Handle toolbar and bottom navigation menu.
